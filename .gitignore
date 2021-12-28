@@ -22,14 +22,6 @@ chrome-profiler-events*.json
 .settings/
 *.sublime-workspace
 
-# IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-.history/*
-
 # misc
 /.angular/cache
 /.sass-cache
@@ -44,3 +36,45 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Node artifact files
+node_modules/
+dist/
+
+# Compiled Java class files
+*.class
+
+# Compiled Python bytecode
+*.py[cod]
+
+# Log files
+*.log
+
+# Package files
+*.jar
+
+# Maven
+target/
+
+# JetBrains IDE
+.idea/
+
+# IDE - VSCode
+.vscode/*
+
+# Unit test reports
+TEST*.xml
+
+# Applications
+*.app
+*.exe
+*.war
+
+# Large media files
+*.mp4
+*.tiff
+*.avi
+*.flv
+*.mov
+*.wmv
+
