@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormationService} from "../../services/formation.service";
 
 @Component({
   selector: 'app-formation-component',
@@ -7,10 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormationComponentComponent implements OnInit {
   dataViewType = "table"
+  formations = [] as any;
 
-  constructor() { }
+  constructor(private serviceFormation: FormationService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
+    this.formations = this.serviceFormation.getAllFormation();
+  }
+
+  getServiceFormation()
+  {
+    return this.serviceFormation;
   }
 
   changeDataView($event:any):void
