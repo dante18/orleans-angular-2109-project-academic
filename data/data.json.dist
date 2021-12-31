@@ -1,0 +1,143 @@
+{
+  "formations": [
+    {
+      "id": 1,
+      "name": "Angular",
+      "date": "15/02/2022",
+      "duration": 5,
+      "price": 2500,
+      "level": "base",
+      "online": false,
+      "program": [
+        "Créer des composants",
+        "String interpollation",
+        "Binding propriétés DOM",
+        "Binding style",
+        "Binding classes CSS",
+        "Binding événements",
+        "Binding bidirectionnel"
+      ],
+      "category": "Développement",
+      "teacher": "Julie Dugard",
+      "student": [
+        "Sfirstname2 Slastname2",
+        "Sfirstname4 Slastname4",
+        "Sfirstname5 Slastname5"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Excel",
+      "date": "20/04/2022",
+      "duration": 3,
+      "price": 1200,
+      "level": "base",
+      "online": false,
+      "program": [
+        "ligne1",
+        "ligne2",
+        "ligne3",
+        "ligne4"
+      ],
+      "category": "Bureautique",
+      "teacher": "Marie Dupond",
+      "student": [
+        "Sfirstname2 Slastname2",
+        "Sfirstname4 Slastname4",
+        "Sfirstname5 Slastname5"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "photoShop",
+      "date": "25/02/2022",
+      "duration": 4,
+      "price": 2000,
+      "level": "base",
+      "online": false,
+      "program": [
+        "ligne1",
+        "ligne2",
+        "ligne3",
+        "ligne4"
+      ],
+      "category": "Design",
+      "teacher": "Julie Dugard",
+      "student": [
+        "Sfirstname2 Slastname2",
+        "Sfirstname4 Slastname4",
+        "Sfirstname5 Slastname5"
+      ]
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Développement"
+    },
+    {
+      "id": 2,
+      "name": "Bureautique"
+    },
+    {
+      "id": 3,
+      "name": "Design"
+    }
+  ],
+  "formers": [
+    {
+      "idFormer": 103,
+      "lastname": "Dugard",
+      "firstname": "Philippe",
+      "salary": 2200,
+      "avatar": "user-icon.png",
+      "phone": "11 11 22 22 33"
+    },
+    {
+      "idFormer": 104,
+      "lastname": "Durand",
+      "firstname": "Pierre",
+      "salary": 2500,
+      "avatar": "user-icon.png",
+      "phone": "11 25 22 36 33"
+    },
+    {
+      "idFormer": 105,
+      "lastname": "Dujardin",
+      "firstname": "Cecile",
+      "salary": 2300,
+      "avatar": "user-icon.png",
+      "phone": "11 11 22 48 33"
+    },
+    {
+      "idFormer": 106,
+      "lastname": "Dupont",
+      "firstname": "Marie",
+      "salary": 2600,
+      "avatar": "user-icon.png",
+      "phone": "02 11 11 22 33"
+    }
+  ],
+  "interns": [
+    {
+      "idIntern": 1,
+      "lastname": "Dugard",
+      "firstname": "Vincent"
+    },
+    {
+      "idIntern": 2,
+      "lastname": "Durand",
+      "firstname": "Jacques"
+    },
+    {
+      "idIntern": 3,
+      "lastname": "Dujardin",
+      "firstname": "Julie"
+    },
+    {
+      "idIntern": 4,
+      "lastname": "Dupont",
+      "firstname": "Sophie"
+    }
+  ]
+}
