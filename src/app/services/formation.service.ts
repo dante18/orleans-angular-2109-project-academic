@@ -84,4 +84,18 @@ export class FormationService {
 
     return formationSelected
   }
+
+  updateFormation(idFormation:any, data:any):any
+  {
+    let formationSelected:any
+
+    this.#formations.forEach((formation:any) => {
+      if (formation.id == idFormation) {
+        console.log(formation)
+        formation = data
+      }
+    })
+
+    return this.#formations
+  }
 }
