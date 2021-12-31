@@ -78,3 +78,5 @@ TEST*.xml
 *.mov
 *.wmv
 
+# other
+data/data.json
