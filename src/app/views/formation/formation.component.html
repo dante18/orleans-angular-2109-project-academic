@@ -2,11 +2,11 @@
   <div class="container">
     <div class="rounded-3 border shadow-lg bg-white">
       <div class="row p-4 pb-0">
-        <div class="col-lg-6 float-start">
+        <div class="col-lg-5 float-start">
           <h1 class="title">Nos formations</h1>
         </div>
-        <div class="col-lg-6 d-flex align-items-center justify-content-around">
-          <a class="btn btn-sm btn-outline-info">
+        <div class="col-lg-7 d-flex align-items-center justify-content-around">
+          <a (click)="addFormation()" class="btn btn-sm btn-outline-info">
             <i class="fas fa-plus-circle"></i> Ajouter une formation
           </a>
           <div class="dropdown">
@@ -20,11 +20,12 @@
           </div>
           <div class="dropdown">
             <button class="btn btn-sm btn-outline-info dropdown-toggle" type="button" id="filterByCategory" data-bs-toggle="dropdown" aria-expanded="false">
-              Filtrer par
+              {{ buttonFilterText }}
             </button>
             <ul class="dropdown-menu" aria-labelledby="filterByCategory">
-              <li><a class="dropdown-item">Tableau</a></li>
-              <li><a class="dropdown-item">Cards</a></li>
+              <li *ngFor="let category of categories">
+                <a (click)="getFormationByCategory($event, category.name)" class="dropdown-item">{{ category.name }}</a>
+              </li>
             </ul>
           </div>
         </div>
@@ -41,14 +42,14 @@
         <div class="card-header d-flex align-items-center justify-content-around">
           <h3>{{ formation.category }}</h3>
           <div class="btn-group ms-5">
-            <a class="btn btn-sm btn-info me-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail">
+            <a (click)="detailFormation(formation.id)" class="btn btn-sm btn-info me-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail">
               <i class="fas fa-eye"></i>
             </a>
-            <a class="btn btn-sm btn-success me-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Modifier">
+            <a (click)="editFormation(formation.id)" class="btn btn-sm btn-success me-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Modifier">
               <i class="fas fa-edit"></i>
             </a>
-            <button class="btn btn-sm btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Supprimer">
-              <i class="fas fa-trash"></i>
+            <button (click)="deleteFormation(formation)" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#confirmModal">
+              <i class="fas fa-trash" data-bs-toggle="tooltip" data-bs-placement="top" title="Supprimer"></i>
             </button>
           </div>
         </div>
@@ -56,7 +57,7 @@
           <h5 class="card-title">{{ formation.name }}</h5>
           <span class="card-text">id: {{ formation.id }}</span>
           <br>
-          <span class="card-text">Commence le {{ formation.date }} et duree {{ formation.duration }} et coute {{ formation.price }}</span>
+          <span class="card-text">Commence le {{ formation.date }} et duree {{ formation.duration }} jour(s) et coute {{ formation.price }} €</span>
         </div>
       </div>
     </div>
@@ -81,17 +82,17 @@
         <tr *ngFor="let formation of formations">
           <td>{{ formation.id }}</td>
           <td>{{ formation.name }}</td>
-          <td>{{ formation.date }}</td>
-          <td>{{ formation.duration }}</td>
-          <td>{{ formation.price }}</td>
+          <td>{{ formation.date}}</td>
+          <td>{{ formation.duration }} jour(s)</td>
+          <td>{{ formation.price | currency: 'EUR':'symbol' }}</td>
           <td>
-            <a (click)="getFormation(formation)" class="btn btn-sm btn-info me-2">
+            <a (click)="detailFormation(formation.id)" class="btn btn-sm btn-info me-2">
               <i class="fas fa-eye"></i> Details
             </a>
-            <a class="btn btn-sm btn-success me-2">
+            <a (click)="editFormation(formation.id)" class="btn btn-sm btn-success me-2">
               <i class="fas fa-edit"></i> Modification
             </a>
-            <button class="btn btn-sm btn-danger">
+            <button (click)="deleteFormation(formation)" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#confirmModal">
               <i class="fas fa-trash"></i> Supprimer
             </button>
           </td>
@@ -101,3 +102,18 @@
     </div>
   </div>
 </ng-template>
+
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body d-flex flex-column align-items-center justify-content-center">
+        <i class="fas fa-exclamation-circle fa-3x"></i>
+        <p class="pt-2">Confirmez-vous la suppression de la formation {{ formationSelectedName }}?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Non</button>
+        <button (click)="confirmDeleteFormation($event)" data-bs-dismiss="modal" type="button" class="btn btn-danger">Oui</button>
+      </div>
+    </div>
+  </div>
+</div>

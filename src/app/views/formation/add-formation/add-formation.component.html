@@ -1,20 +1,19 @@
-<section class="mt-4 ms-3" *ngIf="formationStatus == false">
+<section class="mt-4 ms-3" *ngIf="httpCode != 0">
   <div class="container">
     <div class="row">
-      <div class="col-7 alert alert-info">
-        <p>La formation n'existe pas, pour retourner sur la page precedente cliquer sur le bouton ci-dessous</p>
-        <a (click)="returnToListFormation()" class="btn btn-primary">Retourner vers la liste des formation</a>
+      <div [class]="httpCode == 200 ? 'col-7 alert alert-success' : 'col-7 alert alert-danger'">
+        <p>{{ message }}</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="mt-4 box" *ngIf="formationStatus">
+<section class="mt-4 box">
   <div class="container">
     <div class="rounded-3 border shadow-lg bg-white">
       <div class="row p-4 pb-0">
         <div class="col-lg-6 float-start">
-          <h1 class="title">{{ formation.name }}</h1>
+          <h1 class="title">Ajouter une nouvelle formation</h1>
         </div>
       </div>
       <div class="row p-4 pb-0">
@@ -23,50 +22,50 @@
             <div class="row mb-3">
               <label for="nameFormation" class="col-sm-2 col-form-label">Nom de la formation</label>
               <div class="col-sm-4">
-                <input type="text" class="form-control" id="nameFormation" name="name" [(ngModel)]="formation.name">
+                <input type="text" class="form-control" id="nameFormation" name="name" ngModel>
               </div>
             </div>
             <div class="row mb-3">
               <label for="dateFormation" class="col-sm-2 col-form-label">Date de la formation</label>
               <div class="col-sm-4">
-                <input type="text" class="form-control" id="dateFormation" name="date" [(ngModel)]="formation.date">
+                <input type="text" class="form-control" id="dateFormation" name="date" ngModel>
               </div>
             </div>
             <div class="row mb-3">
               <label for="dureeFormation" class="col-sm-2 col-form-label">Duree de la formation</label>
               <div class="col-sm-4">
-                <input type="text" class="form-control" id="dureeFormation" name="duration" [(ngModel)]="formation.duration">
+                <input type="text" class="form-control" id="dureeFormation" name="duration" ngModel>
               </div>
             </div>
             <div class="row mb-3">
               <label for="priceFormation" class="col-sm-2 col-form-label">Prix de la formation</label>
               <div class="col-sm-4">
-                <input type="text" class="form-control" id="priceFormation" name="price" [(ngModel)]="formation.price">
+                <input type="text" class="form-control" id="priceFormation" name="price" ngModel>
               </div>
             </div>
             <div class="row mb-3">
               <label for="levelFormation" class="col-sm-2 col-form-label">Niveau de la formation</label>
               <div class="col-sm-4">
-                <input type="text" class="form-control" id="levelFormation" name="level" [(ngModel)]="formation.level">
+                <input type="text" class="form-control" id="levelFormation" name="level" ngModel>
               </div>
             </div>
             <div class="row mb-3">
               <label for="categoryFormation" class="col-sm-2 col-form-label">Catégorie de la formation</label>
               <div class="col-sm-4">
-                <input type="text" class="form-control" id="categoryFormation" name="category" [(ngModel)]="formation.category">
+                <input type="text" class="form-control" id="categoryFormation" name="category" ngModel>
               </div>
             </div>
             <fieldset class="row mb-3">
               <legend class="col-form-label col-sm-2 pt-0">En ligne</legend>
               <div class="col-sm-10">
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="online" id="online" [(ngModel)]="formation.online" [checked]="formation.online" value="true">
+                  <input class="form-check-input" type="radio" name="online" id="online" value="true" ngModel>
                   <label class="form-check-label" for="online">
                     Oui
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="online" id="offline" [(ngModel)]="formation.online" [checked]="formation.online" value="false">
+                  <input class="form-check-input" type="radio" name="online" id="offline" value="false" ngModel>
                   <label class="form-check-label" for="offline">
                     Non
                   </label>
@@ -76,13 +75,13 @@
             <div class="row mb-3">
               <label for="programFormation" class="col-sm-2 col-form-label">Programme de la formation</label>
               <div class="col-sm-4">
-                <textarea class="form-control" id="programFormation" name="program" rows="3" [(ngModel)]="formation.program"></textarea>
+                <textarea class="form-control" id="programFormation" name="program" rows="3" ngModel></textarea>
               </div>
             </div>
             <div class="row mb-3">
               <label for="studentFormation" class="col-sm-2 col-form-label">Participant de la formation</label>
               <div class="col-sm-4">
-                <textarea class="form-control" id="studentFormation" name="student" rows="3" [(ngModel)]="formation.student"></textarea>
+                <textarea class="form-control" id="studentFormation" name="student" rows="3" ngModel></textarea>
               </div>
             </div>
             <button type="submit" class="btn btn-success mt-3">Sauvegarder la formation</button>

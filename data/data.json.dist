@@ -5,7 +5,7 @@
       "name": "Angular",
       "date": "15/02/2022",
       "duration": 5,
-      "price": 2500,
+      "price": 2700,
       "level": "base",
       "online": false,
       "program": [
@@ -18,12 +18,8 @@
         "Binding bidirectionnel"
       ],
       "category": "Développement",
-      "teacher": "Julie Dugard",
-      "student": [
-        "Sfirstname2 Slastname2",
-        "Sfirstname4 Slastname4",
-        "Sfirstname5 Slastname5"
-      ]
+      "former": "Dugard Philippe",
+      "interns": "Durand Jacques, Dupont Sophie, Dugard Vincent"
     },
     {
       "id": 2,
@@ -40,12 +36,8 @@
         "ligne4"
       ],
       "category": "Bureautique",
-      "teacher": "Marie Dupond",
-      "student": [
-        "Sfirstname2 Slastname2",
-        "Sfirstname4 Slastname4",
-        "Sfirstname5 Slastname5"
-      ]
+      "former": "Dupont Marie",
+      "interns": "Dugard Vincent, Durand Jacques, Dupont Sophie"
     },
     {
       "id": 3,
@@ -62,12 +54,8 @@
         "ligne4"
       ],
       "category": "Design",
-      "teacher": "Julie Dugard",
-      "student": [
-        "Sfirstname2 Slastname2",
-        "Sfirstname4 Slastname4",
-        "Sfirstname5 Slastname5"
-      ]
+      "former": "Durand Pierre",
+      "interns": "Dugard Vincent, Dujardin Julie, Dupont Sophie"
     }
   ],
   "categories": [

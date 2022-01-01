@@ -45,8 +45,8 @@
               <td>{{ formation.level }}</td>
             </tr>
             <tr class="mt-3">
-              <td>Statut de la formation;</td>
-              <td>{{ formation.online == true ? "En ligne" : "En centre" }}</td>
+              <td>En ligne;</td>
+              <td>{{ formation.online == true ? "Oui" : "Non" }}</td>
             </tr>
             <tr class="mt-3">
               <td>Programme de la formation:</td>
@@ -57,8 +57,12 @@
               <td>{{ formation.category }}</td>
             </tr>
             <tr class="mt-3">
+              <td>Formateur de la formation:</td>
+              <td>{{ formation.former }}</td>
+            </tr>
+            <tr class="mt-3">
               <td>Stagiaire de la formation:</td>
-              <td>{{ formation.student }}</td>
+              <td>{{ formation.interns }}</td>
             </tr>
           </table>
         </div>

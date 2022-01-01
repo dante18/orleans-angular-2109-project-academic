@@ -8,7 +8,7 @@ import {FormationService} from "../../../services/formation.service";
   styleUrls: ['./detail-formation.component.css']
 })
 export class DetailFormationComponent implements OnInit {
-  formation: any
+  formation: any;
   idFormation: any
   formationStatus = true
 
@@ -28,11 +28,21 @@ export class DetailFormationComponent implements OnInit {
     }
 
     // Data recovery thanks to idFormation
-    this.formation = this.serviceFormation.getFormation(this.idFormation)
+    this.serviceFormation.findById(this.idFormation).subscribe({
+      next: (value) => {
+        this.formation = value;
 
-    if (this.formation == undefined) {
-      this.formationStatus = false
-    }
+        if (this.formation == undefined) {
+          this.formationStatus = false
+        }
+      },
+      error: (error) => {
+        this.formationStatus = false;
+      },
+      complete: () => {
+        console.log("La réception des données est terminée.");
+      }
+    });
   }
 
   returnToListFormation() {
