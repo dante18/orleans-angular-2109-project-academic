@@ -74,7 +74,7 @@
   ],
   "formers": [
     {
-      "idFormer": 103,
+      "id": 103,
       "lastname": "Dugard",
       "firstname": "Philippe",
       "salary": 2200,
@@ -82,7 +82,7 @@
       "phone": "11 11 22 22 33"
     },
     {
-      "idFormer": 104,
+      "id": 104,
       "lastname": "Durand",
       "firstname": "Pierre",
       "salary": 2500,
@@ -90,7 +90,7 @@
       "phone": "11 25 22 36 33"
     },
     {
-      "idFormer": 105,
+      "id": 105,
       "lastname": "Dujardin",
       "firstname": "Cecile",
       "salary": 2300,
@@ -98,7 +98,7 @@
       "phone": "11 11 22 48 33"
     },
     {
-      "idFormer": 106,
+      "id": 106,
       "lastname": "Dupont",
       "firstname": "Marie",
       "salary": 2600,
@@ -108,22 +108,22 @@
   ],
   "interns": [
     {
-      "idIntern": 1,
+      "id": 1,
       "lastname": "Dugard",
       "firstname": "Vincent"
     },
     {
-      "idIntern": 2,
+      "id": 2,
       "lastname": "Durand",
       "firstname": "Jacques"
     },
     {
-      "idIntern": 3,
+      "id": 3,
       "lastname": "Dujardin",
       "firstname": "Julie"
     },
     {
-      "idIntern": 4,
+      "id": 4,
       "lastname": "Dupont",
       "firstname": "Sophie"
     }
