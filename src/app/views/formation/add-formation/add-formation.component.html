@@ -46,13 +46,30 @@
             <div class="row mb-3">
               <label for="levelFormation" class="col-sm-2 col-form-label">Niveau de la formation</label>
               <div class="col-sm-4">
-                <input type="text" class="form-control" id="levelFormation" name="level" ngModel>
+                <select class="form-select" ngModel id="levelFormation" name="level">
+                  <option value="">Veuillez choisir un niveau</option>
+                  <option value="base">Base</option>
+                  <option value="avance">Avance</option>
+                  <option value="expert">Expert</option>
+                </select>
               </div>
             </div>
             <div class="row mb-3">
               <label for="categoryFormation" class="col-sm-2 col-form-label">Catégorie de la formation</label>
               <div class="col-sm-4">
-                <input type="text" class="form-control" id="categoryFormation" name="category" ngModel>
+                <select class="form-select" ngModel id="categoryFormation" name="category">
+                  <option value="">Veuillez choisir une categorie</option>
+                  <option *ngFor="let category of categories">{{ category.name }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="formerFormation" class="col-sm-2 col-form-label">Formateur de la formation</label>
+              <div class="col-sm-4">
+                <select class="form-select" ngModel id="formerFormation" name="former">
+                  <option value="">Veuillez selectionner le nom du formateur</option>
+                  <option *ngFor="let former of formers">{{ former.firstname }} {{ former.lastname }}</option>
+                </select>
               </div>
             </div>
             <fieldset class="row mb-3">
@@ -79,9 +96,11 @@
               </div>
             </div>
             <div class="row mb-3">
-              <label for="studentFormation" class="col-sm-2 col-form-label">Participant de la formation</label>
+              <label for="internsFormation" class="col-sm-2 col-form-label">Participant de la formation</label>
               <div class="col-sm-4">
-                <textarea class="form-control" id="studentFormation" name="student" rows="3" ngModel></textarea>
+                <select class="form-select" multiple ngModel id="internsFormation" name="interns">
+                  <option *ngFor="let intern of interns">{{ intern.firstname }} {{ intern.lastname }}</option>
+                </select>
               </div>
             </div>
             <button type="submit" class="btn btn-success mt-3">Sauvegarder la formation</button>
