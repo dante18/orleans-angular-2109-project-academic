@@ -1,0 +1,39 @@
+<section class="mt-4 ms-3" *ngIf="httpCode != 0">
+  <div class="container">
+    <div class="row">
+      <div [class]="httpCode == 200 ? 'col-7 alert alert-success' : 'col-7 alert alert-danger'">
+        <p>{{ message }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mt-4 box">
+  <div class="container">
+    <div class="rounded-3 border shadow-lg bg-white">
+      <div class="row p-4 pb-0">
+        <div class="col-lg-6 float-start">
+          <h1 class="title">Ajouter une nouvelle category</h1>
+        </div>
+      </div>
+      <div class="row p-4 pb-0">
+        <div class="col-12">
+          <form #formEditCategory="ngForm" (ngSubmit)="submitHandler(formEditCategory)">
+            <div class="row mb-3">
+              <label for="nameCategory" class="col-sm-2 col-form-label">Nom de la categorie</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" id="nameCategory" name="name" ngModel>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-success mt-3">Sauvegarder la categories</button>
+          </form>
+        </div>
+      </div>
+      <div class="row p-4">
+        <div class="col-12">
+          <a (click)="returnToListFormation()" class="btn btn-primary">Retourner vers la liste des categories</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

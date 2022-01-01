@@ -70,8 +70,13 @@ export class FormationComponent implements OnInit {
   getFormationByCategory($event: any, category: any)
   {
     $event.preventDefault()
-    this.formations = this.serviceFormation.findByCriteria(category)
-    this.buttonFilterText = "Filtrer par categorie : " + category
+
+    if (category == "all") {
+      this.getAllFormation()
+    } else {
+      this.formations = this.serviceFormation.findByCriteria(category)
+      this.buttonFilterText = "Filtrer par categorie : " + category
+    }
   }
 
   addFormation()

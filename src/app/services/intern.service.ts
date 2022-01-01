@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import {Observable} from "rxjs";
 import {AbstractServiceService} from "./abstract-service.service";
-import {Category} from "../models/category";
+import {Intern} from "../models/intern";
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class CategoryService extends AbstractServiceService {
-  #baseUrl = "http://localhost:3000/categories";
+export class InternService extends AbstractServiceService {
+  #baseUrl = "http://localhost:3000/interns";
 
   constructor(private http: HttpClient) {
     super();
@@ -20,11 +20,11 @@ export class CategoryService extends AbstractServiceService {
   }
 
   findAll(): Observable<any> {
-    return this.http.get<Category[]>(this.#baseUrl);
+    return this.http.get<Intern[]>(this.#baseUrl);
   }
 
   findById(id: any): Observable<any> {
-    return this.http.get<Category>(this.#baseUrl + "/" + id);
+    return this.http.get<Intern>(this.#baseUrl + "/" + id);
   }
 
   update(id:any, data:any): Observable<any> {

@@ -1,0 +1,40 @@
+<section class="mt-4 ms-3" *ngIf="categoryStatus == false">
+  <div class="container">
+    <div class="row">
+      <div class="col-7 alert alert-info">
+        <p>La Category n'existe pas, pour retourner sur la page precedente cliquer sur le bouton ci-dessous</p>
+        <a (click)="returnToListCategory()" class="btn btn-primary">Retourner vers la liste des Category</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mt-4 box" *ngIf="categoryStatus">
+  <div class="container">
+    <div class="rounded-3 border shadow-lg bg-white">
+      <div class="row p-4 pb-0">
+        <div class="col-lg-6 float-start">
+          <h1 class="title">{{ category.name }}</h1>
+        </div>
+      </div>
+      <div class="row p-4 pb-0">
+        <div class="col-12">
+          <form #formEditCategory="ngForm" (ngSubmit)="submitHandler(formEditCategory)">
+            <div class="row mb-3">
+              <label for="nameCategory" class="col-sm-2 col-form-label">Nom de la Category</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" id="nameCategory" name="name" [(ngModel)]="category.name">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-success mt-3">Sauvegarder la categorie</button>
+          </form>
+        </div>
+      </div>
+      <div class="row p-4">
+        <div class="col-12">
+          <a (click)="returnToListCategory()" class="btn btn-primary">Retourner vers la liste des Category</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

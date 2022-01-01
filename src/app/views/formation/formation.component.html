@@ -23,6 +23,9 @@
               {{ buttonFilterText }}
             </button>
             <ul class="dropdown-menu" aria-labelledby="filterByCategory">
+              <li>
+                <a (click)="getFormationByCategory($event, 'all')" class="dropdown-item">Afficher toutes les formattions</a>
+              </li>
               <li *ngFor="let category of categories">
                 <a (click)="getFormationByCategory($event, category.name)" class="dropdown-item">{{ category.name }}</a>
               </li>
