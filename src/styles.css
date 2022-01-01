@@ -18,6 +18,27 @@ body {
   body {
     overflow: initial;
   }
+
+  footer {
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
+  }
+}
+
+.footer p {
+  font-size: 16px;
+}
+
+footer {
+  height: 80px;
+}
+
+footer p {
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .box {
