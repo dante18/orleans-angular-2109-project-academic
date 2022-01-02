@@ -1,0 +1,46 @@
+<section class="mt-4 ms-3" *ngIf="internStatus == false">
+  <div class="container">
+    <div class="row">
+      <div class="col-7 alert alert-info">
+        <p>La Category n'existe pas, pour retourner sur la page precedente cliquer sur le bouton ci-dessous</p>
+        <a (click)="returnToListIntern()" class="btn btn-primary">Retourner vers la liste des Category</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mt-4 box" *ngIf="internStatus">
+  <div class="container">
+    <div class="rounded-3 border shadow-lg bg-white">
+      <div class="row p-4 pb-0">
+        <div class="col-lg-6 float-start">
+          <h1 class="title">{{ intern.lastname }} {{ intern.firstname }}</h1>
+        </div>
+      </div>
+      <div class="row p-4 pb-0">
+        <div class="col-12">
+          <form #formEditIntern="ngForm" (ngSubmit)="submitHandler(formEditIntern)">
+            <div class="row mb-3">
+              <label for="lastnameFormer" class="col-sm-2 col-form-label">Nom du formateur</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" id="lastnameFormer" name="lastname" [(ngModel)]="intern.lastname">
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="firstnameFormer" class="col-sm-2 col-form-label">Prenom du formateur</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" id="firstnameFormer" name="firstname" [(ngModel)]="intern.firstname">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-success mt-3">Sauvegarder</button>
+          </form>
+        </div>
+      </div>
+      <div class="row p-4">
+        <div class="col-12">
+          <a (click)="returnToListIntern()" class="btn btn-primary">Retourner vers la liste des stagiaire</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

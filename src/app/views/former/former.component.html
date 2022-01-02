@@ -1,0 +1,69 @@
+<section class="mt-4 box">
+  <div class="container">
+    <div class="rounded-3 border shadow-lg bg-white">
+      <div class="row p-4 pb-0">
+        <div class="col-lg-5 float-start">
+          <h1 class="title">Nos formateur</h1>
+        </div>
+        <div class="col-lg-7 d-flex align-items-center justify-content-around">
+          <a (click)="addFormer()" class="btn btn-sm btn-outline-info">
+            <i class="fas fa-plus-circle"></i> Ajouter un formateur
+          </a>
+        </div>
+      </div>
+      <div class="row p-4 pb-0">
+        <div class="col-12">
+          <table class="table table-hover table-bordered">
+            <thead class="table-dark">
+              <tr>
+                <th>#</th>
+                <th></th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Salaire</th>
+                <th>Telephone</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let former of formers">
+                <td>{{ former.id }}</td>
+                <td><img [src]="former.avatar == '' || former.avatar == undefined ? './assets/img/user-icon.png' : './assets/img/' + former.avatar" alt="" class="img-fluid avatar"></td>
+                <td>{{ former.lastname }}</td>
+                <td>{{ former.firstname }}</td>
+                <td>{{ former.salary | currency: 'EUR':'symbol' }}</td>
+                <td>{{ former.phone }}</td>
+                <td>
+                  <a (click)="editFormer(former.id)" class="btn btn-sm btn-success me-2">
+                    <i class="fas fa-edit"></i> Modification
+                  </a>
+                  <button (click)="deleteFormer(former)" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                          data-bs-target="#confirmModal">
+                    <i class="fas fa-trash"></i> Supprimer
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body d-flex flex-column align-items-center justify-content-center">
+        <i class="fas fa-exclamation-circle fa-3x"></i>
+        <p class="pt-2">Confirmez-vous la suppression ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Non</button>
+        <button (click)="confirmDeleteFormer($event)" data-bs-dismiss="modal" type="button" class="btn btn-danger">
+          Oui
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,1 +1,57 @@
 /* You can add global styles to this file, and also import other style files */
+*,
+html,
+body {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  height: 100%;
+  background-color: silver;
+}
+
+@media only screen and (max-width: 980px) {
+  body {
+    overflow: initial;
+  }
+
+  footer {
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
+  }
+}
+
+.footer p {
+  font-size: 16px;
+}
+
+footer {
+  height: 80px;
+}
+
+footer p {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+}
+
+.box .title {
+  font-size: 26px;
+  padding-bottom: 16px;
+}
+
+.box img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}

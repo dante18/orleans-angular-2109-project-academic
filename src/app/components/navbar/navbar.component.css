@@ -1,0 +1,28 @@
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo img {
+  height: 30px;
+  width: 30px;
+}
+
+.logo span {
+  color: #F47920;
+  text-transform: uppercase;
+  font-size: 24px;
+}
+
+.nav .nav-link {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  color: #ffffff;
+  font-size: 16px;
+}
+
+.nav .nav-link:hover, .nav .active {
+  color: #007bff;
+}
