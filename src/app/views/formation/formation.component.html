@@ -45,7 +45,7 @@
         <div class="card-header d-flex align-items-center justify-content-around">
           <h3>{{ formation.category }}</h3>
           <div class="btn-group ms-5">
-            <a (click)="detailFormation(formation.id)" class="btn btn-sm btn-info me-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail">
+            <a (click)="detailFormation(formation.id)" class="btn btn-sm btn-info me-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Voir plus">
               <i class="fas fa-eye"></i>
             </a>
             <a (click)="editFormation(formation.id)" class="btn btn-sm btn-success me-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Modifier">
@@ -60,7 +60,7 @@
           <h5 class="card-title">{{ formation.name }}</h5>
           <span class="card-text">id: {{ formation.id }}</span>
           <br>
-          <span class="card-text">Commence le {{ formation.date }} et duree {{ formation.duration }} jour(s) et coute {{ formation.price }} €</span>
+          <span class="card-text">Commence le {{ formation.date }} et durée {{ formation.duration }} jour(s) et coûte {{ formation.price }} €</span>
         </div>
       </div>
     </div>
@@ -90,7 +90,7 @@
           <td>{{ formation.price | currency: 'EUR':'symbol' }}</td>
           <td>
             <a (click)="detailFormation(formation.id)" class="btn btn-sm btn-info me-2">
-              <i class="fas fa-eye"></i> Details
+              <i class="fas fa-eye"></i> Voir plus
             </a>
             <a (click)="editFormation(formation.id)" class="btn btn-sm btn-success me-2">
               <i class="fas fa-edit"></i> Modification
@@ -111,7 +111,7 @@
     <div class="modal-content">
       <div class="modal-body d-flex flex-column align-items-center justify-content-center">
         <i class="fas fa-exclamation-circle fa-3x"></i>
-        <p class="pt-2">Confirmez-vous la suppression de la formation {{ formationSelectedName }}?</p>
+        <p class="pt-2">Confirmez-vous la suppression de la formation {{ formationSelectedName }} ?</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success" data-bs-dismiss="modal">Non</button>

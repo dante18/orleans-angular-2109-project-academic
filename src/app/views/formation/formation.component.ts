@@ -18,7 +18,7 @@ export class FormationComponent implements OnInit {
   errorMessage = "";
   formationSelectedName = "";
   formationSelectedId: any;
-  buttonFilterText = "Filtrer par categorie"
+  buttonFilterText = "Filtrer par catégorie"
   message = "";
 
   constructor(

@@ -32,7 +32,7 @@
               </div>
             </div>
             <div class="row mb-3">
-              <label for="dureeFormation" class="col-sm-2 col-form-label">Duree de la formation</label>
+              <label for="dureeFormation" class="col-sm-2 col-form-label">Durée de la formation</label>
               <div class="col-sm-4">
                 <input type="text" class="form-control" id="dureeFormation" name="duration" ngModel>
               </div>
@@ -58,7 +58,7 @@
               <label for="categoryFormation" class="col-sm-2 col-form-label">Catégorie de la formation</label>
               <div class="col-sm-4">
                 <select class="form-select" ngModel id="categoryFormation" name="category">
-                  <option value="">Veuillez choisir une categorie</option>
+                  <option value="">Veuillez choisir une catégorie</option>
                   <option *ngFor="let category of categories">{{ category.name }}</option>
                 </select>
               </div>
@@ -109,7 +109,7 @@
       </div>
       <div class="row p-4">
         <div class="col-12">
-          <a (click)="returnToListFormation()" class="btn btn-primary">Retourner vers la liste des formation</a>
+          <a (click)="returnToListFormation()" class="btn btn-primary">Retourner vers la liste des formations</a>
         </div>
       </div>
     </div>

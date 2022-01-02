@@ -26,14 +26,14 @@ export class AddCategoryComponent implements OnInit {
 
   submitHandler(formAddCategory: NgForm) {
     if (formAddCategory.value.length == 0) {
-      this.message = "Les champs du formulaire doivent etre completes"
+      this.message = "Les champs du formulaire doivent être complétés"
       this.httpCode = 404
       return
     }
 
     this.serviceCategory.add(formAddCategory.value).subscribe({
       next: () => {
-        this.message = "La categorie a ete ajouté avec success";
+        this.message = "La catégorie a été ajoutée avec succès";
         this.httpCode = 200;
         formAddCategory.resetForm()
       },
