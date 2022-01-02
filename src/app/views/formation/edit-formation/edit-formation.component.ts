@@ -2,7 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormationService} from "../../../services/formation.service";
 import {NgForm} from "@angular/forms";
-// import {NgForm} from "@angular/forms";
+import {CategoryService} from "../../../services/category.service";
+import {FormerService} from "../../../services/former.service";
+import {InternService} from "../../../services/intern.service";
+import {Category} from "../../../models/category";
+import {Former} from "../../../models/former";
+import {Intern} from "../../../models/intern";
 
 @Component({
   selector: 'app-edit-formation',
@@ -15,10 +20,16 @@ export class EditFormationComponent implements OnInit {
   formationStatus = true
   message = ""
   httpCode = 0
+  categories: Category[] = [];
+  formers: Former[] = [];
+  interns: Intern[] = [];
 
   constructor(
     private routeActive: ActivatedRoute,
     private serviceFormation: FormationService,
+    private serviceCategory: CategoryService,
+    private serviceFormer: FormerService,
+    private serviceIntern: InternService,
     private router: Router
   ) { }
 
@@ -46,6 +57,10 @@ export class EditFormationComponent implements OnInit {
         console.log("La réception des données est terminée.");
       }
     });
+
+    this.getCategories();
+    this.getFormers();
+    this.getInterns();
   }
 
   submitHandler(formEditFormation: NgForm) {
@@ -73,5 +88,68 @@ export class EditFormationComponent implements OnInit {
 
   returnToListFormation() {
     this.router.navigate(['/formation'])
+  }
+
+  getCategories()
+  {
+
+    this.serviceCategory.findAll().subscribe({
+      next: (value) => {
+        this.categories = value;
+      },
+      error: (error) => {
+        console.log(error.message);
+      },
+      complete: () => {
+        console.log("La réception des données est terminée.");
+      }
+    });
+  }
+
+  getFormers()
+  {
+
+    this.serviceFormer.findAll().subscribe({
+      next: (value) => {
+        this.formers = value;
+      },
+      error: (error) => {
+        console.log(error.message);
+      },
+      complete: () => {
+        console.log("La réception des données est terminée.");
+      }
+    });
+  }
+
+  getInterns()
+  {
+
+    this.serviceIntern.findAll().subscribe({
+      next: (value) => {
+        this.interns = value;
+      },
+      error: (error) => {
+        console.log(error.message);
+      },
+      complete: () => {
+        console.log("La réception des données est terminée.");
+      }
+    });
+  }
+
+  getFullName(firstname:any, lastname:any)
+  {
+    return firstname + " " + lastname
+  }
+
+  checkStringIsEqual(string1: string, string2: string)
+  {
+    return string1 === string2;
+  }
+
+  checkInternInList(intern:string, interns:any)
+  {
+    return interns.includes(intern)
   }
 }

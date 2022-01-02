@@ -89,11 +89,18 @@ export class AddFormationComponent implements OnInit {
     this.router.navigate(['/formation'])
   }
 
-  submitHandler(formEditFormation: NgForm) {
-    this.serviceFormation.add(formEditFormation.value).subscribe({
+  submitHandler(formAddFormation: NgForm) {
+    if (formAddFormation.value.length == 0) {
+      this.message = "Les champs du formulaire doivent etre completes"
+      this.httpCode = 404
+      return
+    }
+
+    this.serviceFormation.add(formAddFormation.value).subscribe({
       next: () => {
         this.message = "La formation a ete ajouté avec success";
         this.httpCode = 200;
+        formAddFormation.resetForm()
       },
       error: (error) => {
         this.message = error.message;
