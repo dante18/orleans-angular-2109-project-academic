@@ -26,10 +26,17 @@ export class AddInternComponent implements OnInit {
   }
 
   submitHandler(formAddIntern: NgForm) {
+    if (formAddIntern.value.length == 0) {
+      this.message = "Les champs du formulaire doivent etre completes"
+      this.httpCode = 404
+      return
+    }
+
     this.serviceIntern.add(formAddIntern.value).subscribe({
       next: () => {
         this.message = "Le stagiaire a ete ajouté avec success";
         this.httpCode = 200;
+        formAddIntern.resetForm()
       },
       error: (error) => {
         this.message = error.message;

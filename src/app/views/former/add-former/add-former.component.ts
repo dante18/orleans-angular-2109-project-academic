@@ -25,10 +25,17 @@ export class AddFormerComponent implements OnInit {
   }
 
   submitHandler(formAddFormer: NgForm) {
+    if (formAddFormer.value.length == 0) {
+      this.message = "Les champs du formulaire doivent etre completes"
+      this.httpCode = 404
+      return
+    }
+
     this.serviceFormer.add(formAddFormer.value).subscribe({
       next: () => {
         this.message = "Le formateur a ete ajouté avec success";
         this.httpCode = 200;
+        formAddFormer.resetForm()
       },
       error: (error) => {
         this.message = error.message;

@@ -19,7 +19,7 @@
       ],
       "category": "Développement",
       "former": "Dugard Philippe",
-      "interns": "Durand Jacques, Dupont Sophie, Dugard Vincent"
+      "interns": ["Durand Jacques, Dupont Sophie, Dugard Vincent"]
     },
     {
       "id": 2,
@@ -37,7 +37,7 @@
       ],
       "category": "Bureautique",
       "former": "Dupont Marie",
-      "interns": "Dugard Vincent, Durand Jacques, Dupont Sophie"
+      "interns": ["Dugard Vincent, Durand Jacques, Dupont Sophie"]
     },
     {
       "id": 3,
@@ -55,7 +55,7 @@
       ],
       "category": "Design",
       "former": "Durand Pierre",
-      "interns": "Dugard Vincent, Dujardin Julie, Dupont Sophie"
+      "interns": ["Dugard Vincent, Dujardin Julie, Dupont Sophie"]
     }
   ],
   "categories": [
