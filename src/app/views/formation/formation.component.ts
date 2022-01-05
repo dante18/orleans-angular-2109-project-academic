@@ -29,11 +29,11 @@ export class FormationComponent implements OnInit {
 
   ngOnInit(): void
   {
-    this.getAllFormation();
+    this.getAllFormations();
     this.getCategories();
   }
 
-  getAllFormation()
+  getAllFormations()
   {
     this.errorMessage = "";
 
@@ -72,7 +72,7 @@ export class FormationComponent implements OnInit {
     $event.preventDefault()
 
     if (category == "all") {
-      this.getAllFormation()
+      this.getAllFormations()
     } else {
       this.formations = this.serviceFormation.findByCriteria(category)
       this.buttonFilterText = "Filtrer par categorie : " + category
@@ -105,7 +105,7 @@ export class FormationComponent implements OnInit {
     if ($event.target.innerText == "Oui") {
       this.serviceFormation.delete(this.formationSelectedId).subscribe({
         next: () => {
-          this.getAllFormation()
+          this.getAllFormations()
         },
         error: (error) => {
           this.errorMessage = error.message;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormationService} from "../../../services/formation.service";
 import {NgForm} from "@angular/forms";
@@ -28,17 +28,16 @@ export class AddFormationComponent implements OnInit {
     private serviceFormer: FormerService,
     private serviceIntern: InternService,
     private router: Router
-  ) { }
+  ) {
+  }
 
-  ngOnInit(): void
-  {
+  ngOnInit(): void {
     this.getCategories();
     this.getFormers();
     this.getInterns();
   }
 
-  getCategories()
-  {
+  getCategories() {
 
     this.serviceCategory.findAll().subscribe({
       next: (value) => {
@@ -53,8 +52,7 @@ export class AddFormationComponent implements OnInit {
     });
   }
 
-  getFormers()
-  {
+  getFormers() {
 
     this.serviceFormer.findAll().subscribe({
       next: (value) => {
@@ -69,8 +67,7 @@ export class AddFormationComponent implements OnInit {
     });
   }
 
-  getInterns()
-  {
+  getInterns() {
 
     this.serviceIntern.findAll().subscribe({
       next: (value) => {
@@ -90,25 +87,31 @@ export class AddFormationComponent implements OnInit {
   }
 
   submitHandler(formAddFormation: NgForm) {
-    if (formAddFormation.value.length == 0) {
-      this.message = "Les champs du formulaire doivent etre completes"
-      this.httpCode = 404
-      return
+    let numberFildsFormNotCompleted = 0;
+    for (const item in formAddFormation.value) {
+      if (formAddFormation.value[item].length === 0) {
+        numberFildsFormNotCompleted += 1;
+      }
     }
 
-    this.serviceFormation.add(formAddFormation.value).subscribe({
-      next: () => {
-        this.message = "La formation a ete ajouté avec success";
-        this.httpCode = 200;
-        formAddFormation.resetForm()
-      },
-      error: (error) => {
-        this.message = error.message;
-        this.httpCode = 404
-      },
-      complete: () => {
-        console.log("La réception des données est terminée.");
-      }
-    });
+    if (numberFildsFormNotCompleted == Object.keys(formAddFormation.value).length) {
+      this.message = "Les champs du formulaire doivent etre completes"
+      this.httpCode = 404
+    } else {
+      this.serviceFormation.add(formAddFormation.value).subscribe({
+        next: () => {
+          this.message = "La formation a ete ajouté avec success";
+          this.httpCode = 200;
+          formAddFormation.resetForm()
+        },
+        error: (error) => {
+          this.message = error.message;
+          this.httpCode = 404
+        },
+        complete: () => {
+          console.log("La réception des données est terminée.");
+        }
+      });
+    }
   }
 }

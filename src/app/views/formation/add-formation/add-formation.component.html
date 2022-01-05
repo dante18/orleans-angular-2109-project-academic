@@ -22,31 +22,31 @@
             <div class="row mb-3">
               <label for="nameFormation" class="col-sm-2 col-form-label">Nom de la formation</label>
               <div class="col-sm-4">
-                <input type="text" class="form-control" id="nameFormation" name="name" ngModel>
+                <input type="text" class="form-control" id="nameFormation" name="name" autocomplete="off" required>
               </div>
             </div>
             <div class="row mb-3">
               <label for="dateFormation" class="col-sm-2 col-form-label">Date de la formation</label>
               <div class="col-sm-4">
-                <input type="text" class="form-control" id="dateFormation" name="date" ngModel>
+                <input type="date" class="form-control" id="dateFormation" name="date" ngModel required>
               </div>
             </div>
             <div class="row mb-3">
               <label for="dureeFormation" class="col-sm-2 col-form-label">Durée de la formation</label>
               <div class="col-sm-4">
-                <input type="text" class="form-control" id="dureeFormation" name="duration" ngModel>
+                <input type="number" class="form-control" id="dureeFormation" name="duration" ngModel autocomplete="off" required>
               </div>
             </div>
             <div class="row mb-3">
               <label for="priceFormation" class="col-sm-2 col-form-label">Prix de la formation</label>
               <div class="col-sm-4">
-                <input type="text" class="form-control" id="priceFormation" name="price" ngModel>
+                <input type="number" class="form-control" id="priceFormation" name="price" ngModel autocomplete="off" required>
               </div>
             </div>
             <div class="row mb-3">
               <label for="levelFormation" class="col-sm-2 col-form-label">Niveau de la formation</label>
               <div class="col-sm-4">
-                <select class="form-select" ngModel id="levelFormation" name="level">
+                <select class="form-select" ngModel id="levelFormation" name="level" required>
                   <option value="">Veuillez choisir un niveau</option>
                   <option value="base">Base</option>
                   <option value="avance">Avance</option>
@@ -57,7 +57,7 @@
             <div class="row mb-3">
               <label for="categoryFormation" class="col-sm-2 col-form-label">Catégorie de la formation</label>
               <div class="col-sm-4">
-                <select class="form-select" ngModel id="categoryFormation" name="category">
+                <select class="form-select" ngModel id="categoryFormation" name="category" required>
                   <option value="">Veuillez choisir une catégorie</option>
                   <option *ngFor="let category of categories">{{ category.name }}</option>
                 </select>
@@ -66,7 +66,7 @@
             <div class="row mb-3">
               <label for="formerFormation" class="col-sm-2 col-form-label">Formateur de la formation</label>
               <div class="col-sm-4">
-                <select class="form-select" ngModel id="formerFormation" name="former">
+                <select class="form-select" ngModel id="formerFormation" name="former" required>
                   <option value="">Veuillez selectionner le nom du formateur</option>
                   <option *ngFor="let former of formers">{{ former.firstname }} {{ former.lastname }}</option>
                 </select>
@@ -76,13 +76,13 @@
               <legend class="col-form-label col-sm-2 pt-0">En ligne</legend>
               <div class="col-sm-10">
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="online" id="online" value="true" ngModel>
+                  <input class="form-check-input" type="radio" name="online" id="online" value="true" ngModel required>
                   <label class="form-check-label" for="online">
                     Oui
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="online" id="offline" value="false" ngModel>
+                  <input class="form-check-input" type="radio" name="online" id="offline" value="false" ngModel required>
                   <label class="form-check-label" for="offline">
                     Non
                   </label>
@@ -92,13 +92,13 @@
             <div class="row mb-3">
               <label for="programFormation" class="col-sm-2 col-form-label">Programme de la formation</label>
               <div class="col-sm-4">
-                <textarea class="form-control" id="programFormation" name="program" rows="3" ngModel></textarea>
+                <textarea class="form-control" id="programFormation" name="program" rows="3" ngModel required></textarea>
               </div>
             </div>
             <div class="row mb-3">
               <label for="internsFormation" class="col-sm-2 col-form-label">Participant de la formation</label>
               <div class="col-sm-4">
-                <select class="form-select" multiple ngModel id="internsFormation" name="interns">
+                <select class="form-select" multiple ngModel id="internsFormation" name="interns" required>
                   <option *ngFor="let intern of interns">{{ intern.firstname }} {{ intern.lastname }}</option>
                 </select>
               </div>
