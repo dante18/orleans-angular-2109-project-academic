@@ -79,4 +79,4 @@ TEST*.xml
 *.wmv
 
 # other
-data/data.json
+data/data-demo.sql
