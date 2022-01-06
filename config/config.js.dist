@@ -1,0 +1,12 @@
+export const config = {
+  express: {
+    portListen: 0
+  },
+  database: {
+    host: "localhost",
+    port: 0,
+    user: "user",
+    password: "password",
+    database: "database"
+  }
+}

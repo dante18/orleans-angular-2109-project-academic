@@ -1,0 +1,16 @@
+/* This file contains test data  */
+
+--- Table Formation ---
+DELETE FROM `formation`;
+INSERT INTO `formation` (`id`, `name`, `date`, `duration`, `price`, `level`, `programm`, `is_online`) VALUES
+	(1, "Angular", "2022-02-15", 5, 2700.000000, "base", "Créer des composants,\r\nString interpollation\r\nBinding propriétés DOM\r\nBinding style\r\nBinding classes CSS\r\nBinding événements\r\nBinding bidirectionnel", 1),
+	(2, "Excel", "2022-02-15", 5, 2700.000000, "base", "Créer des composants,\r\nString interpollation\r\nBinding propriétés DOM\r\nBinding style\r\nBinding classes CSS\r\nBinding événements\r\nBinding bidirectionnel", 1),
+	(3, "PhotoShop", "2022-02-15", 5, 2700.000000, "base", "Créer des composants,\r\nString interpollation\r\nBinding propriétés DOM\r\nBinding style\r\nBinding classes CSS\r\nBinding événements\r\nBinding bidirectionnel", 1),
+	(4, "NodeJS", "2022-02-15", 5, 2700.000000, "base", "Créer des composants,\r\nString interpollation\r\nBinding propriétés DOM\r\nBinding style\r\nBinding classes CSS\r\nBinding événements\r\nBinding bidirectionnel", 1),
+	(5, "InDesign", "2022-02-15", 5, 2700.000000, "base", "Créer des composants,\r\nString interpollation\r\nBinding propriétés DOM\r\nBinding style\r\nBinding classes CSS\r\nBinding événements\r\nBinding bidirectionnel", 1),
+	(6, "Word", "2022-01-06", 5, 2700.000000, "base", "Utilisation des principales fonctionnalite de word", 1),
+	(7, "Marketing Digital", "2022-01-06", 10, 2700.000000, "base", "Mettre en place et gere son marketing a l\'heure du numerique", 1),
+	(8, "Marketing Digital Suite : Développer son trafic grâce au référencement naturel SEO", "2022-01-06", 15, 3000.000000, "avancé", "Maîtrisez les fondamentaux du référencement naturel (SEO) et positionnez votre site internet en première page Google !", 1),
+	(9, " SR - Mise en place d\'un serveur Web sous Windows(IIS)", "2022-01-06", 5, 3000.000000, "base", " SR - Mise en place d\'un serveur Web sous Windows(IIS)", 1),
+	(10, " SR - Mise en place d\'un serveur Web sous Linux(Apache, Nginx)", "2022-01-06", 5, 3000.000000, "base", " SR - Mise en place d\'un serveur Web sous Linux(Apache, Nginx)", 1);
+
