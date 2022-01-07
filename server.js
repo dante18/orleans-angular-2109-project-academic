@@ -1,10 +1,10 @@
 const express = require("express");
 const cors = require("cors");
-
+const apiConfig = require("./api/config/config");
 const app = express();
 
 const corsOptions = {
-  origin: "http://localhost:8081"
+  origin: `http://localhost:${apiConfig.express.portCorsOption}`
 };
 
 app.use(cors(corsOptions));
@@ -16,12 +16,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // simple route
-app.get("/api/status", (reqquest, response) => {
+app.get("/api/status", (request, response) => {
   response.json({ message: "API is UP" });
 });
 
 // set port, listen for requests
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || apiConfig.express.portListen;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
