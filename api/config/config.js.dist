@@ -1,12 +1,15 @@
-export const config = {
+module.exports = {
+  environment: 'dev',
   express: {
-    portListen: 0
+    portListen: 3000,
+    portCorsOption: 3001
   },
   database: {
     host: "localhost",
-    port: 0,
-    user: "user",
-    password: "password",
-    database: "database"
+    port: 3306,
+    user: "root",
+    password: "",
+    database: "ng_formation",
+    dialect: "mysql"
   }
 }
