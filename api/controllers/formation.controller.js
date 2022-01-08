@@ -3,7 +3,7 @@ const Formation = db.formations;
 
 // Retrieve all Formations from the database.
 exports.findAll = (request, response) => {
-  Formation.findAll()
+  Formation.findAll({include: ['category']})
     .then(data => {
       response.send(data);
     })
@@ -19,7 +19,7 @@ exports.findAll = (request, response) => {
 exports.findByID = (request, response) => {
   const id = request.params.id;
 
-  Formation.findByPk(id)
+  Formation.findByPk(id, {include: ['category']})
     .then(data => {
       if (data) {
         response.send(data);
