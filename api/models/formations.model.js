@@ -1,4 +1,4 @@
-module.exports = (cnx, SequelizeInstance, modelAssociate) => {
+module.exports = (cnx, SequelizeInstance, modelsAssociate) => {
   const Formation = cnx.define("formation", {
     id: {
       type: SequelizeInstance.INTEGER,
@@ -36,9 +36,9 @@ module.exports = (cnx, SequelizeInstance, modelAssociate) => {
     }
   });
 
-  if (modelAssociate != null) {
-    Formation.belongsTo(modelAssociate);
-  }
+  modelsAssociate.forEach((model) => {
+    Formation.belongsTo(model);
+  });
 
   return Formation;
 };

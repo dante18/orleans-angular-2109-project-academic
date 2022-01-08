@@ -18,6 +18,7 @@ db.Sequelize = Sequelize;
 db.cnx = cnx;
 
 db.categories = require("./categories.model.js")(db.cnx, db.Sequelize);
-db.formations = require("./formations.model.js")(db.cnx, db.Sequelize, db.categories);
+db.formers = require("./formers.model")(db.cnx, db.Sequelize);
+db.formations = require("./formations.model.js")(db.cnx, db.Sequelize, [db.categories, db.formers]);
 
 module.exports = db;

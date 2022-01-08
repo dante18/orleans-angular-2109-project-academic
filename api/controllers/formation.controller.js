@@ -3,7 +3,7 @@ const Formation = db.formations;
 
 // Retrieve all Formations from the database.
 exports.findAll = (request, response) => {
-  Formation.findAll({include: ['category']})
+  Formation.findAll({include: ['category', 'former']})
     .then(data => {
       response.send(data);
     })
@@ -19,7 +19,7 @@ exports.findAll = (request, response) => {
 exports.findByID = (request, response) => {
   const id = request.params.id;
 
-  Formation.findByPk(id, {include: ['category']})
+  Formation.findByPk(id, {include: ['category', "former"]})
     .then(data => {
       if (data) {
         response.send(data);
@@ -71,7 +71,8 @@ exports.create = (request, response) => {
     level: request.body.level,
     programm: request.body.programm,
     is_online: request.body.online,
-    categoryId: request.body.categoryId
+    categoryId: request.body.categoryId,
+    formerId: request.body.formerId
   };
 
   // Save Formation in the database
