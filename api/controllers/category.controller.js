@@ -1,5 +1,5 @@
 const db = require("../models");
-const Category = db.categories;
+const Category = db.category;
 
 // Retrieve all Categories from the database.
 exports.findAll = (request, response) => {

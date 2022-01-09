@@ -1,9 +1,9 @@
 const db = require("../models");
-const Formation = db.formations;
+const Formation = db.formation;
 
 // Retrieve all Formations from the database.
 exports.findAll = (request, response) => {
-  Formation.findAll({include: ['category', 'former']})
+  Formation.findAll({include: ['category', 'former', 'intern']})
     .then(data => {
       response.send(data);
     })
@@ -19,7 +19,7 @@ exports.findAll = (request, response) => {
 exports.findByID = (request, response) => {
   const id = request.params.id;
 
-  Formation.findByPk(id, {include: ['category', "former"]})
+  Formation.findByPk(id, {include: ['category', "former", 'intern']})
     .then(data => {
       if (data) {
         response.send(data);
@@ -39,8 +39,17 @@ exports.findByID = (request, response) => {
 // Find all Formations with a category
 exports.findByCategory = (request, response) => {
   const category = request.params.category;
-
-  Formation.findAll({ where: { category: category } })
+  Formation.findAll({
+    include: [
+      { model: 'category', attributes: ['name'], where:
+          {
+            name: category
+          }
+      },
+      { model: "former" },
+      { model: 'intern' }
+    ]
+  })
     .then(data => {
       response.send(data);
     })
@@ -72,7 +81,8 @@ exports.create = (request, response) => {
     programm: request.body.programm,
     is_online: request.body.online,
     categoryId: request.body.categoryId,
-    formerId: request.body.formerId
+    formerId: request.body.formerId,
+    internId: request.body.internId
   };
 
   // Save Formation in the database
@@ -93,7 +103,7 @@ exports.update = (request, response) => {
   const id = request.params.id;
 
   Formation.update(request.body, {
-    where: { id: id }
+    where: {id: id}
   })
     .then(returnSequelize => {
       const codeReturn = returnSequelize.join();
@@ -120,7 +130,7 @@ exports.delete = (request, response) => {
   const id = request.params.id;
 
   Formation.destroy({
-    where: { id: id }
+    where: {id: id}
   })
     .then(returnSequelize => {
       const codeReturn = returnSequelize.join();

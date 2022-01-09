@@ -9,7 +9,7 @@ module.exports = app => {
   router.get("/:id", formations.findByID);
 
   // Retrieve all Formation by category
-  router.get("/:category", formations.findByCategory);
+  router.get("/category/:category", formations.findByCategory);
 
   // Create a new Formation
   router.post("/", formations.create);

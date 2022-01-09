@@ -17,8 +17,9 @@ const db = {};
 db.Sequelize = Sequelize;
 db.cnx = cnx;
 
-db.categories = require("./categories.model.js")(db.cnx, db.Sequelize);
-db.formers = require("./formers.model")(db.cnx, db.Sequelize);
-db.formations = require("./formations.model.js")(db.cnx, db.Sequelize, [db.categories, db.formers]);
+db.category = require("./category.model.js")(db.cnx, db.Sequelize);
+db.former = require("./former.model")(db.cnx, db.Sequelize);
+db.intern = require("./interns.model")(db.cnx, db.Sequelize);
+db.formation = require("./formation.model.js")(db.cnx, db.Sequelize, [db.category, db.former, db.intern]);
 
 module.exports = db;

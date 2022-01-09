@@ -33,6 +33,8 @@ app.get("/api/status", (request, response) => {
 // import routes
 require("./api/routes/formation.routes")(app);
 require("./api/routes/category.routes")(app);
+require("./api/routes/former.routes")(app);
+require("./api/routes/intern.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || apiConfig.express.portListen;
