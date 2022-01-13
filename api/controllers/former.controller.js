@@ -1,21 +1,31 @@
 const db = require("../models");
 const Former = db.former;
 
-// Retrieve all Formers from the database.
+/**
+ * Retrieve all Formers from the database.
+ *
+ * @param request Contains the API request
+ * @param response Contains the API response
+ */
 exports.findAll = (request, response) => {
   Former.findAll()
     .then(data => {
       response.send(data);
     })
-    .catch(err => {
+    .catch(error => {
       response.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving Formers."
+          error.message || "Some error occurred while retrieving Formers: " + error.message
       });
     });
 };
 
-// Find a single Former with an id
+/**
+ * Find a single Former with an id
+ *
+ * @param request Contains the API request
+ * @param response Contains the API response
+ */
 exports.findByID = (request, response) => {
   const id = request.params.id;
 
@@ -29,14 +39,19 @@ exports.findByID = (request, response) => {
         });
       }
     })
-    .catch(() => {
+    .catch(error => {
       response.status(500).send({
-        message: "Error retrieving Former with id=" + id
+        message: "Error retrieving Former with id=" + id + ". Error invoked: " + error.message
       });
     });
 };
 
-// Create and Save a new Former
+/**
+ * Create and Save a new Former
+ *
+ * @param request Contains the API request
+ * @param response Contains the API response
+ */
 exports.create = (request, response) => {
   // Validate request
   if (!request.body.lastname && !request.body.firstname) {
@@ -60,15 +75,20 @@ exports.create = (request, response) => {
     .then(data => {
       response.send(data);
     })
-    .catch(err => {
+    .catch(error => {
       response.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Former."
+          error.message || "Some error occurred while creating the Former: " + error.message
       });
     });
 };
 
-// Update a Former by the id in the request
+/**
+ * Update a Former by the id in the request
+ *
+ * @param request Contains the API request
+ * @param response Contains the API response
+ */
 exports.update = (request, response) => {
   const id = request.params.id;
 
@@ -88,14 +108,19 @@ exports.update = (request, response) => {
         });
       }
     })
-    .catch(() => {
+    .catch(error => {
       response.status(500).send({
-        message: "Error updating Former with id=" + id
+        message: "Error updating Former with id=" + id + ". Error invoked: " + error.message
       });
     });
 };
 
-// Delete a Former with the specified id in the request
+/**
+ * Delete a Former with the specified id in the request
+ *
+ * @param request Contains the API request
+ * @param response Contains the API response
+ */
 exports.delete = (request, response) => {
   const id = request.params.id;
 
@@ -114,9 +139,9 @@ exports.delete = (request, response) => {
         });
       }
     })
-    .catch(err => {
+    .catch(error => {
       response.status(500).send({
-        message: "Could not delete Former with id=" + id
+        message: "Could not delete Former with id=" + id + ". Error invoked: " + error.message
       });
     });
 };

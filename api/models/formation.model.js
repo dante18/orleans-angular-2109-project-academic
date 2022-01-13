@@ -1,4 +1,11 @@
-module.exports = (cnx, SequelizeInstance, modelsAssociate) => {
+/**
+ * Define the formation entity
+ *
+ * @param cnx Current connection to the database
+ * @param SequelizeInstance Sequelize instance
+ * @returns {*} Return a promise after model initialization
+ */
+module.exports = (cnx, SequelizeInstance) => {
   const Formation = cnx.define("formation", {
     id: {
       type: SequelizeInstance.INTEGER,
@@ -19,7 +26,7 @@ module.exports = (cnx, SequelizeInstance, modelsAssociate) => {
       allowNull: false
     },
     price: {
-      type: SequelizeInstance.DECIMAL(19,4),
+      type: SequelizeInstance.DECIMAL(19, 4),
       allowNull: false
     },
     level: {
@@ -34,11 +41,7 @@ module.exports = (cnx, SequelizeInstance, modelsAssociate) => {
       type: SequelizeInstance.BOOLEAN,
       defaultValue: false
     }
-  });
-
-  modelsAssociate.forEach((model) => {
-    Formation.belongsTo(model);
-  });
+  }, {tableName: "formation"});
 
   return Formation;
 };

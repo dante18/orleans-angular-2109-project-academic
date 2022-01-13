@@ -1,21 +1,31 @@
 const db = require("../models");
 const Category = db.category;
 
-// Retrieve all Categories from the database.
+/**
+ * Retrieve all Categories from the database.
+ *
+ * @param request Contains the API request
+ * @param response Contains the API response
+ */
 exports.findAll = (request, response) => {
   Category.findAll()
     .then(data => {
       response.send(data);
     })
-    .catch(err => {
+    .catch(error => {
       response.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving Categories."
+          error.message || "Some error occurred while retrieving Categories: " + error.message
       });
     });
 };
 
-// Find a single Category with an id
+/**
+ * Find a single Category with an id
+ *
+ * @param request Contains the API request
+ * @param response Contains the API response
+ */
 exports.findByID = (request, response) => {
   const id = request.params.id;
 
@@ -29,14 +39,19 @@ exports.findByID = (request, response) => {
         });
       }
     })
-    .catch(() => {
+    .catch(error => {
       response.status(500).send({
-        message: "Error retrieving Category with id=" + id
+        message: "Error retrieving Category with id=" + id + ". Error invoked: " + error.message
       });
     });
 };
 
-// Create and Save a new Category
+/**
+ * Create and Save a new Category
+ *
+ * @param request Contains the API request
+ * @param response Contains the API response
+ */
 exports.create = (request, response) => {
   // Validate request
   if (!request.body.name) {
@@ -54,15 +69,20 @@ exports.create = (request, response) => {
     .then(data => {
       response.send(data);
     })
-    .catch(err => {
+    .catch(error => {
       response.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Category."
+          error.message || "Some error occurred while creating the Category: " + error.message
       });
     });
 };
 
-// Update a Category by the id in the request
+/**
+ * Update a Category by the id in the request
+ *
+ * @param request Contains the API request
+ * @param response Contains the API response
+ */
 exports.update = (request, response) => {
   const id = request.params.id;
 
@@ -82,14 +102,19 @@ exports.update = (request, response) => {
         });
       }
     })
-    .catch(() => {
+    .catch(error => {
       response.status(500).send({
-        message: "Error updating Category with id=" + id
+        message: "Error updating Category with id=" + id + ". Error invoked: " + error.message
       });
     });
 };
 
-// Delete a Category with the specified id in the request
+/**
+ * Delete a Category with the specified id in the request
+ *
+ * @param request Contains the API request
+ * @param response Contains the API response
+ */
 exports.delete = (request, response) => {
   const id = request.params.id;
 
@@ -108,9 +133,9 @@ exports.delete = (request, response) => {
         });
       }
     })
-    .catch(err => {
+    .catch(error => {
       response.status(500).send({
-        message: "Could not delete Category with id=" + id
+        message: "Could not delete Category with id=" + id + ". Error invoked: " + error.message
       });
     });
 };

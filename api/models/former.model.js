@@ -1,3 +1,10 @@
+/**
+ * Define the former entity
+ *
+ * @param cnx Current connection to the database
+ * @param SequelizeInstance Sequelize instance
+ * @returns {*} Return a promise after model initialization
+ */
 module.exports = (cnx, SequelizeInstance) => {
   const Former = cnx.define("former", {
     id: {
@@ -16,7 +23,7 @@ module.exports = (cnx, SequelizeInstance) => {
       unique: true
     },
     salary: {
-      type: SequelizeInstance.DECIMAL(19,4),
+      type: SequelizeInstance.DECIMAL(19, 4),
       allowNull: false
     },
     phone: {
@@ -27,7 +34,7 @@ module.exports = (cnx, SequelizeInstance) => {
       type: SequelizeInstance.STRING,
       allowNull: true
     }
-  });
+  }, {tableName: "former"});
 
   return Former;
 };

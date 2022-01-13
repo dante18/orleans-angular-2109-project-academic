@@ -1,3 +1,10 @@
+/**
+ * Define the intern entity
+ *
+ * @param cnx Current connection to the database
+ * @param SequelizeInstance Sequelize instance
+ * @returns {*} Return a promise after model initialization
+ */
 module.exports = (cnx, SequelizeInstance) => {
   const Intern = cnx.define("intern", {
     id: {
@@ -23,7 +30,7 @@ module.exports = (cnx, SequelizeInstance) => {
       type: SequelizeInstance.STRING,
       allowNull: true
     }
-  });
+  }, {tableName: "intern"});
 
   return Intern;
 };

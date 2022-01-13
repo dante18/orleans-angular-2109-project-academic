@@ -1,21 +1,31 @@
 const db = require("../models");
 const Intern = db.intern;
 
-// Retrieve all Interns from the database.
+/**
+ * Retrieve all Interns from the database.
+ *
+ * @param request Contains the API request
+ * @param response Contains the API response
+ */
 exports.findAll = (request, response) => {
   Intern.findAll()
     .then(data => {
       response.send(data);
     })
-    .catch(err => {
+    .catch(error => {
       response.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving Interns."
+          error.message || "Some error occurred while retrieving Interns: " + error.message
       });
     });
 };
 
-// Find a single Intern with an id
+/**
+ * Find a single Intern with an id
+ *
+ * @param request Contains the API request
+ * @param response Contains the API response
+ */
 exports.findByID = (request, response) => {
   const id = request.params.id;
 
@@ -29,20 +39,26 @@ exports.findByID = (request, response) => {
         });
       }
     })
-    .catch(() => {
+    .catch(error => {
       response.status(500).send({
-        message: "Error retrieving Intern with id=" + id
+        message: "Error retrieving Intern with id=" + id + ". Error invoked: " + error.message
       });
     });
 };
 
-// Create and Save a new Intern
+/**
+ * Create and Save a new Intern
+ *
+ * @param request Contains the API request
+ * @param response Contains the API response
+ */
 exports.create = (request, response) => {
   // Validate request
-  if (!request.body.lastname && !request.body.firstname) {
+  if (!request.body.lastname && !request.body.firstname && !request.body.email) {
     response.status(400).send({
-      message: "Content can not be empty!"
+      message: "The lastname, firstname and email properties were not found in the request body."
     });
+
     return;
   }
 
@@ -59,15 +75,20 @@ exports.create = (request, response) => {
     .then(data => {
       response.send(data);
     })
-    .catch(err => {
+    .catch(error => {
       response.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Intern."
+          error.message || "Some error occurred while creating the Intern. Error invoked: " + error.message
       });
     });
 };
 
-// Update an Intern by the id in the request
+/**
+ * Update an Intern by the id in the request
+ *
+ * @param request Contains the API request
+ * @param response Contains the API response
+ */
 exports.update = (request, response) => {
   const id = request.params.id;
 
@@ -76,6 +97,7 @@ exports.update = (request, response) => {
   })
     .then(returnSequelize => {
       const codeReturn = returnSequelize.join();
+      console.log("****", returnSequelize);
 
       if (codeReturn === "1") {
         response.send({
@@ -87,14 +109,19 @@ exports.update = (request, response) => {
         });
       }
     })
-    .catch(() => {
+    .catch(error => {
       response.status(500).send({
-        message: "Error updating Intern with id=" + id
+        message: "Error updating Intern with id=" + id + ". Error invoked: " + error.message
       });
     });
 };
 
-// Delete an Intern with the specified id in the request
+/**
+ * Delete an Intern with the specified id in the request
+ *
+ * @param request Contains the API request
+ * @param response Contains the API response
+ */
 exports.delete = (request, response) => {
   const id = request.params.id;
 
@@ -113,9 +140,9 @@ exports.delete = (request, response) => {
         });
       }
     })
-    .catch(err => {
+    .catch(error => {
       response.status(500).send({
-        message: "Could not delete Intern with id=" + id
+        message: "Could not delete Intern with id=" + id + ". Error invoked: " + error.message
       });
     });
 };

@@ -1,21 +1,31 @@
 const db = require("../models");
 const Formation = db.formation;
 
-// Retrieve all Formations from the database.
+/**
+ * Retrieve all Formations from the database.
+ *
+ * @param request Contains the API request
+ * @param response Contains the API response
+ */
 exports.findAll = (request, response) => {
   Formation.findAll({include: ['category', 'former', 'intern']})
     .then(data => {
       response.send(data);
     })
-    .catch(err => {
+    .catch(error => {
       response.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving formations."
+          error.message || "Some error occurred while retrieving formations: " + error.message
       });
     });
 };
 
-// Find a single Formation with an id
+/**
+ * Find a single Formation with an id
+ *
+ * @param request Contains the API request
+ * @param response Contains the API response
+ */
 exports.findByID = (request, response) => {
   const id = request.params.id;
 
@@ -29,14 +39,19 @@ exports.findByID = (request, response) => {
         });
       }
     })
-    .catch(() => {
+    .catch(error => {
       response.status(500).send({
-        message: "Error retrieving Formation with id=" + id
+        message: "Error retrieving Formation with id=" + id + ". Error invoked: " + error.message
       });
     });
 };
 
-// Find all Formations with a category
+/**
+ * Find all Formations with a category
+ *
+ * @param request Contains the API request
+ * @param response Contains the API response
+ */
 exports.findByCategory = (request, response) => {
   const category = request.params.category;
   Formation.findAll({
@@ -53,15 +68,20 @@ exports.findByCategory = (request, response) => {
     .then(data => {
       response.send(data);
     })
-    .catch(err => {
+    .catch(error => {
       response.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving Formations."
+          error.message || "Some error occurred while retrieving Formations: " + error.message
       });
     });
 };
 
-// Create and Save a new Formation
+/**
+ * Create and Save a new Formation
+ *
+ * @param request Contains the API request
+ * @param response Contains the API response
+ */
 exports.create = (request, response) => {
   // Validate request
   if (!request.body.name) {
@@ -90,15 +110,20 @@ exports.create = (request, response) => {
     .then(data => {
       response.send(data);
     })
-    .catch(err => {
+    .catch(error => {
       response.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Formation."
+          error.message || "Some error occurred while creating the Formation: " + error.message
       });
     });
 };
 
-// Update a Formation by the id in the request
+/**
+ * Update a Formation by the id in the request
+ *
+ * @param request Contains the API request
+ * @param response Contains the API response
+ */
 exports.update = (request, response) => {
   const id = request.params.id;
 
@@ -118,14 +143,19 @@ exports.update = (request, response) => {
         });
       }
     })
-    .catch(() => {
+    .catch(error => {
       response.status(500).send({
-        message: "Error updating Formation with id=" + id
+        message: "Error updating Formation with id=" + id + ". Error invoked: " + error.message
       });
     });
 };
 
-// Delete a Formation with the specified id in the request
+/**
+ * Delete a Formation with the specified id in the request
+ *
+ * @param request Contains the API request
+ * @param response Contains the API response
+ */
 exports.delete = (request, response) => {
   const id = request.params.id;
 
@@ -145,9 +175,9 @@ exports.delete = (request, response) => {
         });
       }
     })
-    .catch(err => {
+    .catch(error => {
       response.status(500).send({
-        message: "Could not delete Formation with id=" + id
+        message: "Could not delete Formation with id=" + id + ". Error invoked: " + error.message
       });
     });
 };

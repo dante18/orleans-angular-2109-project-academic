@@ -1,5 +1,6 @@
 const dbConfig = require("../config/config").database;
 const environment = require("../config/config").environment;
+const db = {};
 
 /* Sequelize import */
 const Sequelize = require("sequelize");
@@ -11,15 +12,18 @@ const cnx = new Sequelize(dbConfig.database, dbConfig.user, dbConfig.password, {
   dialect: dbConfig.dialect,
   logging: environment === "dev"
 });
-
-const db = {};
-
 db.Sequelize = Sequelize;
 db.cnx = cnx;
 
+/* Initialize the models and store their return in a variable of type JS object */
 db.category = require("./category.model.js")(db.cnx, db.Sequelize);
 db.former = require("./former.model")(db.cnx, db.Sequelize);
-db.intern = require("./interns.model")(db.cnx, db.Sequelize);
-db.formation = require("./formation.model.js")(db.cnx, db.Sequelize, [db.category, db.former, db.intern]);
+db.intern = require("./intern.model")(db.cnx, db.Sequelize);
+db.formation = require("./formation.model.js")(db.cnx, db.Sequelize);
+
+/* Add associations between models */
+db.formation.belongsTo(db.category);
+db.formation.belongsTo(db.former);
+db.formation.hasMany(db.intern);
 
 module.exports = db;

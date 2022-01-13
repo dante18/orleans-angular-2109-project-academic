@@ -1,4 +1,11 @@
-module.exports = (cnx, SequelizeInstance, modelAssociate = null) => {
+/**
+ * Define the category entity
+ *
+ * @param cnx Current connection to the database
+ * @param SequelizeInstance Sequelize instance
+ * @returns {*} Return a promise after model initialization
+ */
+module.exports = (cnx, SequelizeInstance) => {
   const Category = cnx.define("category", {
     id: {
       type: SequelizeInstance.INTEGER,
@@ -10,11 +17,7 @@ module.exports = (cnx, SequelizeInstance, modelAssociate = null) => {
       allowNull: false,
       unique: true
     }
-  });
-
-  if (modelAssociate != null) {
-    Category.hasMany(modelAssociate);
-  }
+  }, {tableName: "category"});
 
   return Category;
 };
