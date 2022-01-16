@@ -77,7 +77,3 @@ TEST*.xml
 *.flv
 *.mov
 *.wmv
-
-# other
-data/data-demo.sql
-api/config/config.js
