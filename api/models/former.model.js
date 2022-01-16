@@ -10,31 +10,42 @@ module.exports = (cnx, SequelizeInstance) => {
     id: {
       type: SequelizeInstance.INTEGER,
       autoIncrement: true,
-      primaryKey: true
+      primaryKey: true,
+      field: "id"
     },
     lastname: {
       type: SequelizeInstance.STRING,
       allowNull: false,
-      unique: true
+      unique: true,
+      field: "lastname"
     },
     firstname: {
       type: SequelizeInstance.STRING,
       allowNull: false,
-      unique: true
+      unique: true,
+      field: "firstname"
+    },
+    phoneNumber: {
+      type: SequelizeInstance.STRING,
+      allowNull: false,
+      field: "phone_number"
+    },
+    emailAddress: {
+      type: SequelizeInstance.STRING,
+      allowNull: false,
+      field: "email_address"
     },
     salary: {
-      type: SequelizeInstance.DECIMAL(19, 4),
-      allowNull: false
-    },
-    phone: {
-      type: SequelizeInstance.STRING,
-      allowNull: false
+      type: SequelizeInstance.DECIMAL(19, 2),
+      allowNull: false,
+      field: "salary"
     },
     photo: {
       type: SequelizeInstance.STRING,
-      allowNull: true
+      allowNull: true,
+      field: "photo"
     }
-  }, {tableName: "former"});
+  }, {tableName: "formers"});
 
   return Former;
 };

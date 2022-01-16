@@ -10,38 +10,34 @@ module.exports = (cnx, SequelizeInstance) => {
     id: {
       type: SequelizeInstance.INTEGER,
       autoIncrement: true,
-      primaryKey: true
+      primaryKey: true,
+      field: "id"
     },
     name: {
       type: SequelizeInstance.STRING,
       allowNull: false,
-      unique: true
+      unique: true,
+      field: "name"
     },
-    dateStart: {
-      type: SequelizeInstance.DATE,
-      defaultValue: SequelizeInstance.NOW
+    shortDescription: {
+      type: SequelizeInstance.TEXT,
+      field: "short_description"
     },
-    duration: {
-      type: SequelizeInstance.INTEGER,
-      allowNull: false
+    description: {
+      type: SequelizeInstance.TEXT,
+      field: "description"
     },
     price: {
-      type: SequelizeInstance.DECIMAL(19, 4),
-      allowNull: false
+      type: SequelizeInstance.DECIMAL(19, 2),
+      allowNull: false,
+      field: "price"
     },
-    level: {
-      type: SequelizeInstance.STRING,
-      allowNull: false
-    },
-    programm: {
-      type: SequelizeInstance.TEXT,
-      allowNull: false
-    },
-    is_online: {
+    isAvailable: {
       type: SequelizeInstance.BOOLEAN,
-      defaultValue: false
+      defaultValue: false,
+      field: "is_available"
     }
-  }, {tableName: "formation"});
+  }, {tableName: "formations"});
 
   return Formation;
 };
