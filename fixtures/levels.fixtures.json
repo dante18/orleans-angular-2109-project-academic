@@ -1,0 +1,20 @@
+[
+  {
+    "model":"level",
+    "data": {
+      "name": "Base"
+    }
+  },
+  {
+    "model":"level",
+    "data": {
+      "name": "Intermediare"
+    }
+  },
+  {
+    "model":"level",
+    "data": {
+      "name": "Avancé"
+    }
+  }
+]

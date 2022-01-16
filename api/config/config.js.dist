@@ -1,0 +1,15 @@
+module.exports = {
+  environment: 'dev',
+  express: {
+    portListen: 3000,
+    portCorsOption: 3001
+  },
+  database: {
+    host: "localhost",
+    port: 3306,
+    user: "username",
+    password: "password",
+    database: "dbname",
+    dialect: "mysql"
+  }
+}
