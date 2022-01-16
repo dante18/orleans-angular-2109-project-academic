@@ -79,4 +79,4 @@ TEST*.xml
 *.wmv
 
 # other
-api/config/.config.js
+api/config/config.js
