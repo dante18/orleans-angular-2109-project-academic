@@ -77,3 +77,6 @@ TEST*.xml
 *.flv
 *.mov
 *.wmv
+
+# other
+api/config/.config.js
