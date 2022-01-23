@@ -30,6 +30,16 @@ footer {
   position: absolute;
   width: 100%;
   background-color: #222e3c;
+  margin-top: 5rem;
+  display: flex;
+  align-items: center;
+  bottom: 0;
+}
+
+footer p {
+  padding-top: 32px;
+  padding-bottom: 24px;
+  color: #ffffff;
 }
 
 /*body {
