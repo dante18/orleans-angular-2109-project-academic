@@ -1,42 +1,44 @@
-<div class="px-3 py-2 bg-dark text-white">
-  <div class="container">
-    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-      <a routerLink="/home" class="my-2 my-lg-0 me-lg-auto text-decoration-none logo">
-        <img src="assets/img/logo.png" alt="logo" class="img-fluid">
-        <span>ng21Formation</span>
-      </a>
-      <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
-        <li>
-          <a routerLink="/home" class="nav-link" routerLinkActive="active">
-            <i class="fas fa-home"></i>
-            Accueil
-          </a>
-        </li>
-        <li>
-          <a routerLink="/formation" class="nav-link" routerLinkActive="active">
-            <i class="fas fa-book-reader"></i>
-            Formations
-          </a>
-        </li>
-        <li>
-          <a routerLink="/category" class="nav-link" routerLinkActive="active">
-            <i class="fas fa-tags"></i>
-            Catégories
-          </a>
-        </li>
-        <li>
-          <a routerLink="/former" class="nav-link" routerLinkActive="active">
-            <i class="fas fa-user-graduate"></i>
-            Formateurs
-          </a>
-        </li>
-        <li>
-          <a routerLink="/intern" class="nav-link" routerLinkActive="active">
-            <i class="fas fa-user-circle"></i>
-            Stagiaires
-          </a>
-        </li>
-      </ul>
-    </div>
+<nav class="navbar navbar-expand-custom navbar-background">
+  <a routerLink="/home" class="navbar-brand navbar-logo" href="#">
+    <i class="fas fa-graduation-cap pe-2"></i>ng21Formation
+  </a>
+  <button [classList]="buttonToggleCssClassList" type="button" (click)="buttonToggleHandlerClick($event)">
+            <span class="hamburger-box">
+              <span class="hamburger-inner"></span>
+            </span>
+  </button>
+  <div [classList]="navbarContentCssClassList" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a routerLink="/home" class="nav-link" routerLinkActive="active">
+          <i class="fas fa-home"></i>
+          Accueil
+        </a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/formation" class="nav-link" routerLinkActive="active">
+          <i class="far fa-address-book"></i>
+          Formations
+        </a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/category" class="nav-link" routerLinkActive="active">
+          <i class="far fa-clone"></i>
+          Catégories
+        </a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/former" class="nav-link" routerLinkActive="active">
+          <i class="far fa-calendar-alt"></i>
+          Formateurs
+        </a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/intern" class="nav-link" routerLinkActive="active">
+          <i class="far fa-chart-bar"></i>
+          Stagiaires
+        </a>
+      </li>
+    </ul>
   </div>
-</div>
+</nav>

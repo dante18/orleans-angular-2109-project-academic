@@ -29,6 +29,7 @@
             "styles": [
               "bootstrap/dist/css/bootstrap.min.css",
               "@fortawesome/fontawesome-free/css/all.min.css",
+              "hamburgers/dist/hamburgers.css",
               "src/styles.css"
             ],
             "scripts": [
