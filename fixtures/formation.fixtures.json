@@ -1,0 +1,58 @@
+[
+  {
+    "model": "formation",
+    "data": {
+      "name": "Word les bases",
+      "shortDescription": "Donec rutrum congue leo eget malesuada. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Quisque velit nisi, pretium ut lacinia in, elementum id enim.",
+      "description": "Donec sollicitudin molestie malesuada. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Sed porttitor lectus nibh.Donec sollicitudin molestie malesuada. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Sed porttitor lectus nibh.",
+      "price": 2700,
+      "formerName": "John Durand",
+      "interns": "Quentin Rose, Michel Dupond, Marie Tisserand",
+      "level": "Base",
+      "category": "Bureatique",
+      "isAvailable": true
+    }
+  },
+  {
+    "model": "formation",
+    "data": {
+      "name": "Angular",
+      "shortDescription": "Donec rutrum congue leo eget malesuada. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Quisque velit nisi, pretium ut lacinia in, elementum id enim.",
+      "description": "Donec sollicitudin molestie malesuada. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Sed porttitor lectus nibh.\n\nVivamus suscipit tortor eget felis porttitor volutpat. Pellentesque in ipsum id orci porta dapibus. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.\n\nCurabitur aliquet quam id dui posuere blandit. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Vivamus suscipit tortor eget felis porttitor volutpat.\n\nPellentesque in ipsum id orci porta dapibus. Curabitur aliquet quam id dui posuere blandit. Donec rutrum congue leo eget malesuada.",
+      "price": 3000,
+      "formerName": "Marie Dupont",
+      "interns": "Cloe Laurent, Michel Dupond, Marie Tisserand",
+      "level": "Base",
+      "category": "Développement",
+      "isAvailable": true
+    }
+  },
+  {
+    "model": "formation",
+    "data": {
+      "name": "InDesign les bases",
+      "shortDescription": "Donec rutrum congue leo eget malesuada. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Quisque velit nisi, pretium ut lacinia in, elementum id enim.",
+      "description": "Vivamus suscipit tortor eget felis porttitor volutpat. Pellentesque in ipsum id orci porta dapibus. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.Vivamus suscipit tortor eget felis porttitor volutpat. Pellentesque in ipsum id orci porta dapibus. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.",
+      "price": 2000,
+      "formerName": "Sophie Nevers",
+      "interns": "Cloe Laurent, Michel Dupond, David Rocher",
+      "level": "Base",
+      "category": "Design",
+      "isAvailable": true
+    }
+  },
+  {
+    "model": "formation",
+    "data": {
+      "name": "PhotoShop les bases",
+      "shortDescription": "Donec rutrum congue leo eget malesuada. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Quisque velit nisi, pretium ut lacinia in, elementum id enim.",
+      "description": "Donec sollicitudin molestie malesuada. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Sed porttitor lectus nibh.\n\nVivamus suscipit tortor eget felis porttitor volutpat. Pellentesque in ipsum id orci porta dapibus. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.\n\nCurabitur aliquet quam id dui posuere blandit. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Vivamus suscipit tortor eget felis porttitor volutpat.\n\nPellentesque in ipsum id orci porta dapibus. Curabitur aliquet quam id dui posuere blandit. Donec rutrum congue leo eget malesuada.",
+      "price": 3000,
+      "formerName": "Vincent Leblanc",
+      "interns": "Quentin Rose, Marie Tisserand, Julie VilleNeuve",
+      "level": "Base",
+      "category": "Photographie",
+      "isAvailable": false
+    }
+  }
+]

@@ -1,20 +1,26 @@
 [
   {
-    "model":"level",
+    "model":"category",
     "data": {
-      "name": "Base"
+      "name": "Bureautique"
     }
   },
   {
-    "model":"level",
+    "model":"category",
     "data": {
-      "name": "Intermediare"
+      "name": "Développement"
     }
   },
   {
-    "model":"level",
+    "model":"category",
     "data": {
-      "name": "Avancé"
+      "name": "Design"
+    }
+  },
+  {
+    "model":"category",
+    "data": {
+      "name": "Photographie"
     }
   }
 ]
