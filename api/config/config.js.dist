@@ -1,8 +1,7 @@
 module.exports = {
   environment: 'dev',
   express: {
-    portListen: 3000,
-    portCorsOption: 3001
+    portListen: 3000
   },
   database: {
     host: "localhost",

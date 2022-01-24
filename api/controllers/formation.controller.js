@@ -8,7 +8,7 @@ const Formation = db.formation;
  * @param response Contains the API response
  */
 exports.findAll = (request, response) => {
-  Formation.findAll({include: ['category', 'former', 'intern']})
+  Formation.findAll()
     .then(data => {
       response.send(data);
     })
@@ -29,7 +29,7 @@ exports.findAll = (request, response) => {
 exports.findByID = (request, response) => {
   const id = request.params.id;
 
-  Formation.findByPk(id, {include: ['category', "former", 'intern']})
+  Formation.findByPk(id)
     .then(data => {
       if (data) {
         response.send(data);
@@ -54,17 +54,26 @@ exports.findByID = (request, response) => {
  */
 exports.findByCategory = (request, response) => {
   const category = request.params.category;
-  Formation.findAll({
-    include: [
-      { model: 'category', attributes: ['name'], where:
-          {
-            name: category
-          }
-      },
-      { model: "former" },
-      { model: 'intern' }
-    ]
-  })
+  Formation.findAll({where: {category: category}})
+    .then(data => {
+      response.send(data);
+    })
+    .catch(error => {
+      response.status(500).send({
+        message:
+          error.message || "Some error occurred while retrieving Formations: " + error.message
+      });
+    });
+};
+
+/**
+ * Find all Formations available
+ *
+ * @param request Contains the API request
+ * @param response Contains the API response
+ */
+exports.findAllFormationIsAvailable = (request, response) => {
+  Formation.findAll({where: {is_available: 1}})
     .then(data => {
       response.send(data);
     })
@@ -94,15 +103,14 @@ exports.create = (request, response) => {
   // Create a Formation
   const formation = {
     name: request.body.name,
-    dateStart: request.body.dateStart,
-    duration: request.body.duration,
+    shortDescription: request.body.shortDescription,
+    description: request.body.description,
     price: request.body.price,
+    formerName: request.body.formerName,
+    interns: request.body.interns,
     level: request.body.level,
-    programm: request.body.programm,
-    is_online: request.body.online,
-    categoryId: request.body.categoryId,
-    formerId: request.body.formerId,
-    internId: request.body.internId
+    category: request.body.category,
+    isAvailable: request.body.isAvailable
   };
 
   // Save Formation in the database
@@ -130,18 +138,10 @@ exports.update = (request, response) => {
   Formation.update(request.body, {
     where: {id: id}
   })
-    .then(returnSequelize => {
-      const codeReturn = returnSequelize.join();
-
-      if (codeReturn === "1") {
-        response.send({
-          message: "Formation was updated successfully."
-        });
-      } else {
-        response.send({
-          message: `Cannot update Formation with id=${id}. Maybe Formation was not found or request.body is empty!`
-        });
-      }
+    .then(() => {
+      response.send({
+        message: "Formation was updated successfully."
+      });
     })
     .catch(error => {
       response.status(500).send({
@@ -162,18 +162,10 @@ exports.delete = (request, response) => {
   Formation.destroy({
     where: {id: id}
   })
-    .then(returnSequelize => {
-      const codeReturn = returnSequelize.join();
-
-      if (codeReturn === "1") {
-        response.send({
-          message: "Formation was deleted successfully!"
-        });
-      } else {
-        response.send({
-          message: `Cannot delete Formation with id=${id}. Maybe Formation was not found!`
-        });
-      }
+    .then(() => {
+      response.send({
+        message: "Formation was deleted successfully!"
+      });
     })
     .catch(error => {
       response.status(500).send({

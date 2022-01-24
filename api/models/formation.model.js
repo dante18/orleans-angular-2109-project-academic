@@ -32,6 +32,26 @@ module.exports = (cnx, SequelizeInstance) => {
       allowNull: false,
       field: "price"
     },
+    formerName: {
+      type: SequelizeInstance.STRING,
+      allowNull: false,
+      field: "former_name"
+    },
+    interns: {
+      type: SequelizeInstance.STRING,
+      allowNull: false,
+      field: "interns"
+    },
+    level: {
+      type: SequelizeInstance.STRING,
+      allowNull: false,
+      field: "level"
+    },
+    category: {
+      type: SequelizeInstance.STRING,
+      allowNull: false,
+      field: "category"
+    },
     isAvailable: {
       type: SequelizeInstance.BOOLEAN,
       defaultValue: false,

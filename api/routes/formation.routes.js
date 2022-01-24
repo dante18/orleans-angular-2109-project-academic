@@ -1,3 +1,4 @@
+const formations = require("../controllers/formation.controller");
 module.exports = app => {
   const formations = require("../controllers/formation.controller");
   const router = require("express").Router();
@@ -10,6 +11,9 @@ module.exports = app => {
 
   // Retrieve all Formation by category
   router.get("/category/:category", formations.findByCategory);
+
+  // Retrieve all available Formation
+  router.get("/category/:available", formations.findAllFormationIsAvailable);
 
   // Create a new Formation
   router.post("/", formations.create);
