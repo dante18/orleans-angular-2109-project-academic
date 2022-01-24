@@ -13,6 +13,10 @@ body {
 body {
   height: 100%;
   background-color: silver;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-x: hidden;
 }
 
 header {
@@ -26,6 +30,110 @@ header .nav-wrapper {
   justify-content: center;
 }
 
+main {
+  margin-bottom: 2rem;
+}
+
+main .page-header {
+  background-color: #ffffff;
+}
+
+main .page-header .wrapper {
+  margin-left: 7rem;
+}
+
+main .page-header .wrapper .title {
+  font-size: 24px;
+  padding-top: 2rem;
+  text-transform: uppercase;
+  padding-bottom: 2rem;
+}
+
+main .page-header .wrapper .tools-box {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+main .page-header .wrapper .tools-box .btn-outline-info,
+main .page-content .card .table .btn-outline-info {
+  color: #000;
+  border-color: 2px solid var(--second-color);
+}
+
+main .page-header .wrapper .tools-box .btn-outline-info:hover,
+main .page-content .card .table .btn-outline-info:hover {
+  color: #ffffff;
+  border-color: 2px solid var(--second-color);
+  background-color: var(--second-color);
+}
+
+main .page-header .wrapper .tools-box a,
+main .page-header .wrapper .tools-box button,
+main .page-content .card .table a,
+main .page-content .card .table button {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+main .page-content .notification {
+  margin-left: 7rem;
+}
+
+main .page-content .notification .card {
+  background-color: var(--second-color);
+  color: #ffffff;
+}
+
+main .page-content .content {
+  margin-top: 1rem;
+  margin-left: 7rem;
+}
+
+main .page-content .card-header{
+  background-color: var(--first-color);
+  color: #ffffff;
+}
+
+main .page-content .card-header h2 {
+  font-size: 18px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+main .page-content .content .item-card .card-body{
+  background-color: var(--first-color);
+  color: #ffffff;
+}
+
+main .page-content .content .item-card .card-body .card-text {
+  text-align: start;
+  padding-bottom: 5px;
+}
+
+main .page-content .content .item-card .card-body .btn-group a:first-child,
+main .page-content .content .item-card .card-body .btn-group button:first-child {
+  margin-left: 0;
+  margin-right: 10px;
+}
+
+main .page-content .content .item-card .card-body .btn-group a,
+main .page-content .content .item-card .card-body .btn-group button {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+main .page-content .content .item-card .card-body .btn-group .btn-outline-info
+{
+  color: #ffffff;
+  border-color: 2px solid var(--second-color);
+}
+
+main .page-content .content .item-card .card-body .btn-group .btn-outline-info:hover {
+  color: #ffffff;
+  border-color: 2px solid var(--second-color);
+  background-color: var(--second-color);
+}
+
 footer {
   position: absolute;
   width: 100%;
@@ -33,7 +141,7 @@ footer {
   margin-top: 5rem;
   display: flex;
   align-items: center;
-  bottom: 0;
+  bottom: auto;
 }
 
 footer p {
@@ -41,55 +149,3 @@ footer p {
   padding-bottom: 24px;
   color: #ffffff;
 }
-
-/*body {
-  display: flex;
-  justify-content: space-around;
-  flex-direction: column;
-  height: 100%;
-  background-color: silver;
-}
-
-@media only screen and (max-width: 980px) {
-  body {
-    overflow: initial;
-  }
-
-  footer {
-    height: 10vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 0;
-  }
-}
-
-.footer p {
-  font-size: 16px;
-}
-
-footer {
-  height: 80px;
-}
-
-footer p {
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-
-.box {
-  display: flex;
-  flex-direction: column;
-}
-
-.box .title {
-  font-size: 26px;
-  padding-bottom: 16px;
-}
-
-.box img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
-*/
