@@ -73,10 +73,12 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "ng21Formation:build:production"
+              "browserTarget": "ng21Formation:build:production",
+              "proxyConfig": "proxy.config.json"
             },
             "development": {
-              "browserTarget": "ng21Formation:build:development"
+              "browserTarget": "ng21Formation:build:development",
+              "proxyConfig": "proxy.config.json"
             }
           },
           "defaultConfiguration": "development"

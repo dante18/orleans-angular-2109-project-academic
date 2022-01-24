@@ -19,11 +19,52 @@ if (apiConfig.environment === "dev") {
   db.cnx.sync();
 }
 
+/* Configuration used to cross-origin request */
 const corsOptions = {
-  origin: `http://localhost:${apiConfig.express.portCorsOption}`
+  origin: `http://localhost:${apiConfig.express.portListen}`,
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  allowedHeaders: [
+    'Content-Type',
+  ]
 };
 
 app.use(cors(corsOptions));
+app.options('*', cors())
+
+app.use(function(request, response, next) {
+  // res.header("Access-Control-Allow-Origin", "*");
+  // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  // next();
+  // Website you wish to allow to connect
+  response.header('Access-Control-Allow-Origin', `http://localhost:${apiConfig.express.portListen}`);
+
+
+  // Request methods you wish to allow
+  response.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+  // Request headers you wish to allow
+  response.header('Access-Control-Allow-Headers', 'Accept, Content-Type, X-Requested-With', 'X-HTTP-Method-Override');
+
+  // Set to true if you need the website to include cookies in the requests sent
+  // to the API (e.g. in case you use sessions)
+  response.header('Access-Control-Allow-Credentials', true);
+
+  if (request.method === 'OPTIONS') {
+    response.sendStatus(200);
+  } else {
+    next();
+  }
+});
+
+app.use(
+  cors({
+    allowedHeaders: ["authorization", "Content-Type"], // you can change the headers
+    exposedHeaders: ["authorization"], // you can change the headers
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    preflightContinue: false
+  })
+);
 
 // parse requests of content-type - application/json
 app.use(express.json());
