@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormationService} from "../../services/formation.service";
-import {Router} from "@angular/router";
-import {Formation} from "../../models/formation";
 import {Category} from "../../models/category";
+import {Formation} from "../../models/formation";
 import {CategoryService} from "../../services/category.service";
 
 @Component({
@@ -11,120 +10,124 @@ import {CategoryService} from "../../services/category.service";
   styleUrls: ['./formation.component.css']
 })
 export class FormationComponent implements OnInit {
+  formationList: Formation[] = [];
+  categoryList: Category[] = [];
+  displayDataMethod = "table";
+  formSearchIsVisible = false;
+  textDefault = "Aucune données n'a été trouvé";
+  numberOfFormation = 0;
+  numberItemToDisplay = 10;
 
-  dataViewType = "table"
-  formations: Formation[] = [];
-  categories: Category[] = [];
-  errorMessage = "";
-  formationSelectedName = "";
-  formationSelectedId: any;
-  buttonFilterText = "Filtrer par catégorie"
-  message = "";
-
-  constructor(
-    private serviceFormation: FormationService,
-    private serviceCategory: CategoryService,
-    private router: Router
-  ) { }
-
-  ngOnInit(): void
-  {
-    this.getAllFormations();
-    this.getCategories();
+  constructor(private serviceFormation: FormationService, private serviceCategory: CategoryService) {
   }
 
-  getAllFormations()
-  {
-    this.errorMessage = "";
+  ngOnInit(): void {
+    this.getFormationList();
+    this.getCategoryList();
+  }
 
-    this.serviceFormation.findAll().subscribe({
-      next: (value) => {
-        this.formations = value;
+  /**
+   * Retrieves the list of formation
+   */
+  getFormationList(): any {
+    this.serviceFormation.findAllFormation().subscribe({
+      next: (value: any) => {
+        /* Retrieve formation list */
+        this.formationList = value;
+        this.numberOfFormation = value.length;
       },
       error: (error) => {
-        this.errorMessage = error.message;
-      },
-      complete: () => {
-        console.log("La réception des données est terminée.");
+        console.log(`Failed to retrieve data. Error invoked:${error.message}`);
       }
     });
   }
 
-  getCategories()
+  /**
+   * Retrieves the list of category
+   */
+  getCategoryList(): any
   {
-    this.errorMessage = "";
-
-    this.serviceCategory.findAll().subscribe({
-      next: (value) => {
-        this.categories = value;
+    this.serviceCategory.findAllCategory().subscribe({
+      next: (value: any) => {
+        /* Retrieve formation list */
+        this.categoryList = value;
       },
       error: (error) => {
-        this.errorMessage = error.message;
-      },
-      complete: () => {
-        console.log("La réception des données est terminée.");
+        console.log(`Failed to retrieve data. Error invoked:${error.message}`);
       }
     });
   }
 
-  getFormationByCategory($event: any, category: any)
-  {
-    $event.preventDefault()
+  /**
+   * Modify the display of data according to the selected method
+   *
+   * @param $event
+   */
+  btnHandlerDisplayDataMethod($event: any) {
+    $event.preventDefault();
 
-    if (category == "all") {
-      this.getAllFormations()
-    } else {
-      this.formations = this.serviceFormation.findByCriteria(category)
-      this.buttonFilterText = "Filtrer par categorie : " + category
+    if ($event.target.innerText == "Tableau") {
+      this.displayDataMethod = "table";
+    } else if ($event.target.innerText == "Liste") {
+      this.displayDataMethod = "list";
     }
   }
 
-  addFormation()
-  {
-    this.router.navigate(["/formation/add"])
+  /**
+   * Manage actions related to the search form
+   *
+   * @param $event
+   * @param formSearch
+   */
+  eventSearchHandler($event: any, formSearch: any) {
+    if ($event.target.id == "btnSearchSend") {
+      let formationName = formSearch.value.searchFormation;
+
+      this.serviceFormation.findFormationByName(formationName).subscribe({
+        next: (value: any) => {
+          /* Retrieve formation list */
+          this.formationList = value;
+          this.numberOfFormation = value.length;
+
+          if (this.numberOfFormation == 0) {
+            this.textDefault = "La recherche n'a retourné aucun résultat";
+          }
+        },
+        error: () => {
+          this.numberOfFormation = 0;
+          this.textDefault = "La recherche n'a retourné aucun résultat";
+        }
+      });
+    } else if ($event.target.id == "btnSearchReset") {
+      formSearch.reset();
+      this.getFormationList();
+    } else {
+      this.formSearchIsVisible = !this.formSearchIsVisible;
+    }
   }
 
-  detailFormation(idFormation: any)
+  /**
+   * Display
+   * @param categoryName
+   */
+  btnHandlerDisplayDataByCategory(categoryName: any)
   {
-    this.router.navigate(["/formation/detail", idFormation])
-  }
-
-  editFormation(idFormation: any)
-  {
-    this.router.navigate(["/formation/edit", idFormation])
-  }
-
-  deleteFormation(formation: any)
-  {
-    this.formationSelectedName = formation.name
-    this.formationSelectedId = formation.id
-  }
-
-  confirmDeleteFormation($event: any)
-  {
-    if ($event.target.innerText == "Oui") {
-      this.serviceFormation.delete(this.formationSelectedId).subscribe({
-        next: () => {
-          this.getAllFormations()
+    if (categoryName == "All") {
+      this.getFormationList();
+    } else {
+      this.serviceFormation.findFormationByCategory(categoryName).subscribe({
+        next: (value: any) => {
+          this.formationList = value;
         },
         error: (error) => {
-          this.errorMessage = error.message;
-        },
-        complete: () => {
-          console.log("La réception des données est terminée.");
+          console.log(`Failed to retrieve data. Error invoked:${error.message}`);
         }
       });
     }
   }
 
-  changeDataView($event:any):void
+  btnConfirmDeleteFormation()
   {
-    if ($event.target.innerText == "Tableau") {
-      this.dataViewType = "table"
-    } else if ($event.target.innerText == "Card") {
-      this.dataViewType = "card"
-    } else {
-      this.dataViewType = "table"
-    }
+    // formation delete
   }
 }

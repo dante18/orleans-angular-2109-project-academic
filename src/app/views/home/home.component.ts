@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {FormationService} from "../../services/formation.service";
-import {Formation} from "../../models/formation";
-import {InternService} from "../../services/intern.service";
 
 @Component({
   selector: 'app-home',
@@ -9,46 +7,50 @@ import {InternService} from "../../services/intern.service";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  numberTotalOfFormation = 0;
+  numberTotalOfAvailableFormation = 0;
+  numberTotalOfComingSoonFormation = 0;
   numberTotalOfIntern = 0;
-  formationList: Formation[] = [];
+  formationList: any[] = [];
 
-  constructor(private serviceFormation: FormationService, private serviceIntern: InternService) { }
+  constructor(private serviceFormation: FormationService) { }
 
   ngOnInit(): void {
+    this.getFormationList();
     this.getNotificationData();
   }
 
-  getNotificationData()
+  /**
+   * Recovery of data used to display data from notification cards
+   */
+  getNotificationData(): any
   {
-    this.serviceFormation.findAllFormation().subscribe({
-      next: (value) => {
-        value.forEach((formation:any) => {
-          if (formation.isAvailable) {
-            this.formationList.push(formation);
-            this.numberTotalOfFormation += 1;
-          }
-        })
-      },
-      error: (error) => {
-        console.log("The data could not be retrieved. Error invoked : " + error.message)
-      },
-      complete: () => {
-        console.log("The data has been successfully recovered");
-      }
-    });
+    this.numberTotalOfIntern = 12;
+  }
 
-    this.serviceIntern.findAll().subscribe({
-      next: (value) => {
-        value.forEach((intern:any) => {
-          this.numberTotalOfIntern += 1
-        })
+  /**
+   * Retrieves the list of formation
+   */
+  getFormationList(): any
+  {
+    const today = new Date();
+    const curentDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+
+    this.serviceFormation.findAllFormation().subscribe({
+      next: (value: any) => {
+        /* Retrieve formation list */
+        value.forEach((formation: any) => {
+          let dateAvailable = formation.dateAvailable.split("T")[0];
+
+          if(new Date(dateAvailable) > new Date(curentDate)){
+            this.numberTotalOfComingSoonFormation += 1;
+          } else {
+            this.numberTotalOfAvailableFormation += 1;
+            this.formationList.push(formation);
+          }
+        });
       },
       error: (error) => {
-        console.log("The data could not be retrieved. Error invoked : " + error.message)
-      },
-      complete: () => {
-        console.log("The data has been successfully recovered");
+        console.log(`Failed to retrieve data. Error invoked:${error.message}`);
       }
     });
   }

@@ -47,6 +47,34 @@ exports.findByID = (request, response) => {
 };
 
 /**
+ * Find a single Formation by name
+ *
+ * @param request Contains the API request
+ * @param response Contains the API response
+ */
+exports.findByName = (request, response) => {
+  const formationName = request.params.name;
+  const {Op} = require("sequelize");
+
+  Formation.findAll({
+    where: {
+      name: {
+        [Op.like]: formationName + '%' || '%' + formationName + '%',
+      }
+    }
+  })
+    .then(data => {
+      response.send(data);
+    })
+    .catch(error => {
+      response.status(500).send({
+        message:
+          error.message || "Some error occurred while retrieving formations: " + error.message
+      });
+    });
+};
+
+/**
  * Find all Formations with a category
  *
  * @param request Contains the API request
@@ -55,25 +83,6 @@ exports.findByID = (request, response) => {
 exports.findByCategory = (request, response) => {
   const category = request.params.category;
   Formation.findAll({where: {category: category}})
-    .then(data => {
-      response.send(data);
-    })
-    .catch(error => {
-      response.status(500).send({
-        message:
-          error.message || "Some error occurred while retrieving Formations: " + error.message
-      });
-    });
-};
-
-/**
- * Find all Formations available
- *
- * @param request Contains the API request
- * @param response Contains the API response
- */
-exports.findAllFormationIsAvailable = (request, response) => {
-  Formation.findAll({where: {is_available: 1}})
     .then(data => {
       response.send(data);
     })
@@ -103,14 +112,13 @@ exports.create = (request, response) => {
   // Create a Formation
   const formation = {
     name: request.body.name,
-    shortDescription: request.body.shortDescription,
     description: request.body.description,
     price: request.body.price,
-    formerName: request.body.formerName,
-    interns: request.body.interns,
     level: request.body.level,
     category: request.body.category,
-    isAvailable: request.body.isAvailable
+    programm: request.body.category,
+    duration: request.body.duration,
+    dateAvailable: request.body.dateAvailable
   };
 
   // Save Formation in the database
@@ -125,53 +133,3 @@ exports.create = (request, response) => {
       });
     });
 };
-
-/**
- * Update a Formation by the id in the request
- *
- * @param request Contains the API request
- * @param response Contains the API response
- */
-exports.update = (request, response) => {
-  const id = request.params.id;
-
-  Formation.update(request.body, {
-    where: {id: id}
-  })
-    .then(() => {
-      response.send({
-        message: "Formation was updated successfully."
-      });
-    })
-    .catch(error => {
-      response.status(500).send({
-        message: "Error updating Formation with id=" + id + ". Error invoked: " + error.message
-      });
-    });
-};
-
-/**
- * Delete a Formation with the specified id in the request
- *
- * @param request Contains the API request
- * @param response Contains the API response
- */
-exports.delete = (request, response) => {
-  const id = request.params.id;
-
-  Formation.destroy({
-    where: {id: id}
-  })
-    .then(() => {
-      response.send({
-        message: "Formation was deleted successfully!"
-      });
-    })
-    .catch(error => {
-      response.status(500).send({
-        message: "Could not delete Formation with id=" + id + ". Error invoked: " + error.message
-      });
-    });
-};
-
-

@@ -1,12 +1,12 @@
 const express = require("express");
 const cors = require("cors");
-const apiConfig = require("./api/config/config");
+const appConfig = require("./config/config");
 const app = express();
 const sequelizeFixtures = require('sequelize-fixtures');
 
 /* initialization link to database with Squelize */
 const db = require("./api/models");
-if (apiConfig.environment === "dev") {
+if (appConfig.environment === "dev") {
   db.cnx.sync({force: true}).then(() => {
     console.log("Drop and re-sync db.");
 
@@ -21,10 +21,12 @@ if (apiConfig.environment === "dev") {
 
 /* Configuration used to cross-origin request */
 const corsOptions = {
-  origin: `http://localhost:${apiConfig.express.portListen}`,
+  origin: "*",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   allowedHeaders: [
     'Content-Type',
+    "Access-Control-Allow-Origin",
+    "Access-Control-Allow-Headers"
   ]
 };
 
@@ -36,7 +38,7 @@ app.use(function(request, response, next) {
   // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   // next();
   // Website you wish to allow to connect
-  response.header('Access-Control-Allow-Origin', `http://localhost:${apiConfig.express.portListen}`);
+  response.header('Access-Control-Allow-Origin', `http://localhost:${appConfig.express.portListen}`);
 
 
   // Request methods you wish to allow
@@ -58,7 +60,7 @@ app.use(function(request, response, next) {
 
 app.use(
   cors({
-    allowedHeaders: ["authorization", "Content-Type"], // you can change the headers
+    allowedHeaders: ["authorization", "Content-Type", "Access-Control-Allow-Origin", "Access-Control-Allow-Headers"], // you can change the headers
     exposedHeaders: ["authorization"], // you can change the headers
     origin: "*",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
@@ -73,18 +75,22 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 // default route
-app.get("/api/status", (request, response) => {
-  response.json({message: "API ngFormation"});
-});
+if (appConfig.environment === "prod") {
+  const distDir = __dirname + "/dist/";
+
+  app.use("/", express.static(distDir));
+} else {
+  app.get("/", (request, response) => {
+    response.json({message: "API ngFormation"});
+  });
+}
 
 // import routes
 require("./api/routes/formation.routes")(app);
 require("./api/routes/category.routes")(app);
-require("./api/routes/former.routes")(app);
-require("./api/routes/intern.routes")(app);
 
 // set port, listen for requests
-const PORT = process.env.PORT || apiConfig.express.portListen;
+const PORT = process.env.PORT || appConfig.express.portListen;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });

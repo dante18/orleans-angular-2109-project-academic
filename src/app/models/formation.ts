@@ -2,13 +2,11 @@ export class Formation
 {
   id: number | undefined;
   name: string | undefined;
-  date: string | undefined;
-  duration: number | undefined;
-  price: number | undefined;
+  description: string | undefined;
+  price: string | undefined;
   level: string | undefined;
-  online: boolean |undefined;
-  program: number | undefined;
-  category: number | undefined;
-  former: number | undefined;
-  interns: number[] | undefined;
+  category: string | undefined;
+  programm: string | undefined;
+  duration: number | undefined;
+  dateAvailable: string | undefined;
 }

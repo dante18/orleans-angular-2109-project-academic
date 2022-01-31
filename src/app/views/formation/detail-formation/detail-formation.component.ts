@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {FormationService} from "../../../services/formation.service";
 
 @Component({
@@ -7,28 +7,33 @@ import {FormationService} from "../../../services/formation.service";
   templateUrl: './detail-formation.component.html',
   styleUrls: ['./detail-formation.component.css']
 })
+
 export class DetailFormationComponent implements OnInit {
   formation: any;
-  idFormation: any
+  formationId: any
   formationStatus = true
 
   constructor(
     private routeActive: ActivatedRoute,
-    private serviceFormation: FormationService,
-    private router: Router
+    private serviceFormation: FormationService
   ) { }
 
   ngOnInit(): void {
-    // Retrieval of the training ID passed as a parameter
-    this.idFormation = parseInt(this.routeActive.snapshot.paramMap.get("id")!);
+    this.getFormationDetail();
+  }
 
-    if(isNaN(this.idFormation)) {
+  getFormationDetail()
+  {
+    // Retrieval of the training ID passed as a parameter
+    this.formationId = parseInt(this.routeActive.snapshot.paramMap.get("id")!);
+
+    if(isNaN(this.formationId)) {
       this.formationStatus = false;
       return;
     }
 
     // Data recovery thanks to idFormation
-    this.serviceFormation.findById(this.idFormation).subscribe({
+    this.serviceFormation.findFormationById(this.formationId).subscribe({
       next: (value) => {
         this.formation = value;
 
@@ -36,16 +41,9 @@ export class DetailFormationComponent implements OnInit {
           this.formationStatus = false
         }
       },
-      error: (error) => {
+      error: () => {
         this.formationStatus = false;
-      },
-      complete: () => {
-        console.log("La réception des données est terminée.");
       }
     });
-  }
-
-  returnToListFormation() {
-    this.router.navigate(['/formation'])
   }
 }
