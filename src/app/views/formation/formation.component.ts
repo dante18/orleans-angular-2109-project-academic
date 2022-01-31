@@ -17,6 +17,8 @@ export class FormationComponent implements OnInit {
   textDefault = "Aucune données n'a été trouvé";
   numberOfFormation = 0;
   numberItemToDisplay = 10;
+  formationSelectedName = "";
+  formationSelectedId: any;
 
   constructor(private serviceFormation: FormationService, private serviceCategory: CategoryService) {
   }
@@ -126,8 +128,26 @@ export class FormationComponent implements OnInit {
     }
   }
 
-  btnConfirmDeleteFormation()
+  confirmDeleteFormation($event: any)
   {
-    // formation delete
+    if ($event.target.innerText == "Oui") {
+      this.serviceFormation.deleteFormation(this.formationSelectedId).subscribe({
+        next: () => {
+          this.getFormationList()
+        },
+        error: (error) => {
+          this.errorMessage = error.message;
+        },
+        complete: () => {
+          console.log("La réception des données est terminée.");
+        }
+      });
+    }
+  }
+
+  deleteFormation(formation: any)
+  {
+    this.formationSelectedName = formation.name
+    this.formationSelectedId = formation.id
   }
 }

@@ -16,7 +16,8 @@ db.Sequelize = Sequelize;
 db.cnx = cnx;
 
 /* Initialize the models and store their return in a variable of type JS object */
-db.formation = require("./formation.model.js")(db.cnx, db.Sequelize);
-db.category = require("./category.model.js")(db.cnx, db.Sequelize);
+db.formation = require("./formation.model")(db.cnx, db.Sequelize);
+db.category = require("./category.model")(db.cnx, db.Sequelize);
+db.level = require("./level.model")(db.cnx, db.Sequelize);
 
 module.exports = db;

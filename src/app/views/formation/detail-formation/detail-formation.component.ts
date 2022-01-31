@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {FormationService} from "../../../services/formation.service";
 
 @Component({
@@ -15,7 +15,7 @@ export class DetailFormationComponent implements OnInit {
 
   constructor(
     private routeActive: ActivatedRoute,
-    private serviceFormation: FormationService
+    private serviceFormation: FormationService,
   ) { }
 
   ngOnInit(): void {

@@ -115,9 +115,8 @@
                       <div class="col-sm-4">
                         <select class="form-select" ngModel id="levelFormation" name="level" required>
                           <option value="">Veuillez choisir un niveau</option>
-                          <option value="base">Base</option>
-                          <option value="avance">Avance</option>
-                          <option value="expert">Expert</option>
+                          <option *ngFor="let level of levelList"
+                                  value="{{ level.name }}">{{ level.name }}</option>
                         </select>
                         <div *ngIf="formAddFormationIsSubmitted && fieldLevelFormation" class="valid-feedback">
                           OK
@@ -146,7 +145,7 @@
                     </div>
                     <div class="row mt-5 mb-2">
                       <div class="col-12 d-flex justify-content-center">
-                        <button class="btn btn-sm btn-outline-info"> Sauvegarder</button>
+                        <button class="btn btn-custom"> Sauvegarder</button>
                       </div>
                     </div>
                   </form>
@@ -154,6 +153,11 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="row mt-5 mb-5">
+        <div class="col-12">
+          <a routerLink="/formation" class="btn btn-custom float-end"> Retourner a la liste des formations</a>
         </div>
       </div>
     </div>

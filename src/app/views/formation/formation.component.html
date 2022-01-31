@@ -138,8 +138,9 @@
            class="btn btn-sm btn-outline-info">
           <i class="fas fa-eye"></i>
         </a>
-        <a [routerLink]="['/formation/edit/', formation.id]" data-bs-toggle="tooltip" data-bs-placement="top" title="Mettre à jour"
-                class="btn btn-sm btn-outline-info">
+        <a [routerLink]="['/formation/edit/', formation.id]" data-bs-toggle="tooltip" data-bs-placement="top"
+           title="Mettre à jour"
+           class="btn btn-sm btn-outline-info">
           <i class="fas fa-edit"></i>
         </a>
         <button data-bs-toggle="tooltip" data-bs-placement="top" title="Supprimer"
@@ -179,13 +180,14 @@
                  class="btn btn-sm btn-outline-info">
                 <i class="fas fa-eye"></i>
               </a>
-              <a [routerLink]="['/formation/edit/', formation.id]" data-bs-toggle="tooltip" data-bs-placement="top" title="Mettre à jour"
-                      class="btn btn-sm btn-outline-info">
+              <a [routerLink]="['/formation/edit/', formation.id]" data-bs-toggle="tooltip" data-bs-placement="top"
+                 title="Mettre à jour"
+                 class="btn btn-sm btn-outline-info">
                 <i class="fas fa-edit"></i>
               </a>
-              <button data-bs-toggle="tooltip" data-bs-placement="top" title="Supprimer"
-                      class="btn btn-sm btn-outline-info">
-                <i class="fas fa-trash"></i>
+              <button (click)="deleteFormation(formation)" class="btn btn-sm btn-outline-info" data-bs-toggle="modal"
+                      data-bs-target="#confirmModal">
+                <i class="fas fa-trash" data-bs-toggle="tooltip" data-bs-placement="top" title="Supprimer"></i>
               </button>
             </div>
           </div>
@@ -202,4 +204,19 @@
   </div>
 </ng-template>
 
-<!-- Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body d-flex flex-column align-items-center justify-content-center">
+        <i class="fas fa-exclamation-circle fa-3x"></i>
+        <p class="pt-2">Confirmez-vous la suppression de la formation {{ formationSelectedName }} ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Non</button>
+        <button (click)="confirmDeleteFormation($event)" data-bs-dismiss="modal" type="button" class="btn btn-danger">
+          Oui
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

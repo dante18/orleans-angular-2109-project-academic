@@ -1,0 +1,20 @@
+[
+  {
+    "model":"level",
+    "data": {
+      "name": "Débutant"
+    }
+  },
+  {
+    "model":"level",
+    "data": {
+      "name": "Intermédiaire"
+    }
+  },
+  {
+    "model":"level",
+    "data": {
+      "name": "Expert"
+    }
+  }
+]

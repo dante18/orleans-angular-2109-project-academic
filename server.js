@@ -88,6 +88,7 @@ if (appConfig.environment === "prod") {
 // import routes
 require("./api/routes/formation.routes")(app);
 require("./api/routes/category.routes")(app);
+require("./api/routes/level.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || appConfig.express.portListen;

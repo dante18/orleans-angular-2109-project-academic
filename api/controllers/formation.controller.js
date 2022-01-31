@@ -133,3 +133,51 @@ exports.create = (request, response) => {
       });
     });
 };
+
+/**
+ * Update a Formation by the id in the request
+ *
+ * @param request Contains the API request
+ * @param response Contains the API response
+ */
+exports.update = (request, response) => {
+  const id = request.params.id;
+
+  Formation.update(request.body, {
+    where: {id: id}
+  })
+    .then(() => {
+      response.send({
+        message: "Formation was updated successfully."
+      });
+    })
+    .catch(error => {
+      response.status(500).send({
+        message: "Error updating Formation with id=" + id + ". Error invoked: " + error.message
+      });
+    });
+};
+
+/**
+ * Delete a Formation with the specified id in the request
+ *
+ * @param request Contains the API request
+ * @param response Contains the API response
+ */
+exports.delete = (request, response) => {
+  const id = request.params.id;
+
+  Formation.destroy({
+    where: {id: id}
+  })
+    .then(() => {
+      response.send({
+        message: "Formation was deleted successfully!"
+      });
+    })
+    .catch(error => {
+      response.status(500).send({
+        message: "Could not delete Formation with id=" + id + ". Error invoked: " + error.message
+      });
+    });
+};

@@ -3,15 +3,18 @@ import {NgForm} from "@angular/forms";
 import {FormationService} from "../../../services/formation.service";
 import {CategoryService} from "../../../services/category.service";
 import {Category} from "../../../models/category";
+import {Level} from "../../../models/level";
+import {LevelService} from "../../../services/level.service";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
-  selector: 'app-add-formation',
+  selector: 'app-edit-formation',
   templateUrl: './edit-formation.component.html',
   styleUrls: ['./edit-formation.component.css']
 })
 export class EditFormationComponent implements OnInit {
   categoryList: Category[] = [];
+  levelList: Level[] = [];
   formEditFormationIsSubmitted = false;
   fieldNameFormation: any;
   fieldDescriptionFormation: any;
@@ -24,17 +27,19 @@ export class EditFormationComponent implements OnInit {
   message: any;
   numberOfErrors = 0;
   formation: any;
-  formationId: any;
-  formationStatus = true;
+  formationId: any
+  formationStatus = true
 
   constructor(
+    private routeActive: ActivatedRoute,
     private serviceFormation: FormationService,
     private serviceCategory: CategoryService,
-    private routeActive: ActivatedRoute) {
+    private serviceLevel: LevelService) {
   }
 
   ngOnInit(): void {
     this.getCategoryList();
+    this.getLevelList();
     this.getFormation();
   }
 
@@ -49,6 +54,49 @@ export class EditFormationComponent implements OnInit {
       },
       error: (error) => {
         console.log(`Failed to retrieve data. Error invoked:${error.message}`);
+      }
+    });
+  }
+
+  /**
+   * Retrieves the list of level
+   */
+  getLevelList(): any {
+    this.serviceLevel.findAllLevel().subscribe({
+      next: (value: any) => {
+        /* Retrieve formation list */
+        this.levelList = value;
+      },
+      error: (error: any) => {
+        console.log(`Failed to retrieve data. Error invoked:${error.message}`);
+      }
+    });
+  }
+
+  /**
+   * Get data of formations for update
+   */
+  getFormation()
+  {
+    // Retrieval of the training ID passed as a parameter
+    this.formationId = parseInt(this.routeActive.snapshot.paramMap.get("id")!);
+
+    if(isNaN(this.formationId)) {
+      this.formationStatus = false;
+      return;
+    }
+
+    // Data recovery thanks to idFormation
+    this.serviceFormation.findFormationById(this.formationId).subscribe({
+      next: (value) => {
+        this.formation = value;
+
+        if (this.formation == undefined) {
+          this.formationStatus = false
+        }
+      },
+      error: () => {
+        this.formationStatus = false;
       }
     });
   }
@@ -134,9 +182,19 @@ export class EditFormationComponent implements OnInit {
     }
 
     if (this.numberOfErrors == 0) {
-      this.serviceFormation.addFormation(formEditFormation.value).subscribe({
+      this.serviceFormation.updateFormation(formEditFormation.value).subscribe({
         next: () => {
-          this.message = "La formation a ete ajouté avec success";
+          this.message = "La formation a ete mise a jour";
+          this.numberOfErrors = 0;
+          this.fieldNameFormation = true;
+          this.fieldDescriptionFormation = true;
+          this.fieldProgrammFormation = true;
+          this.fieldPriceFormation = true;
+          this.fieldDurationFormation = true;
+          this.fieldDateAvailableFormation = true;
+          this.fieldLevelFormation = true;
+          this.fieldCategoryFormation = true;
+
           formEditFormation.resetForm();
         },
         error: (error) => {
@@ -147,30 +205,5 @@ export class EditFormationComponent implements OnInit {
         }
       });
     }
-  }
-
-  getFormation()
-  {
-    // Retrieval of the training ID passed as a parameter
-    this.formationId = parseInt(this.routeActive.snapshot.paramMap.get("id")!);
-
-    if(isNaN(this.formationId)) {
-      this.formationStatus = false;
-      return;
-    }
-
-    // Data recovery thanks to idFormation
-    this.serviceFormation.findFormationById(this.formationId).subscribe({
-      next: (value) => {
-        this.formation = value;
-
-        if (this.formation == undefined) {
-          this.formationStatus = false
-        }
-      },
-      error: () => {
-        this.formationStatus = false;
-      }
-    });
   }
 }

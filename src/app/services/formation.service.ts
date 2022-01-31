@@ -36,4 +36,12 @@ export class FormationService {
 
     return this.http.post(this.#baseUrl, corpsMessage, { "headers": headers });
   }
+
+  updateFormation(id:any, data:any): Observable<any> {
+    return this.http.put(this.#baseUrl + "/" + id, data);
+  }
+
+  deleteFormation(id:any): Observable<any> {
+    return this.http.delete(this.#baseUrl + "/" + id);
+  }
 }

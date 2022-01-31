@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {FormationService} from "../../../services/formation.service";
 import {CategoryService} from "../../../services/category.service";
 import {Category} from "../../../models/category";
+import {Level} from "../../../models/level";
+import {LevelService} from "../../../services/level.service";
 
 @Component({
   selector: 'app-add-formation',
@@ -11,6 +13,7 @@ import {Category} from "../../../models/category";
 })
 export class AddFormationComponent implements OnInit {
   categoryList: Category[] = [];
+  levelList: Level[] = [];
   formAddFormationIsSubmitted = false;
   fieldNameFormation: any;
   fieldDescriptionFormation: any;
@@ -23,23 +26,42 @@ export class AddFormationComponent implements OnInit {
   message: any;
   numberOfErrors = 0;
 
-  constructor(private serviceFormation: FormationService, private serviceCategory: CategoryService) { }
+  constructor(
+    private serviceFormation: FormationService,
+    private serviceCategory: CategoryService,
+    private serviceLevel: LevelService) {
+  }
 
   ngOnInit(): void {
     this.getCategoryList();
+    this.getLevelList();
   }
 
   /**
    * Retrieves the list of category
    */
-  getCategoryList(): any
-  {
+  getCategoryList(): any {
     this.serviceCategory.findAllCategory().subscribe({
       next: (value: any) => {
         /* Retrieve formation list */
         this.categoryList = value;
       },
       error: (error) => {
+        console.log(`Failed to retrieve data. Error invoked:${error.message}`);
+      }
+    });
+  }
+
+  /**
+   * Retrieves the list of level
+   */
+  getLevelList(): any {
+    this.serviceLevel.findAllLevel().subscribe({
+      next: (value: any) => {
+        /* Retrieve formation list */
+        this.levelList = value;
+      },
+      error: (error: any) => {
         console.log(`Failed to retrieve data. Error invoked:${error.message}`);
       }
     });
@@ -129,6 +151,16 @@ export class AddFormationComponent implements OnInit {
       this.serviceFormation.addFormation(formAddFormation.value).subscribe({
         next: () => {
           this.message = "La formation a ete ajouté avec success";
+          this.numberOfErrors = 0;
+          this.fieldNameFormation = true;
+          this.fieldDescriptionFormation = true;
+          this.fieldProgrammFormation = true;
+          this.fieldPriceFormation = true;
+          this.fieldDurationFormation = true;
+          this.fieldDateAvailableFormation = true;
+          this.fieldLevelFormation = true;
+          this.fieldCategoryFormation = true;
+
           formAddFormation.resetForm();
         },
         error: (error) => {

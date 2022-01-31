@@ -11,7 +11,7 @@
 <div class="page-content">
   <div class="content">
     <div class="container">
-      <div *ngIf="formAddFormationIsSubmitted && numberOfErrors == 0" class="row row mt-2 mb-2">
+      <div *ngIf="formEditFormationIsSubmitted && numberOfErrors == 0" class="row row mt-2 mb-2">
         <div class="col-12">
           <div class="alert alert-success" role="alert">
             {{ message }}
@@ -22,7 +22,7 @@
         <div class="col-12">
           <div class="card shadow text-center border-0">
             <div class="card-header">
-              <h2>Mettre à joure la formation</h2>
+              <h2>Ajouter une nouvelle formation</h2>
             </div>
             <div class="card-body">
               <div class="row">
@@ -33,11 +33,11 @@
                       <label for="nameFormation" class="col-sm-4 col-form-label">Nom de la formation</label>
                       <div class="col-sm-6">
                         <input type="text" class="form-control" id="nameFormation" name="name" autocomplete="off"
-                               required [(ngModel)]="formation.name">
-                        <div *ngIf="formAddFormationIsSubmitted && fieldNameFormation" class="valid-feedback">
+                               required [ngModel]="formation.name">
+                        <div *ngIf="formEditFormationIsSubmitted && fieldNameFormation" class="valid-feedback">
                           OK
                         </div>
-                        <div *ngIf="formAddFormationIsSubmitted && !fieldNameFormation" class="invalid-feedback">
+                        <div *ngIf="formEditFormationIsSubmitted && !fieldNameFormation" class="invalid-feedback">
                           Le champs doit être renseigné
                         </div>
                       </div>
@@ -46,25 +46,25 @@
                       <label for="descriptionFormation" class="col-sm-2 col-form-label">Description de la
                         formation</label>
                       <div class="col-sm-6">
-                        <textarea class="form-control" id="descriptionFormation" name="description" rows="3"
-                                  required [(ngModel)]="formation.description"></textarea>
-                        <div *ngIf="formAddFormationIsSubmitted && fieldDescriptionFormation" class="valid-feedback">
+                        <textarea class="form-control" id="descriptionFormation" name="description" rows="3" [ngModel]="formation.description"
+                                  required></textarea>
+                        <div *ngIf="formEditFormationIsSubmitted && fieldDescriptionFormation" class="valid-feedback">
                           OK
                         </div>
-                        <div *ngIf="formAddFormationIsSubmitted && !fieldDescriptionFormation" class="invalid-feedback">
-                          {{ formAddFormation.value.description > 255 ? 'Le champs doit contenir moins de 255 caractères.' : 'Le champs doit être renseigné.'}}
+                        <div *ngIf="formEditFormationIsSubmitted && !fieldDescriptionFormation" class="invalid-feedback">
+                          {{ formEditFormation.value.description > 255 ? 'Le champs doit contenir moins de 255 caractères.' : 'Le champs doit être renseigné.'}}
                         </div>
                       </div>
                     </div>
                     <div class="row mb-3">
                       <label for="programFormation" class="col-sm-2 col-form-label">Programme de la formation</label>
                       <div class="col-sm-6">
-                        <textarea class="form-control" id="programFormation" name="program" rows="3"
-                                  required [(ngModel)]="formation.program"></textarea>
-                        <div *ngIf="formAddFormationIsSubmitted && fieldProgrammFormation" class="valid-feedback">
+                        <textarea class="form-control" id="programFormation" name="program" rows="3" [ngModel]="formation.programm"
+                                  required></textarea>
+                        <div *ngIf="formEditFormationIsSubmitted && fieldProgrammFormation" class="valid-feedback">
                           OK
                         </div>
-                        <div *ngIf="formAddFormationIsSubmitted && !fieldProgrammFormation" class="invalid-feedback">
+                        <div *ngIf="formEditFormationIsSubmitted && !fieldProgrammFormation" class="invalid-feedback">
                           Le champs doit être renseigné
                         </div>
                       </div>
@@ -73,11 +73,11 @@
                       <label for="priceFormation" class="col-sm-4 col-form-label">Prix de la formation</label>
                       <div class="col-sm-6">
                         <input type="number" class="form-control" id="priceFormation" name="price" autocomplete="off"
-                               required [(ngModel)]="formation.price">
-                        <div *ngIf="formAddFormationIsSubmitted && fieldPriceFormation" class="valid-feedback">
+                               required [ngModel]="formation.price">
+                        <div *ngIf="formEditFormationIsSubmitted && fieldPriceFormation" class="valid-feedback">
                           OK
                         </div>
-                        <div *ngIf="formAddFormationIsSubmitted && !fieldPriceFormation" class="invalid-feedback">
+                        <div *ngIf="formEditFormationIsSubmitted && !fieldPriceFormation" class="invalid-feedback">
                           Le prix doit être supérieur a 0.
                         </div>
                       </div>
@@ -87,11 +87,11 @@
                       <div class="col-sm-6">
                         <input type="number" class="form-control" id="durationFormation" name="duration"
                                autocomplete="off"
-                               required [(ngModel)]="formation.duration">
-                        <div *ngIf="formAddFormationIsSubmitted && fieldDurationFormation" class="valid-feedback">
+                               required [ngModel]="formation.duration">
+                        <div *ngIf="formEditFormationIsSubmitted && fieldDurationFormation" class="valid-feedback">
                           OK
                         </div>
-                        <div *ngIf="formAddFormationIsSubmitted && !fieldDurationFormation" class="invalid-feedback">
+                        <div *ngIf="formEditFormationIsSubmitted && !fieldDurationFormation" class="invalid-feedback">
                           La durée doit être supérieur a 0.
                         </div>
                       </div>
@@ -100,12 +100,12 @@
                       <label for="dateFormation" class="col-sm-4 col-form-label">Date de disponibilité de la
                         formation</label>
                       <div class="col-sm-4">
-                        <input type="date" class="form-control" id="dateFormation" name="dateAvailable" [(ngModel)]="formation.dateAvailable"
+                        <input type="date" class="form-control" id="dateFormation" name="dateAvailable" [ngModel]="formation.dateAvailable"
                                required>
-                        <div *ngIf="formAddFormationIsSubmitted && fieldDateAvailableFormation" class="valid-feedback">
+                        <div *ngIf="formEditFormationIsSubmitted && fieldDateAvailableFormation" class="valid-feedback">
                           OK
                         </div>
-                        <div *ngIf="formAddFormationIsSubmitted && !fieldDateAvailableFormation" class="invalid-feedback">
+                        <div *ngIf="formEditFormationIsSubmitted && !fieldDateAvailableFormation" class="invalid-feedback">
                           Le champs doit être renseigné.
                         </div>
                       </div>
@@ -113,16 +113,15 @@
                     <div class="row mb-3">
                       <label for="levelFormation" class="col-sm-4 col-form-label">Niveau de la formation</label>
                       <div class="col-sm-4">
-                        <select class="form-select" id="levelFormation" name="level" required>
+                        <select class="form-select" [ngModel]="formation.level" id="levelFormation" name="level" required>
                           <option value="">Veuillez choisir un niveau</option>
-                          <option [selected]="formation.level == 'base' ? 'selected' : ''" value="base">Base</option>
-                          <option [selected]="formation.level == 'avance' ? 'selected' : ''" value="avance">Avance</option>
-                          <option [selected]="formation.level == 'expert' ? 'selected' : ''" value="expert">Expert</option>
+                          <option *ngFor="let level of levelList"
+                                  value="{{ level.name }}">{{ level.name }}</option>
                         </select>
-                        <div *ngIf="formAddFormationIsSubmitted && fieldLevelFormation" class="valid-feedback">
+                        <div *ngIf="formEditFormationIsSubmitted && fieldLevelFormation" class="valid-feedback">
                           OK
                         </div>
-                        <div *ngIf="formAddFormationIsSubmitted && !fieldLevelFormation" class="invalid-feedback">
+                        <div *ngIf="formEditFormationIsSubmitted && !fieldLevelFormation" class="invalid-feedback">
                           Le champs doit être renseigné.
                         </div>
                       </div>
@@ -130,23 +129,23 @@
                     <div class="row mb-3">
                       <label for="categoryFormation" class="col-sm-4 col-form-label">Catégorie de la formation</label>
                       <div class="col-sm-4">
-                        <select class="form-select" [(ngModel)]="formation.category"
+                        <select class="form-select" [ngModel]="formation.category"
                                 id="categoryFormation" name="category" required>
                           <option value="">Veuillez choisir une catégorie</option>
                           <option *ngFor="let category of categoryList"
                                   value="{{ category.name }}">{{ category.name }}</option>
                         </select>
-                        <div *ngIf="formAddFormationIsSubmitted && fieldCategoryFormation" class="valid-feedback">
+                        <div *ngIf="formEditFormationIsSubmitted && fieldCategoryFormation" class="valid-feedback">
                           OK
                         </div>
-                        <div *ngIf="formAddFormationIsSubmitted && !fieldCategoryFormation" class="invalid-feedback">
+                        <div *ngIf="formEditFormationIsSubmitted && !fieldCategoryFormation" class="invalid-feedback">
                           Le champs doit être renseigné.
                         </div>
                       </div>
                     </div>
                     <div class="row mt-5 mb-2">
                       <div class="col-12 d-flex justify-content-center">
-                        <button class="btn btn-sm btn-outline-info"> Sauvegarder</button>
+                        <button class="btn btn-custom"> Sauvegarder</button>
                       </div>
                     </div>
                   </form>
@@ -154,6 +153,11 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="row mt-5 mb-5">
+        <div class="col-12">
+          <a routerLink="/formation" class="btn btn-custom float-end"> Retourner a la liste des formations</a>
         </div>
       </div>
     </div>

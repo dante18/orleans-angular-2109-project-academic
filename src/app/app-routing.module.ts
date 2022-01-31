@@ -1,5 +1,5 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import {HomeComponent} from "./views/home/home.component";
 import {FormationComponent} from "./views/formation/formation.component";
 import {CategoryComponent} from "./views/category/category.component";
@@ -29,5 +29,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule { }

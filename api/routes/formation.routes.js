@@ -17,5 +17,11 @@ module.exports = app => {
   // Create a new Formation
   router.post("/", formations.create);
 
+  // Update a Formation with id
+  router.put("/:id", formations.update);
+
+  // Delete a Formation with id
+  router.delete("/:id", formations.delete);
+
   app.use('/api/formations', router);
 };
