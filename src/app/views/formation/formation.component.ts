@@ -19,6 +19,7 @@ export class FormationComponent implements OnInit {
   numberItemToDisplay = 10;
   formationSelectedName = "";
   formationSelectedId: any;
+  modalTitle = "Confirmez-vous la suppression de la formation: " + this.formationSelectedName;
 
   constructor(private serviceFormation: FormationService, private serviceCategory: CategoryService) {
   }
@@ -109,7 +110,7 @@ export class FormationComponent implements OnInit {
   }
 
   /**
-   * Display
+   * Display data by category
    * @param categoryName
    */
   btnHandlerDisplayDataByCategory(categoryName: any)
@@ -129,12 +130,13 @@ export class FormationComponent implements OnInit {
   }
 
   /**
-   *
+   * handles the confirmation request before deleting
+   * 
    * @param $event
    */
   confirmDeleteFormation($event: any)
   {
-    if ($event.target.innerText == "Oui") {
+    if ($event.choice == "Oui") {
       this.serviceFormation.deleteFormation(this.formationSelectedId).subscribe({
         next: () => {
           this.getFormationList()

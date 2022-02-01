@@ -1,1 +1,20 @@
-<p>modal works!</p>
+<div class="modal fade" [id]="idModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        {{ titleModal }}
+      </div>
+      <div class="modal-body d-flex flex-column align-items-center justify-content-center">
+        <i class="fas fa-exclamation-circle fa-3x"></i>
+        <p *ngIf="typeModal == 'confirm'" class="pt-2"> Attention cela est irreversible !</p>
+      </div>
+      <div class="modal-footer">
+        <button (click)="handlerClick($event)" type="button" class="btn btn-custom-danger" data-bs-dismiss="modal">Non</button>
+        <button (click)="handlerClick($event)" data-bs-dismiss="modal" type="button"
+                class="btn btn-custom-info">
+          Oui
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

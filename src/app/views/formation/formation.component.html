@@ -208,23 +208,5 @@
   </div>
 </ng-template>
 
-<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        Confirmez-vous la suppression de la formation: {{ formationSelectedName }}
-      </div>
-      <div class="modal-body d-flex flex-column align-items-center justify-content-center">
-        <i class="fas fa-exclamation-circle fa-3x"></i>
-        <p class="pt-2"> Attention cela est irreversible !</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-custom-info" data-bs-dismiss="modal">Non</button>
-        <button (click)="confirmDeleteFormation($event)" data-bs-dismiss="modal" type="button"
-                class="btn btn-custom-info">
-          Oui
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+<app-modal [id]="'confirmModal'" [title]="modalTitle" [type]="'confirm'"
+           (eventResponse)="confirmDeleteFormation($event)"></app-modal>

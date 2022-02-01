@@ -3,10 +3,10 @@
 :root {
   --first-color: #222e3c;
   --second-color: #4e73df;
-  --btn-info-color: #4e73df;
-  --btn-danger-color: #4e73df;
-  --btn-info-color-hover: #4e73df;
-  --btn-danger-color-hover: #4e73df;
+  --btn-info-color: rgb(54 136 252 / 50%);
+  --btn-danger-color: rgb(250 103 103 / 50%);
+  --btn-info-color-hover: #2e74d6;
+  --btn-danger-color-hover: #d55858;
 }
 
 *,
@@ -408,25 +408,25 @@ footer p {
 
 .btn-custom-info {
   background-color: transparent;
-  border: 1px solid var(--first-color);
-  color: #000000;
+  border: 1px solid var(--btn-info-color);
+  color: #ffffff;
 }
 
 .btn-custom-info:hover {
-  background-color: var(--second-color);
-  border: 1px solid var(--second-color);
+  background-color: var(--btn-info-color-hover);
+  border: 1px solid var(--btn-info-color-hover);
   color: #ffffff;
 }
 
 .btn-custom-danger {
   background-color: transparent;
-  border: 1px solid var(--first-color);
-  color: #000000;
+  border: 1px solid var(--btn-danger-color);
+  color: #ffffff;
 }
 
-.btn-custom-dander:hover {
-  background-color: var(--second-color);
-  border: 1px solid var(--second-color);
+.btn-custom-danger:hover {
+  background-color: var(--btn-danger-color-hover);
+  border: 1px solid var(--btn-danger-color-hover);
   color: #ffffff;
 }
 /* ------------------------------------------ End Button ------------------------------------------ */
@@ -451,6 +451,11 @@ footer p {
   align-content: center;
   justify-content: center;
   flex-direction: row;
+}
+
+.modal .modal-footer button {
+  margin-left: 16px;
+  margin-right: 16px;
 }
 
 /* ------------------------------------------ End modal ------------------------------------------ */
