@@ -1,8 +1,37 @@
 <div class="page-header">
   <div class="wrapper">
-    <div class="container d-flex flex-row">
-      <div class="col-lg-3">
-        <h1 class="title"> Categories</h1>
+    <div class="container d-flex flex-row justify-content-around">
+      <div class="col-lg-5">
+        <h1 class="title"> Formations</h1>
+      </div>
+      <div class="col-lg-3 offset-4 tools-box">
+        <a routerLink="/formation/add" class="btn btn-sm btn-outline-info">
+          <i class="fas fa-plus-circle"></i> Ajouter une formation
+        </a>
+        <div class="dropdown">
+          <button class="btn btn-sm btn-outline-info" type="button" id="dropdownDisplayData"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-table" data-bs-toggle="tooltip" data-bs-placement="top" title="Modifier l'affichage"></i>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownDisplayData">
+            <li><a class="dropdown-item" (click)="btnHandlerDisplayDataMethod($event)">Tableau</a></li>
+            <li><a class="dropdown-item" (click)="btnHandlerDisplayDataMethod($event)">Liste</a></li>
+          </ul>
+        </div>
+        <button class="btn btn-sm btn-outline-info" type="button" id="dropdownSelectCategory"
+                data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fas fa-filter" data-bs-toggle="tooltip" data-bs-placement="top" title="Trier par"></i>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownSelectCategory">
+          <li>
+            <a class="dropdown-item"
+               (click)="btnHandlerDisplayDataByCategory('All')">Afficher toutes les formations</a>
+          </li>
+          <li *ngFor="let category of categoryList">
+            <a class="dropdown-item"
+               (click)="btnHandlerDisplayDataByCategory(category.name)">{{ category.name }}</a>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -15,10 +44,43 @@
         <div class="col-12">
           <div class="card shadow text-center border-0">
             <div class="card-header">
-              <h2>Liste des formations disponible actuellement</h2>
+              <div class="row d-flex flex-row justify-content-around align-items-center">
+                <div class="col-lg-6 pt-3">
+                  <h2 class="float-start ps-3">Liste des formations</h2>
+                </div>
+                <div class="offset-2 col-lg-4">
+                  <form class="search-form" #formSearchFormation="ngForm">
+                    <input type="search" class="form-control" name="searchFormation"
+                           placeholder="Saisissez le nom de la formation" ngModel
+                           (ngModelChange)="eventSearchHandler(formSearchFormation)">
+                  </form>
+                </div>
+              </div>
             </div>
-            <div class="card-body" *ngIf="categoryList.length > 0; then blocThen; else blocElse"></div>
+            <div class=" card-body" *ngIf="numberOfFormation > 0; then blocThen; else blocElse">
+            </div>
           </div>
+        </div>
+      </div>
+      <div class="row mt-5 mb-5" *ngIf="numberOfFormation > numberItemToDisplay">
+        <div class="col-12 d-flex align-items-center justify-content-center">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
     </div>
@@ -26,36 +88,101 @@
 </div>
 
 <ng-template #blocThen>
-  <table class="table table-striped table-hover">
+  <table *ngIf="displayDataMethod == 'table'" class="table table-striped table-hover">
     <thead>
     <tr>
       <th scope="col">Nom</th>
       <th scope="col">Description</th>
       <th scope="col">Prix</th>
       <th scope="col">Niveau</th>
+      <th scope="col">Catégorie</th>
+      <th scope="col">Date de disponibilité</th>
+      <th scope="col"></th>
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <td>Name</td>
-      <td>Description</td>
-      <td>2700</td>
-      <td>Base</td>
+    <tr *ngFor="let formation of formationList">
+      <td>{{ formation.name }}</td>
+      <td>{{ formation.description }}</td>
+      <td>{{ formation.price | currency:'EUR' }}</td>
+      <td>{{ formation.level }}</td>
+      <td>{{ formation.category }}</td>
+      <td>{{ formation.dateAvailable | date:'dd-MM-yyyy' }} a {{ formation.dateAvailable | date:'HH:MM'}}</td>
       <td>
-        <button data-bs-toggle="tooltip" data-bs-placement="top" title="En savoir plus"
-                class="btn btn-sm btn-outline-info">
+        <a [routerLink]="['/formation/detail/', formation.id]" data-bs-toggle="tooltip" data-bs-placement="top"
+           title="En savoir plus"
+           class="btn btn-sm btn-outline-info">
           <i class="fas fa-eye"></i>
+        </a>
+        <a [routerLink]="['/formation/edit/', formation.id]" data-bs-toggle="tooltip" data-bs-placement="top"
+           title="Mettre à jour"
+           class="btn btn-sm btn-outline-info">
+          <i class="fas fa-edit"></i>
+        </a>
+        <button (click)="deleteFormation(formation)" title="Supprimer"
+                class="btn btn-sm btn-outline-info" data-bs-toggle="modal"
+                data-bs-target="#confirmModal">
+          <i class="fas fa-trash" data-bs-toggle="tooltip" data-bs-placement="top"></i>
         </button>
       </td>
     </tr>
 
     </tbody>
   </table>
+
+  <div *ngIf="displayDataMethod == 'list'" class="row">
+    <div *ngFor="let formation of formationList" class="col-lg-3">
+      <div class="card shadow item-card">
+        <img *ngIf="formation.category == 'Bureautique'" src="/assets/img/undraw_office.png"
+             alt="image d'ilustration"
+             class="img-fluid">
+        <img *ngIf="formation.category == 'Développement'" src="/assets/img/undraw_web_development.png"
+             alt="image d'ilustration" class="img-fluid">
+        <img *ngIf="formation.category == 'Design'" src="/assets/img/undraw_design.png" alt="image d'ilustration"
+             class="img-fluid">
+        <img *ngIf="formation.category == 'Photographie'" src="/assets/img/undraw_photography.png"
+             alt="image d'ilustration" class="img-fluid">
+        <div class="category">
+          <p>{{ formation.category }}</p>
+        </div>
+        <div class="card-body">
+          <p class="card-text p-0">{{ formation.name }} - Niveau {{ formation.level }}</p>
+          <p class="card-text p-0">Disponible le {{ formation.dateAvailable | date:'dd-MM-yyyy' }}
+            a {{ formation.dateAvailable | date:'HH:MM'}}</p>
+          <p class="p-0 float-start">Au prix de {{ formation.price | currency:'EUR' }}</p>
+          <p class="card-text ps-0 pt-5 pb-5">{{ formation.description }}</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+              <a [routerLink]="['/formation/detail/', formation.id]" data-bs-toggle="tooltip"
+                 data-bs-placement="top"
+                 title="En savoir plus"
+                 class="btn btn-sm btn-outline-info">
+                <i class="fas fa-eye"></i>
+              </a>
+              <a [routerLink]="['/formation/edit/', formation.id]" data-bs-toggle="tooltip" data-bs-placement="top"
+                 title="Mettre à jour"
+                 class="btn btn-sm btn-outline-info">
+                <i class="fas fa-edit"></i>
+              </a>
+              <button (click)="deleteFormation(formation)" class="btn btn-sm btn-outline-info"
+                      data-bs-toggle="modal"
+                      data-bs-target="#confirmModal">
+                <i class="fas fa-trash" data-bs-toggle="tooltip" data-bs-placement="top" title="Supprimer"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </ng-template>
 
 <ng-template #blocElse>
   <div class="card-body d-flex flex-column justify-content-center">
     <i class="fas fa-exclamation-circle fa-3x mt-3 mb-3"></i>
-    <p class="fs-4">Aucune données n'a été trouvé</p>
+    <p class="fs-4">{{ textDefault }}</p>
   </div>
 </ng-template>
+
+<app-modal [id]="'confirmModal'" [title]="modalTitle" [type]="'confirm'"
+           (eventResponse)="confirmDeleteFormation($event)"></app-modal>

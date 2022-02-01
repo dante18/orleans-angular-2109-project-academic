@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import {HomeComponent} from "./views/home/home.component";
 import {FormationComponent} from "./views/formation/formation.component";
 import {CategoryComponent} from "./views/category/category.component";
+import {AddCategoryComponent} from "./views/category/add-category/add-category.component";
+import {EditCategoryComponent} from "./views/category/edit-category/edit-category.component";
 import {FormerComponent} from "./views/former/former.component";
 import {InternComponent} from "./views/intern/intern.component";
 import {AddFormationComponent} from "./views/formation/add-formation/add-formation.component";
@@ -19,6 +21,8 @@ const routes: Routes = [
   {path: 'formation/edit/:id', component: EditFormationComponent},
 
   {path: 'category', component: CategoryComponent},
+  {path: 'category/add', component: AddCategoryComponent},
+  {path: 'category/edit/:id', component: EditCategoryComponent},
 
   {path: 'former', component: FormerComponent},
 

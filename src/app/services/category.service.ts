@@ -14,4 +14,29 @@ export class CategoryService {
   findAllCategory(): Observable<any> {
     return this.http.get<Category[]>(this.#baseUrl);
   }
+
+  findAll(): Observable<any> {
+    return this.http.get<Category[]>(this.#baseUrl);
+  }
+
+  findCategoryById(id: any): Observable<any> {
+    return this.http.get<Category>(this.#baseUrl + "/" + id);
+  }
+
+  addCategory(data:any): Observable<any> {
+    const headers = {
+      "content-type": "application/json"
+    };
+    const corpsMessage = JSON.stringify(data);
+
+    return this.http.post(this.#baseUrl, corpsMessage, { "headers": headers });
+  }
+
+  updateCategory(id:any, data:any): Observable<any> {
+    return this.http.put(this.#baseUrl + "/" + id, data);
+  }
+
+  deleteCategory(id:any): Observable<any> {
+    return this.http.delete(this.#baseUrl + "/" + id);
+  }
 }
