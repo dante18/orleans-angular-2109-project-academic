@@ -2,7 +2,11 @@
 /* ---------------------------------------------- General ---------------------------------------------- */
 :root {
   --first-color: #222e3c;
-  --second-color: #4e73df
+  --second-color: #4e73df;
+  --btn-info-color: #4e73df;
+  --btn-danger-color: #4e73df;
+  --btn-info-color-hover: #4e73df;
+  --btn-danger-color-hover: #4e73df;
 }
 
 *,
@@ -402,6 +406,29 @@ footer p {
   color: #ffffff;
 }
 
+.btn-custom-info {
+  background-color: transparent;
+  border: 1px solid var(--first-color);
+  color: #000000;
+}
+
+.btn-custom-info:hover {
+  background-color: var(--second-color);
+  border: 1px solid var(--second-color);
+  color: #ffffff;
+}
+
+.btn-custom-danger {
+  background-color: transparent;
+  border: 1px solid var(--first-color);
+  color: #000000;
+}
+
+.btn-custom-dander:hover {
+  background-color: var(--second-color);
+  border: 1px solid var(--second-color);
+  color: #ffffff;
+}
 /* ------------------------------------------ End Button ------------------------------------------ */
 
 /* ------------------------------------------ Form ------------------------------------------ */
@@ -411,5 +438,21 @@ footer p {
 }
 
 /* ------------------------------------------ End form ------------------------------------------ */
+
+/* ------------------------------------------ Modal ------------------------------------------ */
+.modal .modal-header,
+.modal .modal-footer {
+  background-color: var(--first-color);
+  color: #ffffff;
+}
+
+.modal .modal-footer {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+/* ------------------------------------------ End modal ------------------------------------------ */
 
 /* ---------------------------------------------- End components ---------------------------------------------- */

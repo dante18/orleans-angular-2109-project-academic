@@ -11,7 +11,7 @@
 <div class="page-content">
   <div class="content">
     <div class="container">
-      <div *ngIf="formEditFormationIsSubmitted && numberOfErrors == 0" class="row row mt-2 mb-2">
+      <div *ngIf="dataSend" class="row row mt-2 mb-2">
         <div class="col-12">
           <div class="alert alert-success" role="alert">
             {{ message }}
@@ -22,7 +22,7 @@
         <div class="col-12">
           <div class="card shadow text-center border-0">
             <div class="card-header">
-              <h2>Ajouter une nouvelle formation</h2>
+              <h2>Mettre a jour de la formation</h2>
             </div>
             <div class="card-body">
               <div class="row">

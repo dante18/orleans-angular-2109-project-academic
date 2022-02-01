@@ -25,6 +25,7 @@ export class AddFormationComponent implements OnInit {
   fieldCategoryFormation: any;
   message: any;
   numberOfErrors = 0;
+  dataSend = false;
 
   constructor(
     private serviceFormation: FormationService,
@@ -151,7 +152,9 @@ export class AddFormationComponent implements OnInit {
       this.serviceFormation.addFormation(formAddFormation.value).subscribe({
         next: () => {
           this.message = "La formation a ete ajouté avec success";
+          this.formAddFormationIsSubmitted = false;
           this.numberOfErrors = 0;
+          this.dataSend = true;
           this.fieldNameFormation = true;
           this.fieldDescriptionFormation = true;
           this.fieldProgrammFormation = true;

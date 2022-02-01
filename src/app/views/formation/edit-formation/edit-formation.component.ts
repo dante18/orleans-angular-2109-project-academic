@@ -29,6 +29,7 @@ export class EditFormationComponent implements OnInit {
   formation: any;
   formationId: any
   formationStatus = true
+  dataSend = false;
 
   constructor(
     private routeActive: ActivatedRoute,
@@ -182,10 +183,11 @@ export class EditFormationComponent implements OnInit {
     }
 
     if (this.numberOfErrors == 0) {
-      this.serviceFormation.updateFormation(formEditFormation.value).subscribe({
+      this.serviceFormation.updateFormation(this.formation.id, formEditFormation.value).subscribe({
         next: () => {
           this.message = "La formation a ete mise a jour";
-          this.numberOfErrors = 0;
+          this.formEditFormationIsSubmitted = false;
+          this.dataSend = true;
           this.fieldNameFormation = true;
           this.fieldDescriptionFormation = true;
           this.fieldProgrammFormation = true;
@@ -194,8 +196,6 @@ export class EditFormationComponent implements OnInit {
           this.fieldDateAvailableFormation = true;
           this.fieldLevelFormation = true;
           this.fieldCategoryFormation = true;
-
-          formEditFormation.resetForm();
         },
         error: (error) => {
           console.log(error.message);

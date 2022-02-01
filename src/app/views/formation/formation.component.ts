@@ -128,6 +128,10 @@ export class FormationComponent implements OnInit {
     }
   }
 
+  /**
+   *
+   * @param $event
+   */
   confirmDeleteFormation($event: any)
   {
     if ($event.target.innerText == "Oui") {
@@ -136,15 +140,16 @@ export class FormationComponent implements OnInit {
           this.getFormationList()
         },
         error: (error) => {
-          this.errorMessage = error.message;
-        },
-        complete: () => {
-          console.log("La réception des données est terminée.");
+          console.log(`Failed to retrieve data. Error invoked:${error.message}`);
         }
       });
     }
   }
 
+  /**
+   *
+   * @param formation
+   */
   deleteFormation(formation: any)
   {
     this.formationSelectedName = formation.name

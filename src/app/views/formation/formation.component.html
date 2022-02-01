@@ -79,8 +79,11 @@
       <div class="row mt-2 mb-2">
         <div class="col-12">
           <div class="card shadow text-center border-0">
-            <div class="card-header">
+            <div class="card-header d-flex flex-row justify-content-around">
               <h2>Liste des formations</h2>
+              <form>
+                <input type="text" placeholder="search">
+              </form>
             </div>
             <div class="card-body" *ngIf="numberOfFormation > 0; then blocThen; else blocElse"></div>
           </div>
@@ -143,9 +146,10 @@
            class="btn btn-sm btn-outline-info">
           <i class="fas fa-edit"></i>
         </a>
-        <button data-bs-toggle="tooltip" data-bs-placement="top" title="Supprimer"
-                class="btn btn-sm btn-outline-info">
-          <i class="fas fa-trash"></i>
+        <button (click)="deleteFormation(formation)" title="Supprimer"
+                class="btn btn-sm btn-outline-info" data-bs-toggle="modal"
+                data-bs-target="#confirmModal">
+          <i class="fas fa-trash" data-bs-toggle="tooltip" data-bs-placement="top"></i>
         </button>
       </td>
     </tr>
@@ -207,13 +211,17 @@
 <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
+      <div class="modal-header">
+        Confirmez-vous la suppression de la formation: {{ formationSelectedName }}
+      </div>
       <div class="modal-body d-flex flex-column align-items-center justify-content-center">
         <i class="fas fa-exclamation-circle fa-3x"></i>
-        <p class="pt-2">Confirmez-vous la suppression de la formation {{ formationSelectedName }} ?</p>
+        <p class="pt-2"> Attention cela est irreversible !</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Non</button>
-        <button (click)="confirmDeleteFormation($event)" data-bs-dismiss="modal" type="button" class="btn btn-danger">
+        <button type="button" class="btn btn-custom-info" data-bs-dismiss="modal">Non</button>
+        <button (click)="confirmDeleteFormation($event)" data-bs-dismiss="modal" type="button"
+                class="btn btn-custom-info">
           Oui
         </button>
       </div>
