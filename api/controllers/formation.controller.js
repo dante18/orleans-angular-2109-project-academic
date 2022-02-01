@@ -59,7 +59,7 @@ exports.findByName = (request, response) => {
   Formation.findAll({
     where: {
       name: {
-        [Op.like]: formationName + '%' || '%' + formationName + '%',
+        [Op.substring]: `%${formationName}%`,
       }
     }
   })

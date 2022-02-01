@@ -13,7 +13,6 @@ export class FormationComponent implements OnInit {
   formationList: Formation[] = [];
   categoryList: Category[] = [];
   displayDataMethod = "table";
-  formSearchIsVisible = false;
   textDefault = "Aucune données n'a été trouvé";
   numberOfFormation = 0;
   numberItemToDisplay = 10;
@@ -79,13 +78,14 @@ export class FormationComponent implements OnInit {
   /**
    * Manage actions related to the search form
    *
-   * @param $event
    * @param formSearch
    */
-  eventSearchHandler($event: any, formSearch: any) {
-    if ($event.target.id == "btnSearchSend") {
-      let formationName = formSearch.value.searchFormation;
+  eventSearchHandler(formSearch: any) {
+    let formationName = formSearch.value.searchFormation;
 
+    if (formationName.length == 0) {
+      this.getFormationList();
+    } else {
       this.serviceFormation.findFormationByName(formationName).subscribe({
         next: (value: any) => {
           /* Retrieve formation list */
@@ -101,11 +101,6 @@ export class FormationComponent implements OnInit {
           this.textDefault = "La recherche n'a retourné aucun résultat";
         }
       });
-    } else if ($event.target.id == "btnSearchReset") {
-      formSearch.reset();
-      this.getFormationList();
-    } else {
-      this.formSearchIsVisible = !this.formSearchIsVisible;
     }
   }
 
@@ -131,7 +126,7 @@ export class FormationComponent implements OnInit {
 
   /**
    * handles the confirmation request before deleting
-   * 
+   *
    * @param $event
    */
   confirmDeleteFormation($event: any)

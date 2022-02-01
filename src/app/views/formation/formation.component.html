@@ -8,10 +8,6 @@
         <a routerLink="/formation/add" class="btn btn-sm btn-outline-info">
           <i class="fas fa-plus-circle"></i> Ajouter une formation
         </a>
-        <button data-bs-toggle="tooltip" data-bs-placement="top" title="Rechercher une formation"
-                class="btn btn-sm btn-outline-info" id="btnSearchToggle" (click)="eventSearchHandler($event, '')">
-          <i class="fas fa-search"></i>
-        </button>
         <div class="dropdown">
           <button class="btn btn-sm btn-outline-info" type="button" id="dropdownDisplayData"
                   data-bs-toggle="dropdown" aria-expanded="false">
@@ -44,48 +40,25 @@
 <div class="page-content">
   <div class="content">
     <div class="container">
-      <div *ngIf="formSearchIsVisible" class="row mt-2 mb-2">
+      <div class="row mt-2 mb-2">
         <div class="col-12">
           <div class="card shadow text-center border-0">
             <div class="card-header">
-              <h2>Recherche une formation</h2>
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-lg-12">
-                  <form #formSearchFormation="ngForm" class="row gx-3 gy-2 align-items-center justify-content-center">
-                    <div class="col-sm-5">
-                      <label class="visually-hidden" for="searchFormation">Name</label>
-                      <input type="text" class="form-control" id="searchFormation" name="searchFormation"
-                             placeholder="Saisissez le nom de la formation" ngModel>
-                    </div>
-                    <div class="col-auto">
-                      <button type="submit" class="btn btn-custom"
-                              id="btnSearchSend" (click)="eventSearchHandler($event, formSearchFormation)">Rechercher
-                      </button>
-
-                      <button type="submit" class="btn btn-custom ms-2"
-                              id="btnSearchReset" (click)="eventSearchHandler($event, formSearchFormation)">
-                        Reinitialiser
-                      </button>
-                    </div>
+              <div class="row d-flex flex-row justify-content-around align-items-center">
+                <div class="col-lg-6 pt-3">
+                  <h2 class="float-start ps-3">Liste des formations</h2>
+                </div>
+                <div class="offset-2 col-lg-4">
+                  <form class="search-form" #formSearchFormation="ngForm">
+                    <input type="search" class="form-control" name="searchFormation"
+                           placeholder="Saisissez le nom de la formation" ngModel
+                           (ngModelChange)="eventSearchHandler(formSearchFormation)">
                   </form>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="row mt-2 mb-2">
-        <div class="col-12">
-          <div class="card shadow text-center border-0">
-            <div class="card-header d-flex flex-row justify-content-around">
-              <h2>Liste des formations</h2>
-              <form>
-                <input type="text" placeholder="search">
-              </form>
+            <div class=" card-body" *ngIf="numberOfFormation > 0; then blocThen; else blocElse">
             </div>
-            <div class="card-body" *ngIf="numberOfFormation > 0; then blocThen; else blocElse"></div>
           </div>
         </div>
       </div>
@@ -160,7 +133,8 @@
   <div *ngIf="displayDataMethod == 'list'" class="row">
     <div *ngFor="let formation of formationList" class="col-lg-3">
       <div class="card shadow item-card">
-        <img *ngIf="formation.category == 'Bureautique'" src="/assets/img/undraw_office.png" alt="image d'ilustration"
+        <img *ngIf="formation.category == 'Bureautique'" src="/assets/img/undraw_office.png"
+             alt="image d'ilustration"
              class="img-fluid">
         <img *ngIf="formation.category == 'Développement'" src="/assets/img/undraw_web_development.png"
              alt="image d'ilustration" class="img-fluid">
@@ -179,7 +153,8 @@
           <p class="card-text ps-0 pt-5 pb-5">{{ formation.description }}</p>
           <div class="d-flex justify-content-between align-items-center">
             <div class="btn-group">
-              <a [routerLink]="['/formation/detail/', formation.id]" data-bs-toggle="tooltip" data-bs-placement="top"
+              <a [routerLink]="['/formation/detail/', formation.id]" data-bs-toggle="tooltip"
+                 data-bs-placement="top"
                  title="En savoir plus"
                  class="btn btn-sm btn-outline-info">
                 <i class="fas fa-eye"></i>
@@ -189,7 +164,8 @@
                  class="btn btn-sm btn-outline-info">
                 <i class="fas fa-edit"></i>
               </a>
-              <button (click)="deleteFormation(formation)" class="btn btn-sm btn-outline-info" data-bs-toggle="modal"
+              <button (click)="deleteFormation(formation)" class="btn btn-sm btn-outline-info"
+                      data-bs-toggle="modal"
                       data-bs-target="#confirmModal">
                 <i class="fas fa-trash" data-bs-toggle="tooltip" data-bs-placement="top" title="Supprimer"></i>
               </button>
