@@ -16,9 +16,8 @@ export class FormationComponent implements OnInit {
   textDefault = "Aucune données n'a été trouvé";
   numberOfFormation = 0;
   numberItemToDisplay = 10;
-  formationSelectedName = "";
   formationSelectedId: any;
-  modalTitle = "Confirmez-vous la suppression de la formation: " + this.formationSelectedName;
+  modalTitle = "";
 
   constructor(private serviceFormation: FormationService, private serviceCategory: CategoryService) {
   }
@@ -149,7 +148,7 @@ export class FormationComponent implements OnInit {
    */
   deleteFormation(formation: any)
   {
-    this.formationSelectedName = formation.name
-    this.formationSelectedId = formation.id
+    this.modalTitle = "Confirmez-vous la suppression de la formation: " + formation.name;
+    this.formationSelectedId = formation.id;
   }
 }
