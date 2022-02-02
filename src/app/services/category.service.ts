@@ -15,12 +15,12 @@ export class CategoryService {
     return this.http.get<Category[]>(this.#baseUrl);
   }
 
-  findAll(): Observable<any> {
-    return this.http.get<Category[]>(this.#baseUrl);
-  }
-
   findCategoryById(id: any): Observable<any> {
     return this.http.get<Category>(this.#baseUrl + "/" + id);
+  }
+
+  findCategoryByName(name: any): Observable<any> {
+    return this.http.get<Category>(this.#baseUrl + "/search/" + name);
   }
 
   addCategory(data:any): Observable<any> {
