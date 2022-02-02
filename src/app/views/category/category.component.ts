@@ -25,8 +25,7 @@ export class CategoryComponent implements OnInit {
   /**
    * Retrieves the list of category
    */
-  getCategoryList(): any
-  {
+  getCategoryList(): any {
     this.serviceCategory.findAllCategory().subscribe({
       next: (value: any) => {
         /* Retrieve formation list */
@@ -73,8 +72,7 @@ export class CategoryComponent implements OnInit {
    *
    * @param $event
    */
-  confirmDeleteCategory($event: any)
-  {
+  confirmDeleteCategory($event: any) {
     if ($event.choice == "Oui") {
       this.serviceCategory.deleteCategory(this.categorySelectedId).subscribe({
         next: () => {
@@ -92,8 +90,7 @@ export class CategoryComponent implements OnInit {
    *
    * @param category
    */
-  deleteCategory(category: any)
-  {
+  deleteCategory(category: any) {
     this.modalTitle = "Confirmez-vous la suppression de la catégory: " + category.name
     this.categorySelectedId = category.id;
   }

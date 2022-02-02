@@ -27,7 +27,7 @@
                 <div class="offset-2 col-lg-4">
                   <form class="search-form" #formSearchCategory="ngForm">
                     <input type="search" class="form-control" name="searchCategory"
-                           placeholder="Saisissez le nom de la Category" ngModel
+                           placeholder="Saisissez le nom de la catégorie" ngModel
                            (ngModelChange)="eventSearchHandler(formSearchCategory)">
                   </form>
                 </div>
@@ -59,7 +59,6 @@
           </nav>
         </div>
       </div>
-      <app-data-table [title]="'Tests'" [colname]="" [content]=""></app-data-table>
     </div>
   </div>
 </div>

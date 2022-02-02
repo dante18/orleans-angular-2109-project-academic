@@ -75,7 +75,7 @@ export class EditCategoryComponent implements OnInit {
     if (this.numberOfErrors == 0) {
       this.serviceCategory.updateCategory(this.category.id, formEditCategory.value).subscribe({
         next: () => {
-          this.message = "La formation a ete mise a jour";
+          this.message = "La catégorie a ete mise a jour";
           this.formEditCategoryIsSubmitted = false;
           this.dataSend = true;
           this.fieldNameCategory = true;
