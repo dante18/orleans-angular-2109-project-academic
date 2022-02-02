@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-data-table',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./data-table.component.css']
 })
 export class DataTableComponent implements OnInit {
-
+  @Input('title') titleDataTable = "";
+  @Input('colname') colDataTable = "";
+  @Input('content') contentDataTable = "";
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  eventSearchHandler(formSearch: NgForm) {
+
+  }
 }
