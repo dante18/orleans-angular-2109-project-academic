@@ -19,6 +19,7 @@ db.cnx = cnx;
 db.former = require("./former.model")(db.cnx, db.Sequelize);
 db.category = require("./category.model")(db.cnx, db.Sequelize);
 db.level = require("./level.model")(db.cnx, db.Sequelize);
+db.intern = require("./intern.model")(db.cnx, db.Sequelize);
 db.formation = require("./formation.model")(db.cnx, db.Sequelize);
 
 module.exports = db;

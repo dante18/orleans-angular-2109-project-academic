@@ -1,0 +1,135 @@
+<div class="page-header">
+  <div class="wrapper">
+    <div class="container">
+      <div class="col-lg-5">
+        <h1 class="title"> Formations</h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-content">
+  <div class="content">
+    <div class="container">
+      <div *ngIf="dataSend" class="row row mt-2 mb-2">
+        <div class="col-12">
+          <div class="alert alert-success" role="alert">
+            {{ message }}
+          </div>
+        </div>
+      </div>
+      <div class="row mt-2 mb-2">
+        <div class="col-12">
+          <div class="card shadow text-center border-0">
+            <div class="card-header">
+              <h2>Mettre a jour les information du formateur(rice) : {{ former.firstname }} {{ former.lastname }}</h2>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12">
+                  <form class="row needs-validation d-flex justify-content-center" #formEditFormation="ngForm"
+                        (ngSubmit)="submitHandler(formEditFormation)">
+                    <div class="row mb-3">
+                      <legend class="col-form-label col-sm-2 pt-0">Civilité</legend>
+                      <div class="col-sm-6">
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" [ngModel]="former.civility" name="civility" value="madame">
+                          <label class="form-check-label">Madame</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" [ngModel]="former.civility" name="civility" value="monsieur">
+                          <label class="form-check-label">Monsieur</label>
+                        </div>
+                        <div *ngIf="formEditFormerIsSubmitted && fieldCivilityFormer" class="valid-feedback">
+                          OK
+                        </div>
+                        <div *ngIf="formEditFormerIsSubmitted && !fieldCivilityFormer" class="invalid-feedback">
+                          Le champs doit être renseigné
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="lastnameFormer" class="col-sm-4 col-form-label">Nom de famille du formateur</label>
+                      <div class="col-sm-6">
+                        <input type="text" class="form-control" id="lastnameFormer" name="lastname" autocomplete="off"
+                               required [ngModel]="former.lastname">
+                        <div *ngIf="formEditFormerIsSubmitted && fieldLastnameFormer" class="valid-feedback">
+                          OK
+                        </div>
+                        <div *ngIf="formEditFormerIsSubmitted && !fieldLastnameFormer" class="invalid-feedback">
+                          Le champs doit être renseigné
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="firstnameFormer" class="col-sm-4 col-form-label">Prénom du formateur</label>
+                      <div class="col-sm-6">
+                        <input type="text" class="form-control" id="firstnameFormer" name="firstname" autocomplete="off"
+                               required [ngModel]="former.firstname">
+                        <div *ngIf="formEditFormerIsSubmitted && fieldFirstnameFormer" class="valid-feedback">
+                          OK
+                        </div>
+                        <div *ngIf="formEditFormerIsSubmitted && !fieldFirstnameFormer" class="invalid-feedback">
+                          Le champs doit être renseigné
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="phoneNumberFormer" class="col-sm-4 col-form-label">Numéro de téléphone</label>
+                      <div class="col-sm-6">
+                        <input type="text" class="form-control" id="phoneNumberFormer" name="phoneNumber" autocomplete="off"
+                               required [ngModel]="former.phoneNumber">
+                        <div *ngIf="formEditFormerIsSubmitted && fieldPhoneNumberFormer" class="valid-feedback">
+                          OK
+                        </div>
+                        <div *ngIf="formEditFormerIsSubmitted && !fieldPhoneNumberFormer" class="invalid-feedback">
+                          Le champs doit être renseigné
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="emailAddressFormer" class="col-sm-4 col-form-label">Adresse email du formateur</label>
+                      <div class="col-sm-6">
+                        <input type="text" class="form-control" id="emailAddressFormer" name="emailAddress" autocomplete="off"
+                               required [ngModel]="former.emailAddress">
+                        <div *ngIf="formEditFormerIsSubmitted && fieldEmailAddressFormer" class="valid-feedback">
+                          OK
+                        </div>
+                        <div *ngIf="formEditFormerIsSubmitted && !fieldEmailAddressFormer" class="invalid-feedback">
+                          Le champs doit être renseigné
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="salaryFormer" class="col-sm-4 col-form-label">Salaire du formateur</label>
+                      <div class="col-sm-6">
+                        <input type="number" class="form-control" id="salaryFormer" name="salary" autocomplete="off"
+                               required [ngModel]="former.salary">
+                        <div *ngIf="formEditFormerIsSubmitted && fieldSalaryFormer" class="valid-feedback">
+                          OK
+                        </div>
+                        <div *ngIf="formEditFormerIsSubmitted && !fieldSalaryFormer" class="invalid-feedback">
+                          Le champs doit être renseigné
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mt-5 mb-2">
+                      <div class="col-12 d-flex justify-content-center">
+                        <button class="btn btn-custom"> Sauvegarder</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-5 mb-5">
+        <div class="col-12">
+          <a routerLink="/former" class="btn btn-custom float-end"> Retourner a la liste des formateurs</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
