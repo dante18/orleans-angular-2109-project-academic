@@ -86,7 +86,7 @@ export class FormerComponent implements OnInit {
    *
    * @param $event
    */
-  confirmDeleteFormation($event: any)
+  confirmDeleteFormer($event: any)
   {
     if ($event.choice == "Oui") {
       this.serviceFormer.deleteFormer(this.formerSelectedId).subscribe({
@@ -102,11 +102,11 @@ export class FormerComponent implements OnInit {
 
   /**
    *
-   * @param formation
+   * @param former
    */
-  deleteFormation(formation: any)
+  deleteFormer(former: any)
   {
     this.modalTitle = "Confirmez-vous la suppression";
-    this.formerSelectedId = formation.id;
+    this.formerSelectedId = former.id;
   }
 }

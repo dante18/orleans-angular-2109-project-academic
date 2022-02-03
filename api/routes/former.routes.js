@@ -1,4 +1,3 @@
-const formers = require("../controllers/former.controller");
 module.exports = app => {
   const formers = require("../controllers/former.controller");
   const router = require("express").Router();

@@ -5,8 +5,8 @@
         <h1 class="title"> Formateurs</h1>
       </div>
       <div class="col-lg-3 offset-4 tools-box">
-        <a routerLink="/formation/add" class="btn btn-sm btn-outline-info">
-          <i class="fas fa-plus-circle"></i> Ajouter une formation
+        <a routerLink="/former/add" class="btn btn-sm btn-outline-info">
+          <i class="fas fa-plus-circle"></i> Ajouter un formmateur
         </a>
         <div class="dropdown">
           <button class="btn btn-sm btn-outline-info" type="button" id="dropdownDisplayData"
@@ -99,7 +99,7 @@
            class="btn btn-sm btn-outline-info">
           <i class="fas fa-edit"></i>
         </a>
-        <button (click)="deleteFormation(former)" title="Supprimer"
+        <button (click)="deleteFormer(former)" title="Supprimer"
                 class="btn btn-sm btn-outline-info" data-bs-toggle="modal"
                 data-bs-target="#confirmModal">
           <i class="fas fa-trash" data-bs-toggle="tooltip" data-bs-placement="top"></i>
@@ -130,7 +130,7 @@
                  class="btn btn-sm btn-outline-info">
                 <i class="fas fa-edit"></i>
               </a>
-              <button (click)="deleteFormation(former)" class="btn btn-sm btn-outline-info"
+              <button (click)="deleteFormer(former)" class="btn btn-sm btn-outline-info"
                       data-bs-toggle="modal"
                       data-bs-target="#confirmModal">
                 <i class="fas fa-trash" data-bs-toggle="tooltip" data-bs-placement="top" title="Supprimer"></i>
@@ -151,4 +151,4 @@
 </ng-template>
 
 <app-modal [id]="'confirmModal'" [title]="modalTitle" [type]="'confirm'"
-           (eventResponse)="confirmDeleteFormation($event)"></app-modal>
+           (eventResponse)="confirmDeleteFormer($event)"></app-modal>

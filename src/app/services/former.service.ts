@@ -8,7 +8,7 @@ import {Former} from "../models/former";
 })
 
 export class FormerService {
-  #baseUrl = "http://localhost:3000/formers";
+  #baseUrl = "http://localhost:3000/api/formers";
 
   constructor(private http: HttpClient) {}
 

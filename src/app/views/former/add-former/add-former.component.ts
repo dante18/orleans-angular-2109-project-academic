@@ -1,10 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
-import {FormationService} from "../../../services/formation.service";
-import {CategoryService} from "../../../services/category.service";
-import {Category} from "../../../models/category";
-import {Level} from "../../../models/level";
-import {LevelService} from "../../../services/level.service";
+import {FormerService} from "../../../services/former.service";
 
 @Component({
   selector: 'app-add-former',
@@ -12,167 +8,112 @@ import {LevelService} from "../../../services/level.service";
   styleUrls: ['./add-former.component.css']
 })
 export class AddFormerComponent implements OnInit {
-  categoryList: Category[] = [];
-  levelList: Level[] = [];
-  formAddFormationIsSubmitted = false;
-  fieldNameFormation: any;
-  fieldDescriptionFormation: any;
-  fieldProgrammFormation: any;
-  fieldPriceFormation: any;
-  fieldDurationFormation: any;
-  fieldDateAvailableFormation: any;
-  fieldLevelFormation: any;
-  fieldCategoryFormation: any;
-  message: any;
+  formAddFormerIsSubmitted = false;
+  fieldCivilityFormer: any;
+  fieldLastnameFormer: any;
+  fieldFirstnameFormer: any;
+  fieldPhoneNumberFormer: any;
+  fieldEmailAddressFormer: any;
+  fieldSalaryFormer: any;
+  fieldPhotoFormer = "";
   numberOfErrors = 0;
   dataSend = false;
+  message = "";
 
   constructor(
-    private serviceFormation: FormationService,
-    private serviceCategory: CategoryService,
-    private serviceLevel: LevelService) {
+    private serviceFormer: FormerService) {
   }
 
-  ngOnInit(): void {
-    this.getCategoryList();
-    this.getLevelList();
-  }
-
-  /**
-   * Retrieves the list of category
-   */
-  getCategoryList(): any {
-    this.serviceCategory.findAllCategory().subscribe({
-      next: (value: any) => {
-        /* Retrieve formation list */
-        this.categoryList = value;
-      },
-      error: (error) => {
-        console.log(`Failed to retrieve data. Error invoked:${error.message}`);
-      }
-    });
-  }
-
-  /**
-   * Retrieves the list of level
-   */
-  getLevelList(): any {
-    this.serviceLevel.findAllLevel().subscribe({
-      next: (value: any) => {
-        /* Retrieve formation list */
-        this.levelList = value;
-      },
-      error: (error: any) => {
-        console.log(`Failed to retrieve data. Error invoked:${error.message}`);
-      }
-    });
-  }
+  ngOnInit(): void {}
 
   /**
    * Manage form processing
    *
-   * @param formAddFormation
+   * @param formAddFormer
    */
-  submitHandler(formAddFormation: NgForm) {
-    this.formAddFormationIsSubmitted = true;
+  submitHandler(formAddFormer: NgForm) {
+    console.log(formAddFormer.value)
+    this.formAddFormerIsSubmitted = true;
 
-    if (formAddFormation.value.name.length == 0) {
-      this.fieldNameFormation = false;
+    if (formAddFormer.value.civility.length == 0) {
+      this.fieldCivilityFormer = false;
       this.numberOfErrors += 1;
     }
 
-    if (formAddFormation.value.name.length > 0) {
-      this.fieldNameFormation = true;
+    if (formAddFormer.value.civility.length > 0) {
+      this.fieldCivilityFormer = true;
     }
 
-    if (formAddFormation.value.description.length == 0 || formAddFormation.value.description.length > 255) {
-      this.fieldDescriptionFormation = false;
+    if (formAddFormer.value.lastname.length == 0) {
+      this.fieldLastnameFormer = false;
       this.numberOfErrors += 1;
     }
 
-    if (formAddFormation.value.description.length > 0) {
-      this.fieldDescriptionFormation = true;
+    if (formAddFormer.value.lastname.length > 0) {
+      this.fieldLastnameFormer = true;
     }
 
-    if (formAddFormation.value.program.length == 0) {
-      this.fieldProgrammFormation = false;
+    if (formAddFormer.value.firstname.length == 0) {
+      this.fieldFirstnameFormer = false;
       this.numberOfErrors += 1;
     }
 
-    if (formAddFormation.value.program.length > 0) {
-      this.fieldProgrammFormation = true;
+    if (formAddFormer.value.firstname.length > 0) {
+      this.fieldFirstnameFormer = true;
     }
 
-    if (formAddFormation.value.price == 0) {
-      this.fieldPriceFormation = false;
+    if (formAddFormer.value.phoneNumber.length == 0) {
+      this.fieldPhoneNumberFormer = false;
       this.numberOfErrors += 1;
     }
 
-    if (formAddFormation.value.price > 0) {
-      this.fieldPriceFormation = true;
+    if (formAddFormer.value.phoneNumber.length > 0) {
+      this.fieldPhoneNumberFormer = true;
     }
 
-    if (formAddFormation.value.duration == 0) {
-      this.fieldDurationFormation = false;
+    if (formAddFormer.value.emailAddress.length == 0) {
+      this.fieldEmailAddressFormer = false;
       this.numberOfErrors += 1;
     }
 
-    if (formAddFormation.value.duration > 0) {
-      this.fieldDurationFormation = true;
+    if (formAddFormer.value.emailAddress.length > 0) {
+      this.fieldEmailAddressFormer = true;
     }
 
-    if (formAddFormation.value.dateAvailable.length == 0) {
-      this.fieldDateAvailableFormation = false;
+    if (isNaN(formAddFormer.value.salary)) {
+      this.fieldSalaryFormer = false;
       this.numberOfErrors += 1;
     }
 
-    if (formAddFormation.value.dateAvailable.length > 0) {
-      this.fieldDateAvailableFormation = true;
-    }
-
-    if (formAddFormation.value.level.length == 0 && formAddFormation.value.level == "Veuillez choisir un niveau") {
-      this.fieldLevelFormation = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formAddFormation.value.level.length > 0 && formAddFormation.value.level != "Veuillez choisir un niveau") {
-      this.fieldLevelFormation = true;
-    }
-
-    if (formAddFormation.value.category.length == 0 && formAddFormation.value.category == "Catégorie de la formation") {
-      this.fieldCategoryFormation = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formAddFormation.value.category.length > 0 && formAddFormation.value.category != "Catégorie de la formation") {
-      this.fieldCategoryFormation = true;
+    if (!isNaN(formAddFormer.value.salary) && formAddFormer.value.salary >= 0) {
+      this.fieldSalaryFormer = true;
     }
 
     if (this.numberOfErrors == 0) {
-      this.serviceFormation.addFormation(formAddFormation.value).subscribe({
+      Object.assign(formAddFormer.value, { photo: "" } )
+      console.log(formAddFormer.value);
+      this.serviceFormer.addFormer(formAddFormer.value).subscribe({
         next: () => {
-          this.message = "La formation a ete ajouté avec success";
-          this.formAddFormationIsSubmitted = false;
+          this.message = "Le former a ete ajouté avec success";
+          this.formAddFormerIsSubmitted = false;
           this.numberOfErrors = 0;
           this.dataSend = true;
-          this.fieldNameFormation = true;
-          this.fieldDescriptionFormation = true;
-          this.fieldProgrammFormation = true;
-          this.fieldPriceFormation = true;
-          this.fieldDurationFormation = true;
-          this.fieldDateAvailableFormation = true;
-          this.fieldLevelFormation = true;
-          this.fieldCategoryFormation = true;
+          this.fieldCivilityFormer = true;
+          this.fieldLastnameFormer = true;
+          this.fieldFirstnameFormer = true;
+          this.fieldEmailAddressFormer = true;
+          this.fieldPhoneNumberFormer = true;
+          this.fieldSalaryFormer = true;
 
-          formAddFormation.resetForm();
+          formAddFormer.resetForm();
         },
         error: (error) => {
           console.log(error.message);
-        },
-        complete: () => {
-          console.log("La réception des données est terminée.");
         }
       });
     }
   }
+
+  private formValidation(formData: any)
+  {}
 }
