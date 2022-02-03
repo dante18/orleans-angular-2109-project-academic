@@ -54,7 +54,7 @@ exports.findByName = (request, response) => {
 
   Former.findAll({
     where: {
-      name: {
+      lastname: {
         [Op.substring]: `%${formerName}%`,
       }
     }

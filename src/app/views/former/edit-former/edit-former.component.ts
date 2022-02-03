@@ -2,10 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {FormationService} from "../../../services/formation.service";
 import {CategoryService} from "../../../services/category.service";
-import {Category} from "../../../models/category";
-import {Level} from "../../../models/level";
 import {LevelService} from "../../../services/level.service";
 import {ActivatedRoute} from "@angular/router";
+import {FormerService} from "../../../services/former.service";
 
 @Component({
   selector: 'app-edit-former',
@@ -13,91 +12,54 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./edit-former.component.css']
 })
 export class EditFormerComponent implements OnInit {
-  categoryList: Category[] = [];
-  levelList: Level[] = [];
-  formEditFormationIsSubmitted = false;
-  fieldNameFormation: any;
-  fieldDescriptionFormation: any;
-  fieldProgrammFormation: any;
-  fieldPriceFormation: any;
-  fieldDurationFormation: any;
-  fieldDateAvailableFormation: any;
-  fieldLevelFormation: any;
-  fieldCategoryFormation: any;
+  formEditFormerIsSubmitted = false;
+  fieldCivilityFormer: any;
+  fieldLastnameFormer: any;
+  fieldFirstnameFormer: any;
+  fieldPhoneNumberFormer: any;
+  fieldEmailAddressFormer: any;
+  fieldSalaryFormer: any;
+  fieldPhotoFormer = "";
   message: any;
   numberOfErrors = 0;
-  formation: any;
-  formationId: any
-  formationStatus = true
+  former: any;
+  formerId: any
+  formerStatus = true
   dataSend = false;
 
   constructor(
     private routeActive: ActivatedRoute,
-    private serviceFormation: FormationService,
-    private serviceCategory: CategoryService,
-    private serviceLevel: LevelService) {
+    private serviceFormer: FormerService) {
   }
 
   ngOnInit(): void {
-    this.getCategoryList();
-    this.getLevelList();
-    this.getFormation();
-  }
-
-  /**
-   * Retrieves the list of category
-   */
-  getCategoryList(): any {
-    this.serviceCategory.findAllCategory().subscribe({
-      next: (value: any) => {
-        /* Retrieve formation list */
-        this.categoryList = value;
-      },
-      error: (error) => {
-        console.log(`Failed to retrieve data. Error invoked:${error.message}`);
-      }
-    });
-  }
-
-  /**
-   * Retrieves the list of level
-   */
-  getLevelList(): any {
-    this.serviceLevel.findAllLevel().subscribe({
-      next: (value: any) => {
-        /* Retrieve formation list */
-        this.levelList = value;
-      },
-      error: (error: any) => {
-        console.log(`Failed to retrieve data. Error invoked:${error.message}`);
-      }
-    });
+    this.getFormer();
   }
 
   /**
    * Get data of formations for update
    */
-  getFormation()
+  getFormer()
   {
     // Retrieval of the training ID passed as a parameter
-    this.formationId = parseInt(this.routeActive.snapshot.paramMap.get("id")!);
+    this.formerId = parseInt(this.routeActive.snapshot.paramMap.get("id")!);
 
-    if(isNaN(this.formationId)) {
-      this.formationStatus = false;
+    if(isNaN(this.formerId)) {
+      this.formerStatus = false;
       return;
     }
 
     // Data recovery thanks to idFormation
-    this.serviceFormation.findFormationById(this.formationId).subscribe({
+    this.serviceFormer.findFormerById(this.formerId).subscribe({
       next: (value) => {
-        this.formation = value;
+        this.former = value;
 
-        if (this.formation == undefined) {
-          this.formationStatus = false
+        if (this.former == undefined) {
+          this.formerStatus = false
         }
       },
       error: () => {
-        this.formationStatus = false;
+        this.formerStatus = false;
       }
     });
   }
@@ -105,103 +67,80 @@ export class EditFormerComponent implements OnInit {
   /**
    * Manage form processing
    *
-   * @param formEditFormation
+   * @param formEditFormer
    */
-  submitHandler(formEditFormation: NgForm) {
-    this.formEditFormationIsSubmitted = true;
+  submitHandler(formEditFormer: NgForm) {
+    this.formEditFormerIsSubmitted = true;
 
-    if (formEditFormation.value.name.length == 0) {
-      this.fieldNameFormation = false;
+    if (formEditFormer.value.civility.length == 0) {
+      this.fieldCivilityFormer = false;
       this.numberOfErrors += 1;
     }
 
-    if (formEditFormation.value.name.length > 0) {
-      this.fieldNameFormation = true;
+    if (formEditFormer.value.civility.length > 0) {
+      this.fieldCivilityFormer = true;
     }
 
-    if (formEditFormation.value.description.length == 0 || formEditFormation.value.description.length > 255) {
-      this.fieldDescriptionFormation = false;
+    if (formEditFormer.value.lastname.length == 0) {
+      this.fieldLastnameFormer = false;
       this.numberOfErrors += 1;
     }
 
-    if (formEditFormation.value.description.length > 0) {
-      this.fieldDescriptionFormation = true;
+    if (formEditFormer.value.lastname.length > 0) {
+      this.fieldLastnameFormer = true;
     }
 
-    if (formEditFormation.value.program.length == 0) {
-      this.fieldProgrammFormation = false;
+    if (formEditFormer.value.firstname.length == 0) {
+      this.fieldFirstnameFormer = false;
       this.numberOfErrors += 1;
     }
 
-    if (formEditFormation.value.program.length > 0) {
-      this.fieldProgrammFormation = true;
+    if (formEditFormer.value.firstname.length > 0) {
+      this.fieldFirstnameFormer = true;
     }
 
-    if (formEditFormation.value.price == 0) {
-      this.fieldPriceFormation = false;
+    if (formEditFormer.value.phoneNumber.length == 0) {
+      this.fieldPhoneNumberFormer = false;
       this.numberOfErrors += 1;
     }
 
-    if (formEditFormation.value.price > 0) {
-      this.fieldPriceFormation = true;
+    if (formEditFormer.value.phoneNumber.length > 0) {
+      this.fieldPhoneNumberFormer = true;
     }
 
-    if (formEditFormation.value.duration == 0) {
-      this.fieldDurationFormation = false;
+    if (formEditFormer.value.emailAddress.length == 0) {
+      this.fieldEmailAddressFormer = false;
       this.numberOfErrors += 1;
     }
 
-    if (formEditFormation.value.duration > 0) {
-      this.fieldDurationFormation = true;
+    if (formEditFormer.value.emailAddress.length > 0) {
+      this.fieldEmailAddressFormer = true;
     }
 
-    if (formEditFormation.value.dateAvailable.length == 0) {
-      this.fieldDateAvailableFormation = false;
+    if (isNaN(formEditFormer.value.salary)) {
+      this.fieldSalaryFormer = false;
       this.numberOfErrors += 1;
     }
 
-    if (formEditFormation.value.dateAvailable.length > 0) {
-      this.fieldDateAvailableFormation = true;
-    }
-
-    if (formEditFormation.value.level.length == 0 && formEditFormation.value.level == "Veuillez choisir un niveau") {
-      this.fieldLevelFormation = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formEditFormation.value.level.length > 0 && formEditFormation.value.level != "Veuillez choisir un niveau") {
-      this.fieldLevelFormation = true;
-    }
-
-    if (formEditFormation.value.category.length == 0 && formEditFormation.value.category == "Catégorie de la formation") {
-      this.fieldCategoryFormation = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formEditFormation.value.category.length > 0 && formEditFormation.value.category != "Catégorie de la formation") {
-      this.fieldCategoryFormation = true;
+    if (!isNaN(formEditFormer.value.salary) && formEditFormer.value.salary >= 0) {
+      this.fieldSalaryFormer = true;
     }
 
     if (this.numberOfErrors == 0) {
-      this.serviceFormation.updateFormation(this.formation.id, formEditFormation.value).subscribe({
+      this.serviceFormer.updateFormer(this.former.id, formEditFormer.value).subscribe({
         next: () => {
-          this.message = "La formation a ete mise a jour";
-          this.formEditFormationIsSubmitted = false;
+          this.message = "Le formateur a ete mise a jour";
+          this.formEditFormerIsSubmitted = false;
           this.dataSend = true;
-          this.fieldNameFormation = true;
-          this.fieldDescriptionFormation = true;
-          this.fieldProgrammFormation = true;
-          this.fieldPriceFormation = true;
-          this.fieldDurationFormation = true;
-          this.fieldDateAvailableFormation = true;
-          this.fieldLevelFormation = true;
-          this.fieldCategoryFormation = true;
+          this.fieldCivilityFormer = true;
+          this.fieldLastnameFormer = true;
+          this.fieldFirstnameFormer = true;
+          this.fieldEmailAddressFormer = true;
+          this.fieldPhoneNumberFormer = true;
+          this.fieldSalaryFormer = true;
         },
         error: (error) => {
           console.log(error.message);
-        },
-        complete: () => {
-          console.log("La réception des données est terminée.");
         }
       });
     }

@@ -32,7 +32,6 @@ export class AddFormerComponent implements OnInit {
    * @param formAddFormer
    */
   submitHandler(formAddFormer: NgForm) {
-    console.log(formAddFormer.value)
     this.formAddFormerIsSubmitted = true;
 
     if (formAddFormer.value.civility.length == 0) {
@@ -91,10 +90,10 @@ export class AddFormerComponent implements OnInit {
 
     if (this.numberOfErrors == 0) {
       Object.assign(formAddFormer.value, { photo: "" } )
-      console.log(formAddFormer.value);
+
       this.serviceFormer.addFormer(formAddFormer.value).subscribe({
         next: () => {
-          this.message = "Le former a ete ajouté avec success";
+          this.message = "Le formateur a ete ajouté avec success";
           this.formAddFormerIsSubmitted = false;
           this.numberOfErrors = 0;
           this.dataSend = true;
