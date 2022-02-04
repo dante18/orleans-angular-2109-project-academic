@@ -1,6 +1,5 @@
 const db = require("../models");
-const {Op} = require("sequelize");
-const Intern = db.Intern;
+const Intern = db.intern;
 
 /**
  * Retrieve all Interns from the database.
@@ -86,7 +85,7 @@ exports.create = (request, response) => {
   }
 
   // Create a Intern
-  const Intern = {
+  const intern = {
     civility: request.body.civility,
     lastname: request.body.lastname,
     firstname: request.body.firstname,
@@ -96,7 +95,7 @@ exports.create = (request, response) => {
   };
 
   // Save Intern in the database
-  Intern.create(Intern)
+  Intern.create(intern)
     .then(data => {
       response.send(data);
     })

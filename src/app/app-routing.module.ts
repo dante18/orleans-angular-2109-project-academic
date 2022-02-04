@@ -12,6 +12,8 @@ import {InternComponent} from "./views/intern/intern.component";
 import {AddFormationComponent} from "./views/formation/add-formation/add-formation.component";
 import {DetailFormationComponent} from "./views/formation/detail-formation/detail-formation.component";
 import {EditFormationComponent} from "./views/formation/edit-formation/edit-formation.component";
+import {AddInternComponent} from "./views/intern/add-intern/add-intern.component";
+import {EditInternComponent} from "./views/intern/edit-intern/edit-intern.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -31,6 +33,8 @@ const routes: Routes = [
   {path: 'former/edit/:id', component: EditFormerComponent},
 
   {path: 'intern', component: InternComponent},
+  {path: 'intern/add', component: AddInternComponent},
+  {path: 'intern/edit/:id', component: EditInternComponent},
 ];
 
 @NgModule({

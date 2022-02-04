@@ -18,6 +18,8 @@ import { ModalComponent } from './components/modal/modal.component';
 import {CategoryComponent} from "./views/category/category.component";
 import {AddCategoryComponent} from "./views/category/add-category/add-category.component";
 import {EditCategoryComponent} from "./views/category/edit-category/edit-category.component";
+import {AddInternComponent} from "./views/intern/add-intern/add-intern.component";
+import {EditInternComponent} from "./views/intern/edit-intern/edit-intern.component";
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import {EditCategoryComponent} from "./views/category/edit-category/edit-categor
     AddFormerComponent,
     EditFormerComponent,
     InternComponent,
+    AddInternComponent,
+    EditInternComponent,
     AddFormationComponent,
     DetailFormationComponent,
     EditFormationComponent,

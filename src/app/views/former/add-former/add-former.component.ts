@@ -24,7 +24,8 @@ export class AddFormerComponent implements OnInit {
     private serviceFormer: FormerService) {
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   /**
    * Manage form processing
@@ -89,7 +90,15 @@ export class AddFormerComponent implements OnInit {
     }
 
     if (this.numberOfErrors == 0) {
-      Object.assign(formAddFormer.value, { photo: "" } )
+      if (this.fieldCivilityFormer == "madame") {
+        this.fieldPhotoFormer = "undraw_avatar1.png";
+      } else if (this.fieldCivilityFormer == "monsieur") {
+        this.fieldPhotoFormer = "undraw_avatar2.png";
+      } else {
+        this.fieldPhotoFormer = "undraw_avatar3.png"
+      }
+
+      Object.assign(formAddFormer.value, {photo: this.fieldPhotoFormer})
 
       this.serviceFormer.addFormer(formAddFormer.value).subscribe({
         next: () => {
@@ -113,6 +122,6 @@ export class AddFormerComponent implements OnInit {
     }
   }
 
-  private formValidation(formData: any)
-  {}
+  private formValidation(formData: any) {
+  }
 }

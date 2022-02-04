@@ -20,5 +20,5 @@ module.exports = app => {
   // Delete a Former with id
   router.delete("/:id", interns.delete);
 
-  app.use('/api/formers', router);
+  app.use('/api/interns', router);
 };

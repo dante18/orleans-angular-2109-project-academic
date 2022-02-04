@@ -5,7 +5,7 @@
         <h1 class="title"> Stagiaires</h1>
       </div>
       <div class="col-lg-3 offset-4 tools-box">
-        <a routerLink="/former/add" class="btn btn-sm btn-outline-info">
+        <a routerLink="/intern/add" class="btn btn-sm btn-outline-info">
           <i class="fas fa-plus-circle"></i> Ajouter un stagiaire
         </a>
         <div class="dropdown">
@@ -32,12 +32,12 @@
             <div class="card-header">
               <div class="row d-flex flex-row justify-content-around align-items-center">
                 <div class="col-lg-6 pt-3">
-                  <h2 class="float-start ps-3">Liste des formateurs</h2>
+                  <h2 class="float-start ps-3">Liste des stagiares</h2>
                 </div>
                 <div class="offset-2 col-lg-4">
                   <form class="search-form" #formSearchFormer="ngForm">
                     <input type="search" class="form-control" name="searchFormer"
-                           placeholder="Saisissez le nom de famille du formateur" ngModel
+                           placeholder="Saisissez le nom de famille du stagiaire" ngModel
                            (ngModelChange)="eventSearchHandler(formSearchFormer)">
                   </form>
                 </div>
@@ -96,7 +96,7 @@
            class="btn btn-sm btn-outline-info">
           <i class="fas fa-edit"></i>
         </a>
-        <button (click)="deleteFormer(intern)" title="Supprimer"
+        <button (click)="deleteIntern(intern)" title="Supprimer"
                 class="btn btn-sm btn-outline-info" data-bs-toggle="modal"
                 data-bs-target="#confirmModal">
           <i class="fas fa-trash" data-bs-toggle="tooltip" data-bs-placement="top"></i>
@@ -110,10 +110,7 @@
   <div *ngIf="displayDataMethod == 'list'" class="row">
     <div *ngFor="let intern of internList" class="col-lg-3">
       <div class="card shadow item-card">
-        <img *ngIf="intern.civility == 'monsieur'" src="/assets/img/avatar/undraw_avatar2.png"
-             alt="image d'ilustration"
-             class="img-fluid">
-        <img *ngIf="intern.civility == 'madame'" src="/assets/img/avatar/undraw_avatar1.png"
+        <img src="/assets/img/avatar/{{ intern.photo }}"
              alt="image d'ilustration" class="img-fluid">
         <div class="card-body">
           <p class="card-text p-0">{{ intern.firstname }} {{ intern.lastname }}</p>
@@ -126,7 +123,7 @@
                  class="btn btn-sm btn-outline-info">
                 <i class="fas fa-edit"></i>
               </a>
-              <button (click)="deleteFormer(intern)" class="btn btn-sm btn-outline-info"
+              <button (click)="deleteIntern(intern)" class="btn btn-sm btn-outline-info"
                       data-bs-toggle="modal"
                       data-bs-target="#confirmModal">
                 <i class="fas fa-trash" data-bs-toggle="tooltip" data-bs-placement="top" title="Supprimer"></i>
@@ -147,4 +144,4 @@
 </ng-template>
 
 <app-modal [id]="'confirmModal'" [title]="modalTitle" [type]="'confirm'"
-           (eventResponse)="confirmDeleteFormer($event)"></app-modal>
+           (eventResponse)="confirmDeleteIntern($event)"></app-modal>

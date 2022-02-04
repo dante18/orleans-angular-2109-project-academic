@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
-import {FormerService} from "../../../services/former.service";
+import {InternService} from "../../../services/intern.service";
 
 @Component({
   selector: 'app-add-intern',
@@ -8,103 +8,101 @@ import {FormerService} from "../../../services/former.service";
   styleUrls: ['./add-intern.component.css']
 })
 export class AddInternComponent implements OnInit {
-  formAddFormerIsSubmitted = false;
-  fieldCivilityFormer: any;
-  fieldLastnameFormer: any;
-  fieldFirstnameFormer: any;
-  fieldPhoneNumberFormer: any;
-  fieldEmailAddressFormer: any;
-  fieldSalaryFormer: any;
-  fieldPhotoFormer = "";
+  formAddInternIsSubmitted = false;
+  fieldCivilityIntern: any;
+  fieldLastnameIntern: any;
+  fieldFirstnameIntern: any;
+  fieldPhoneNumberIntern: any;
+  fieldEmailAddressIntern: any;
+  fieldPhotoIntern = "";
   numberOfErrors = 0;
   dataSend = false;
   message = "";
 
   constructor(
-    private serviceFormer: FormerService) {
+    private serviceIntern: InternService) {
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   /**
    * Manage form processing
    *
-   * @param formAddFormer
+   * @param formAddIntern
    */
-  submitHandler(formAddFormer: NgForm) {
-    this.formAddFormerIsSubmitted = true;
+  submitHandler(formAddIntern: NgForm) {
+    this.formAddInternIsSubmitted = true;
 
-    if (formAddFormer.value.civility.length == 0) {
-      this.fieldCivilityFormer = false;
+    if (formAddIntern.value.civility.length == 0) {
+      this.fieldCivilityIntern = false;
       this.numberOfErrors += 1;
     }
 
-    if (formAddFormer.value.civility.length > 0) {
-      this.fieldCivilityFormer = true;
+    if (formAddIntern.value.civility.length > 0) {
+      this.fieldCivilityIntern = true;
     }
 
-    if (formAddFormer.value.lastname.length == 0) {
-      this.fieldLastnameFormer = false;
+    if (formAddIntern.value.lastname.length == 0) {
+      this.fieldLastnameIntern = false;
       this.numberOfErrors += 1;
     }
 
-    if (formAddFormer.value.lastname.length > 0) {
-      this.fieldLastnameFormer = true;
+    if (formAddIntern.value.lastname.length > 0) {
+      this.fieldLastnameIntern = true;
     }
 
-    if (formAddFormer.value.firstname.length == 0) {
-      this.fieldFirstnameFormer = false;
+    if (formAddIntern.value.firstname.length == 0) {
+      this.fieldFirstnameIntern = false;
       this.numberOfErrors += 1;
     }
 
-    if (formAddFormer.value.firstname.length > 0) {
-      this.fieldFirstnameFormer = true;
+    if (formAddIntern.value.firstname.length > 0) {
+      this.fieldFirstnameIntern = true;
     }
 
-    if (formAddFormer.value.phoneNumber.length == 0) {
-      this.fieldPhoneNumberFormer = false;
+    if (formAddIntern.value.phoneNumber.length == 0) {
+      this.fieldPhoneNumberIntern = false;
       this.numberOfErrors += 1;
     }
 
-    if (formAddFormer.value.phoneNumber.length > 0) {
-      this.fieldPhoneNumberFormer = true;
+    if (formAddIntern.value.phoneNumber.length > 0) {
+      this.fieldPhoneNumberIntern = true;
     }
 
-    if (formAddFormer.value.emailAddress.length == 0) {
-      this.fieldEmailAddressFormer = false;
+    if (formAddIntern.value.emailAddress.length == 0) {
+      this.fieldEmailAddressIntern = false;
       this.numberOfErrors += 1;
     }
 
-    if (formAddFormer.value.emailAddress.length > 0) {
-      this.fieldEmailAddressFormer = true;
-    }
-
-    if (isNaN(formAddFormer.value.salary)) {
-      this.fieldSalaryFormer = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (!isNaN(formAddFormer.value.salary) && formAddFormer.value.salary >= 0) {
-      this.fieldSalaryFormer = true;
+    if (formAddIntern.value.emailAddress.length > 0) {
+      this.fieldEmailAddressIntern = true;
     }
 
     if (this.numberOfErrors == 0) {
-      Object.assign(formAddFormer.value, { photo: "" } )
+      if (this.fieldCivilityIntern == "madame") {
+        this.fieldPhotoIntern = "undraw_avatar1.png";
+      } else if (this.fieldCivilityIntern == "monsieur") {
+        this.fieldPhotoIntern = "undraw_avatar2.png";
+      } else {
+        this.fieldPhotoIntern = "undraw_avatar3.png"
+      }
 
-      this.serviceFormer.addFormer(formAddFormer.value).subscribe({
+      Object.assign(formAddIntern.value, {photo: this.fieldPhotoIntern})
+
+      this.serviceIntern.addIntern(formAddIntern.value).subscribe({
         next: () => {
-          this.message = "Le formateur a ete ajouté avec success";
-          this.formAddFormerIsSubmitted = false;
+          this.message = "Le stagiaire a ete ajouté avec success";
+          this.formAddInternIsSubmitted = false;
           this.numberOfErrors = 0;
           this.dataSend = true;
-          this.fieldCivilityFormer = true;
-          this.fieldLastnameFormer = true;
-          this.fieldFirstnameFormer = true;
-          this.fieldEmailAddressFormer = true;
-          this.fieldPhoneNumberFormer = true;
-          this.fieldSalaryFormer = true;
+          this.fieldCivilityIntern = true;
+          this.fieldLastnameIntern = true;
+          this.fieldFirstnameIntern = true;
+          this.fieldEmailAddressIntern = true;
+          this.fieldPhoneNumberIntern = true;
 
-          formAddFormer.resetForm();
+          formAddIntern.resetForm();
         },
         error: (error) => {
           console.log(error.message);
@@ -112,7 +110,4 @@ export class AddInternComponent implements OnInit {
       });
     }
   }
-
-  private formValidation(formData: any)
-  {}
 }

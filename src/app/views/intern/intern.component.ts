@@ -86,7 +86,7 @@ export class InternComponent implements OnInit {
    *
    * @param $event
    */
-  confirmDeleteFormer($event: any)
+  confirmDeleteIntern($event: any)
   {
     if ($event.choice == "Oui") {
       this.serviceIntern.deleteIntern(this.internSelectedId).subscribe({
@@ -104,7 +104,7 @@ export class InternComponent implements OnInit {
    *
    * @param intern
    */
-  deleteFormer(intern: any)
+  deleteIntern(intern: any)
   {
     this.modalTitle = "Confirmez-vous la suppression";
     this.internSelectedId = intern.id;
