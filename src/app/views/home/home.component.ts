@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormationService} from "../../services/formation.service";
+import {InternService} from "../../services/intern.service";
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,10 @@ export class HomeComponent implements OnInit {
   numberTotalOfIntern = 0;
   formationList: any[] = [];
 
-  constructor(private serviceFormation: FormationService) { }
+  constructor(
+    private serviceFormation: FormationService,
+    private serviceIntern: InternService) {
+  }
 
   ngOnInit(): void {
     this.getFormationList();
@@ -22,26 +26,30 @@ export class HomeComponent implements OnInit {
   /**
    * Recovery of data used to display data from notification cards
    */
-  getNotificationData(): any
-  {
-    this.numberTotalOfIntern = 12;
+  getNotificationData(): any {
+    this.serviceIntern.findAllIntern().subscribe({
+      next: (value: any) => {
+        this.numberTotalOfIntern = value.length;
+      },
+      error: (error) => {
+        console.log(`Failed to retrieve data. Error invoked:${error.message}`);
+      }
+    });
   }
 
   /**
    * Retrieves the list of formation
    */
-  getFormationList(): any
-  {
+  getFormationList(): any {
     const today = new Date();
-    const curentDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    const curentDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
     this.serviceFormation.findAllFormation().subscribe({
       next: (value: any) => {
-        /* Retrieve formation list */
         value.forEach((formation: any) => {
           let dateAvailable = formation.dateAvailable.split("T")[0];
 
-          if(new Date(dateAvailable) > new Date(curentDate)){
+          if (new Date(dateAvailable) > new Date(curentDate)) {
             this.numberTotalOfComingSoonFormation += 1;
           } else {
             this.numberTotalOfAvailableFormation += 1;
