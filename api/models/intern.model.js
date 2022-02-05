@@ -17,58 +17,34 @@ module.exports = (cnx, SequelizeInstance) => {
       type: SequelizeInstance.STRING,
       allowNull: false,
       unique: true,
-      field: "civility",
-      validate: {
-        isAlphanumeric: true,
-        notEmpty: true
-      }
+      field: "civility"
     },
     lastname: {
       type: SequelizeInstance.STRING,
       allowNull: false,
       unique: true,
-      field: "lastname",
-      validate: {
-        isAlphanumeric: true,
-        notEmpty: true
-      }
+      field: "lastname"
     },
     firstname: {
       type: SequelizeInstance.STRING,
       allowNull: false,
       unique: true,
-      field: "firstname",
-      validate: {
-        isAlphanumeric: true,
-        notEmpty: true
-      }
+      field: "firstname"
     },
     phoneNumber: {
       type: SequelizeInstance.STRING,
       allowNull: false,
-      field: "phone_number",
-      validate: {
-        isAlphanumeric: true,
-        notEmpty: true
-      }
+      field: "phone_number"
     },
     emailAddress: {
       type: SequelizeInstance.STRING,
       allowNull: false,
-      field: "email_address",
-      validate: {
-        is: ["^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$", 'i'],
-        notEmpty: true
-      }
+      field: "email_address"
     },
     photo: {
       type: SequelizeInstance.STRING,
       allowNull: true,
-      field: "photo",
-      validate: {
-        isAlphanumeric: true,
-        notEmpty: true
-      }
+      field: "photo"
     }
   }, {tableName: "interns"});
 

@@ -47,34 +47,6 @@ exports.findByID = (request, response) => {
 };
 
 /**
- * Find a single Formation by name
- *
- * @param request Contains the API request
- * @param response Contains the API response
- */
-exports.findByName = (request, response) => {
-  const formationName = request.params.name;
-  const {Op} = require("sequelize");
-
-  Formation.findAll({
-    where: {
-      name: {
-        [Op.substring]: `%${formationName}%`,
-      }
-    }
-  })
-    .then(data => {
-      response.send(data);
-    })
-    .catch(error => {
-      response.status(500).send({
-        message:
-          error.message || "Some error occurred while retrieving formations: " + error.message
-      });
-    });
-};
-
-/**
  * Find all Formations with a category
  *
  * @param request Contains the API request

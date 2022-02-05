@@ -1,0 +1,20 @@
+[
+  {
+    "model":"category",
+    "data": {
+      "name": "Design"
+    }
+  },
+  {
+    "model":"category",
+    "data": {
+      "name": "Bureautique"
+    }
+  },
+  {
+    "model":"category",
+    "data": {
+      "name": "Développement web"
+    }
+  }
+]

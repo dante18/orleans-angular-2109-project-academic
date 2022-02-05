@@ -11,11 +11,24 @@ if (appConfig.environment === "dev") {
     console.log("Drop and re-sync db.");
     /* Loading data to test the application during the development phase. */
     sequelizeFixtures.loadFile('fixtures/level.fixtures.json', db).then(() => {
-      console.log('Seed data used to tests application loaded!');
+      console.log('Seed data used to create level table');
+    });
+
+    sequelizeFixtures.loadFile('fixtures/category.fixtures.json', db).then(() => {
+      console.log('Seed data used to create category table');
     });
   });
 } else {
-  db.cnx.sync();
+  db.cnx.sync().then(() => {
+    console.log("Drop and re-sync db.");
+    sequelizeFixtures.loadFile('fixtures/level.fixtures.json', db).then(() => {
+      console.log('Seed data used to create level table');
+    });
+
+    sequelizeFixtures.loadFile('fixtures/category.fixtures.json', db).then(() => {
+      console.log('Seed data used to create category table');
+    });
+  });
 }
 
 /* Configuration used to cross-origin request */
@@ -33,9 +46,6 @@ app.use(cors(corsOptions));
 app.options('*', cors())
 
 app.use(function(request, response, next) {
-  // res.header("Access-Control-Allow-Origin", "*");
-  // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  // next();
   // Website you wish to allow to connect
   response.header('Access-Control-Allow-Origin', `http://localhost:${appConfig.express.portListen}`);
 

@@ -8,9 +8,6 @@ module.exports = app => {
   // Retrieve a single Formation with id
   router.get("/:id", formations.findByID);
 
-  // Retrieve a single Formation by name
-  router.get("/search/:name", formations.findByName);
-
   // Retrieve all Formation by category
   router.get("/category/:category", formations.findByCategory);
 

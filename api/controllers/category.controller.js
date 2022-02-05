@@ -46,35 +46,6 @@ exports.findByID = (request, response) => {
     });
 };
 
-
-/**
- * Find a single Category with a name
- *
- * @param request Contains the API request
- * @param response Contains the API response
- */
-exports.findByName = (request, response) => {
-  const categoryName = request.params.name;
-  const {Op} = require("sequelize");
-
-  Category.findAll({
-    where: {
-      name: {
-        [Op.substring]: `%${categoryName}%`,
-      }
-    }
-  })
-    .then(data => {
-      response.send(data);
-    })
-    .catch(error => {
-      response.status(500).send({
-        message:
-          error.message || "Some error occurred while retrieving formations: " + error.message
-      });
-    });
-};
-
 /**
  * Create and Save a new Category
  *
