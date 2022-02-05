@@ -105,7 +105,7 @@ export class AddInternComponent implements OnInit {
           formAddIntern.resetForm();
         },
         error: (error) => {
-          console.log(error.message);
+          console.log("***", error.message);
         }
       });
     }

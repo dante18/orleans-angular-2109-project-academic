@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
-import {FormerService} from "../../../services/former.service";
+import {InternService} from "../../../services/intern.service";
 
 @Component({
   selector: 'app-edit-intern',
@@ -9,54 +9,55 @@ import {FormerService} from "../../../services/former.service";
   styleUrls: ['./edit-intern.component.css']
 })
 export class EditInternComponent implements OnInit {
-  formEditFormerIsSubmitted = false;
-  fieldCivilityFormer: any;
-  fieldLastnameFormer: any;
-  fieldFirstnameFormer: any;
-  fieldPhoneNumberFormer: any;
-  fieldEmailAddressFormer: any;
-  fieldSalaryFormer: any;
-  fieldPhotoFormer = "";
+  formEditInternIsSubmitted = false;
+  fieldCivilityIntern: any;
+  fieldLastnameIntern: any;
+  fieldFirstnameIntern: any;
+  fieldPhoneNumberIntern: any;
+  fieldEmailAddressIntern: any;
+  fieldPhotoIntern = "";
   message: any;
   numberOfErrors = 0;
-  former: any;
-  formerId: any
-  formerStatus = true
+  intern: any;
+  internId: any
+  internStatus = true
   dataSend = false;
 
   constructor(
     private routeActive: ActivatedRoute,
-    private serviceFormer: FormerService) {
+    private serviceIntern: InternService) {
   }
 
   ngOnInit(): void {
-    this.getFormer();
+    this.getIntern();
   }
 
   /**
-   * Get data of formations for update
+   * Get data of intern for update
    */
-  getFormer()
+  getIntern()
   {
     // Retrieval of the training ID passed as a parameter
-    this.formerId = parseInt(this.routeActive.snapshot.paramMap.get("id")!);
+    this.internId = parseInt(this.routeActive.snapshot.paramMap.get("id")!);
 
-    if(isNaN(this.formerId)) {
-      this.formerStatus = false;
+    if(isNaN(this.internId)) {
+      this.internStatus = false;
       return;
     }
 
     // Data recovery thanks to idFormation
-    this.serviceFormer.findFormerById(this.formerId).subscribe({
+    this.serviceIntern.findInternById(this.internId).subscribe({
       next: (value) => {
-        this.former = value;
+        this.intern = value;
 
-        if (this.former == undefined) {
-          this.formerStatus = false
+        if (this.intern == undefined) {
+          this.internStatus = false
         }
+
+        this.fieldPhotoIntern = this.intern.photo;
       },
       error: () => {
-        this.formerStatus = false;
+        this.internStatus = false;
       }
     });
   }
@@ -64,77 +65,68 @@ export class EditInternComponent implements OnInit {
   /**
    * Manage form processing
    *
-   * @param formEditFormer
+   * @param formEditIntern
    */
-  submitHandler(formEditFormer: NgForm) {
-    this.formEditFormerIsSubmitted = true;
+  submitHandler(formEditIntern: NgForm) {
+    this.formEditInternIsSubmitted = true;
+    console.log(formEditIntern.value)
 
-    if (formEditFormer.value.civility.length == 0) {
-      this.fieldCivilityFormer = false;
+    if (formEditIntern.value.civility.length == 0) {
+      this.fieldCivilityIntern = false;
       this.numberOfErrors += 1;
     }
 
-    if (formEditFormer.value.civility.length > 0) {
-      this.fieldCivilityFormer = true;
+    if (formEditIntern.value.civility.length > 0) {
+      this.fieldCivilityIntern = true;
     }
 
-    if (formEditFormer.value.lastname.length == 0) {
-      this.fieldLastnameFormer = false;
+    if (formEditIntern.value.lastname.length == 0) {
+      this.fieldLastnameIntern = false;
       this.numberOfErrors += 1;
     }
 
-    if (formEditFormer.value.lastname.length > 0) {
-      this.fieldLastnameFormer = true;
+    if (formEditIntern.value.lastname.length > 0) {
+      this.fieldLastnameIntern = true;
     }
 
-    if (formEditFormer.value.firstname.length == 0) {
-      this.fieldFirstnameFormer = false;
+    if (formEditIntern.value.firstname.length == 0) {
+      this.fieldFirstnameIntern = false;
       this.numberOfErrors += 1;
     }
 
-    if (formEditFormer.value.firstname.length > 0) {
-      this.fieldFirstnameFormer = true;
+    if (formEditIntern.value.firstname.length > 0) {
+      this.fieldFirstnameIntern = true;
     }
 
-    if (formEditFormer.value.phoneNumber.length == 0) {
-      this.fieldPhoneNumberFormer = false;
+    if (formEditIntern.value.phoneNumber.length == 0) {
+      this.fieldPhoneNumberIntern = false;
       this.numberOfErrors += 1;
     }
 
-    if (formEditFormer.value.phoneNumber.length > 0) {
-      this.fieldPhoneNumberFormer = true;
+    if (formEditIntern.value.phoneNumber.length > 0) {
+      this.fieldPhoneNumberIntern = true;
     }
 
-    if (formEditFormer.value.emailAddress.length == 0) {
-      this.fieldEmailAddressFormer = false;
+    if (formEditIntern.value.emailAddress.length == 0) {
+      this.fieldEmailAddressIntern = false;
       this.numberOfErrors += 1;
     }
 
-    if (formEditFormer.value.emailAddress.length > 0) {
-      this.fieldEmailAddressFormer = true;
-    }
-
-    if (isNaN(formEditFormer.value.salary)) {
-      this.fieldSalaryFormer = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (!isNaN(formEditFormer.value.salary) && formEditFormer.value.salary >= 0) {
-      this.fieldSalaryFormer = true;
+    if (formEditIntern.value.emailAddress.length > 0) {
+      this.fieldEmailAddressIntern = true;
     }
 
     if (this.numberOfErrors == 0) {
-      this.serviceFormer.updateFormer(this.former.id, formEditFormer.value).subscribe({
+      this.serviceIntern.updateIntern(this.intern.id, formEditIntern.value).subscribe({
         next: () => {
-          this.message = "Le formateur a ete mise a jour";
-          this.formEditFormerIsSubmitted = false;
+          this.message = "Les données du stagiaire ont été mise a jour avec suces";
+          this.formEditInternIsSubmitted = false;
           this.dataSend = true;
-          this.fieldCivilityFormer = true;
-          this.fieldLastnameFormer = true;
-          this.fieldFirstnameFormer = true;
-          this.fieldEmailAddressFormer = true;
-          this.fieldPhoneNumberFormer = true;
-          this.fieldSalaryFormer = true;
+          this.fieldCivilityIntern = true;
+          this.fieldLastnameIntern = true;
+          this.fieldFirstnameIntern = true;
+          this.fieldEmailAddressIntern = true;
+          this.fieldPhoneNumberIntern = true;
         },
         error: (error) => {
           console.log(error.message);

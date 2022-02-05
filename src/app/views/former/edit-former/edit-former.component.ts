@@ -1,8 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
-import {FormationService} from "../../../services/formation.service";
-import {CategoryService} from "../../../services/category.service";
-import {LevelService} from "../../../services/level.service";
 import {ActivatedRoute} from "@angular/router";
 import {FormerService} from "../../../services/former.service";
 
@@ -53,6 +50,7 @@ export class EditFormerComponent implements OnInit {
     this.serviceFormer.findFormerById(this.formerId).subscribe({
       next: (value) => {
         this.former = value;
+        this.fieldPhotoFormer = this.former.photo;
 
         if (this.former == undefined) {
           this.formerStatus = false
@@ -129,7 +127,7 @@ export class EditFormerComponent implements OnInit {
     if (this.numberOfErrors == 0) {
       this.serviceFormer.updateFormer(this.former.id, formEditFormer.value).subscribe({
         next: () => {
-          this.message = "Le formateur a ete mise a jour";
+          this.message = "Les données du formateur ont ete mise a jour avec success";
           this.formEditFormerIsSubmitted = false;
           this.dataSend = true;
           this.fieldCivilityFormer = true;
@@ -137,7 +135,6 @@ export class EditFormerComponent implements OnInit {
           this.fieldFirstnameFormer = true;
           this.fieldEmailAddressFormer = true;
           this.fieldPhoneNumberFormer = true;
-          this.fieldSalaryFormer = true;
         },
         error: (error) => {
           console.log(error.message);
