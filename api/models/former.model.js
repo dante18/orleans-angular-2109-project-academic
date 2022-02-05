@@ -17,39 +17,67 @@ module.exports = (cnx, SequelizeInstance) => {
       type: SequelizeInstance.STRING,
       allowNull: false,
       unique: true,
-      field: "civility"
+      field: "civility",
+      validate: {
+        isAlphanumeric: true,
+        notEmpty: true
+      }
     },
     lastname: {
       type: SequelizeInstance.STRING,
       allowNull: false,
       unique: true,
-      field: "lastname"
+      field: "lastname",
+      validate: {
+        isAlphanumeric: true,
+        notEmpty: true
+      }
     },
     firstname: {
       type: SequelizeInstance.STRING,
       allowNull: false,
       unique: true,
-      field: "firstname"
+      field: "firstname",
+      validate: {
+        isAlphanumeric: true,
+        notEmpty: true
+      }
     },
     phoneNumber: {
       type: SequelizeInstance.STRING,
       allowNull: false,
-      field: "phone_number"
+      field: "phone_number",
+      validate: {
+        isAlphanumeric: true,
+        notEmpty: true
+      }
     },
     emailAddress: {
       type: SequelizeInstance.STRING,
       allowNull: false,
-      field: "email_address"
+      field: "email_address",
+      validate: {
+        is: ["^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$", 'i'],
+        notEmpty: true
+      }
     },
     salary: {
       type: SequelizeInstance.DECIMAL(19, 2),
       allowNull: false,
-      field: "salary"
+      field: "salary",
+      validate: {
+        isNumber: true,
+        notEmpty: true
+      }
     },
     photo: {
       type: SequelizeInstance.STRING,
       allowNull: true,
-      field: "photo"
+      field: "photo",
+      validate: {
+        isAlphanumeric: true,
+        notEmpty: false
+      }
     }
   }, {tableName: "formers"});
 

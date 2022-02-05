@@ -17,41 +17,73 @@ module.exports = (cnx, SequelizeInstance) => {
       type: SequelizeInstance.STRING,
       allowNull: false,
       unique: true,
-      field: "name"
+      field: "name",
+      validate: {
+        isAlphanumeric: true,
+        notEmpty: true
+      }
     },
     description: {
       type: SequelizeInstance.TEXT,
-      field: "description"
+      field: "description",
+      validate: {
+        isAlphanumeric: true,
+        notEmpty: true
+      }
     },
     price: {
       type: SequelizeInstance.DECIMAL(19, 2),
       allowNull: false,
-      field: "price"
+      field: "price",
+      validate: {
+        isNumber: true,
+        notEmpty: true
+      }
     },
     level: {
       type: SequelizeInstance.STRING,
       allowNull: false,
-      field: "level"
+      field: "level",
+      validate: {
+        isAlphanumeric: true,
+        notEmpty: true
+      }
     },
     category: {
       type: SequelizeInstance.STRING,
       allowNull: false,
-      field: "category"
+      field: "category",
+      validate: {
+        isAlphanumeric: true,
+        notEmpty: true
+      }
     },
     programm: {
       type: SequelizeInstance.STRING,
       allowNull: false,
-      field: "programm"
+      field: "programm",
+      validate: {
+        isAlphanumeric: true,
+        notEmpty: true
+      }
     },
     duration: {
       type: SequelizeInstance.INTEGER,
       allowNull: false,
-      field: "duration"
+      field: "duration",
+      validate: {
+        isNumber: true,
+        notEmpty: true
+      }
     },
     dateAvailable: {
       type: SequelizeInstance.DATE,
       defaultValue: SequelizeInstance.NOW,
-      field: "date_available"
+      field: "date_available",
+      validate: {
+        isDate: true,
+        notEmpty: true
+      }
     }
   }, {tableName: "formations"});
 

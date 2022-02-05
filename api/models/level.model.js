@@ -17,7 +17,11 @@ module.exports = (cnx, SequelizeInstance) => {
       type: SequelizeInstance.STRING,
       allowNull: false,
       unique: true,
-      field: "name"
+      field: "name",
+      validate: {
+        isAlphanumeric: true,
+        notEmpty: true
+      }
     }
   }, {tableName: "levels"});
 
