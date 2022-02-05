@@ -51,9 +51,11 @@ export class HomeComponent implements OnInit {
 
           if (new Date(dateAvailable) > new Date(curentDate)) {
             this.numberTotalOfComingSoonFormation += 1;
-          } else {
-            this.numberTotalOfAvailableFormation += 1;
+          } else if (new Date(dateAvailable) == new Date(curentDate)) {
             this.formationList.push(formation);
+          }
+          else {
+            this.numberTotalOfAvailableFormation += 1;
           }
         });
       },

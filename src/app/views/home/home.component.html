@@ -48,7 +48,7 @@
         <div class="col-12">
           <div class="card shadow text-center border-0">
             <div class="card-header">
-              <h2>Liste des formations disponible actuellement</h2>
+              <h2>Liste des dernières formation ajouté</h2>
             </div>
             <div class="card-body" *ngIf="numberTotalOfAvailableFormation > 0; then blocThen; else blocElse"></div>
           </div>
@@ -78,7 +78,7 @@
       <td>{{ formation.level }}</td>
       <td>{{ formation.category }}</td>
       <td>
-        <a [routerLink]="['/formation/detail/', formation.id]" data-bs-toggle="tooltip" data-bs-placement="top" title="En savoir plus"
+        <a [routerLink]="['/formation/consulter/', formation.id]" data-bs-toggle="tooltip" data-bs-placement="top" title="En savoir plus"
                 class="btn btn-sm btn-outline-info">
           <i class="fas fa-eye"></i>
         </a>
