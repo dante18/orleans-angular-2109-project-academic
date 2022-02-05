@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
 import {Category} from "../../models/category";
 import {CategoryService} from "../../services/category.service";
 
@@ -9,64 +8,90 @@ import {CategoryService} from "../../services/category.service";
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit {
-
-  categories: Category[] = [];
-  errorMessage = "";
-  categorySelectedName = "";
+  categoryList: Category[] = [];
+  textDefault = "Aucune données n'a été trouvé";
+  numberOfCategory = 0;
+  numberItemToDisplay = 10;
   categorySelectedId: any;
+  modalTitle = "";
 
-  constructor(
-    private serviceCategory: CategoryService,
-    private router: Router
-  ) {
+  constructor(private serviceCategory: CategoryService) {
   }
 
   ngOnInit(): void {
-    this.getAllCategories();
+    this.getCategoryList();
   }
 
-  getAllCategories() {
-    this.errorMessage = "";
-
-    this.serviceCategory.findAll().subscribe({
-      next: (value) => {
-        this.categories = value;
+  /**
+   * Retrieves the list of category
+   */
+  getCategoryList(): any {
+    this.serviceCategory.findAllCategory().subscribe({
+      next: (value: any) => {
+        /* Retrieve formation list */
+        this.categoryList = value;
+        this.numberOfCategory = value.length;
       },
       error: (error) => {
-        this.errorMessage = error.message;
-      },
-      complete: () => {
-        console.log("La réception des données est terminée.");
+        console.log(`Failed to retrieve data. Error invoked:${error.message}`);
       }
     });
   }
 
-  addCategory() {
-    this.router.navigate(["/category/add"])
-  }
+  /**
+   * Manage actions related to the search form
+   *
+   * @param formSearch
+   */
+  eventSearchHandler(formSearch: any) {
+    let categoryName = formSearch.value.searchCategory;
 
-  editCategory(idCategory: any) {
-    this.router.navigate(["/category/edit", idCategory])
-  }
+    if (categoryName.length == 0) {
+      this.getCategoryList();
+    } else {
+      this.serviceCategory.findCategoryByName(categoryName).subscribe({
+        next: (value: any) => {
+          /* Retrieve formation list */
+          this.categoryList = value;
+          this.numberOfCategory = value.length;
 
-  deleteCategory(category: any) {
-    this.categorySelectedName = category.name
-    this.categorySelectedId = category.id
-  }
-
-  confirmDeleteCategory($event: any) {
-    if ($event.target.innerText == "Oui") {
-      this.serviceCategory.delete(this.categorySelectedId).subscribe({
-        next: () => {
-          this.getAllCategories()
+          if (this.numberOfCategory == 0) {
+            this.textDefault = "La recherche n'a retourné aucun résultat";
+          }
         },
-        error: (error) => {
-          this.errorMessage = error.message;
-        },
-        complete: () => {
-          console.log("La réception des données est terminée.");
+        error: () => {
+          this.numberOfCategory = 0;
+          this.textDefault = "La recherche n'a retourné aucun résultat";
         }
       });
     }
+  }
+
+  /**
+   * handles the confirmation request before deleting
+   *
+   * @param $event
+   */
+  confirmDeleteCategory($event: any) {
+    if ($event.choice == "Oui") {
+      this.serviceCategory.deleteCategory(this.categorySelectedId).subscribe({
+        next: () => {
+          console.log(this.getCategoryList());
+          this.getCategoryList();
+        },
+        error: (error) => {
+          console.log(`Failed to retrieve data. Error invoked:${error.message}`);
+        }
+      });
+    }
+  }
+
+  /**
+   *
+   * @param category
+   */
+  deleteCategory(category: any) {
+    this.modalTitle = "Confirmez-vous la suppression de la catégory: " + category.name
+    this.categorySelectedId = category.id;
   }
 }

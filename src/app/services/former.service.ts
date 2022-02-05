@@ -1,42 +1,43 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import {Observable} from "rxjs";
-import {AbstractServiceService} from "./abstract-service.service";
 import {Former} from "../models/former";
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class FormerService extends AbstractServiceService {
-  #baseUrl = "http://localhost:3000/formers";
+export class FormerService {
+  #baseUrl = "http://localhost:3000/api/formers";
 
-  constructor(private http: HttpClient) {
-    super();
-  }
+  constructor(private http: HttpClient) {}
 
-  delete(id:any): Observable<any> {
-    return this.http.delete(this.#baseUrl + "/" + id);
-  }
-
-  findAll(): Observable<any> {
+  findAllFormer(): Observable<any> {
     return this.http.get<Former[]>(this.#baseUrl);
   }
 
-  findById(id: any): Observable<any> {
+  findFormerById(id: any): Observable<any> {
     return this.http.get<Former>(this.#baseUrl + "/" + id);
   }
 
-  update(id:any, data:any): Observable<any> {
-    return this.http.put(this.#baseUrl + "/" + id, data);
+  findFormerByName(name: any): Observable<any> {
+    return this.http.get<Former>(this.#baseUrl + "/search/" + name);
   }
 
-  add(data:any): Observable<any> {
+  addFormer(data:any): Observable<any> {
     const headers = {
       "content-type": "application/json"
     };
     const corpsMessage = JSON.stringify(data);
 
     return this.http.post(this.#baseUrl, corpsMessage, { "headers": headers });
+  }
+
+  updateFormer(id:any, data:any): Observable<any> {
+    return this.http.put(this.#baseUrl + "/" + id, data);
+  }
+
+  deleteFormer(id:any): Observable<any> {
+    return this.http.delete(this.#baseUrl + "/" + id);
   }
 }

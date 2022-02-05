@@ -2,19 +2,19 @@
   {
     "model":"level",
     "data": {
-      "name": "Base"
+      "name": "Débutant"
     }
   },
   {
     "model":"level",
     "data": {
-      "name": "Intermediare"
+      "name": "Intermédiaire"
     }
   },
   {
     "model":"level",
     "data": {
-      "name": "Avancé"
+      "name": "Expert"
     }
   }
 ]

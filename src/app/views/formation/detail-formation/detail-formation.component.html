@@ -1,77 +1,48 @@
-<section class="mt-4 ms-3" *ngIf="formationStatus == false">
-  <div class="container">
-    <div class="row">
-      <div class="col-7 alert alert-info">
-        <p>La formation n'existe pas, pour retourner sur la page precedente cliquer sur le bouton ci-dessous</p>
-        <a (click)="returnToListFormation()" class="btn btn-primary">Retourner vers la liste des formation</a>
+<div class="page-header">
+  <div class="wrapper">
+    <div class="container d-flex flex-row">
+      <div class="col-lg-12">
+        <h1 class="title"> Formation</h1>
       </div>
     </div>
   </div>
-</section>
+</div>
 
-<section class="mt-4 box" *ngIf="formationStatus">
-  <div class="container">
-    <div class="rounded-3 border shadow-lg bg-white">
-      <div class="row p-4 pb-0">
-        <div class="col-lg-6 float-start">
-          <h1 class="title">{{ formation.name }}</h1>
-        </div>
-      </div>
-      <div class="row p-4 pb-0">
+<div class="page-content">
+  <div class="content">
+    <div class="container">
+      <div class="row mt-2 mb-2">
         <div class="col-12">
-          <table>
-            <tr>
-              <td>ID:</td>
-              <td>{{ formation.id }}</td>
-            </tr>
-            <tr class="mt-3">
-              <td>Nom de la formation:</td>
-              <td>{{ formation.name }}</td>
-            </tr>
-            <tr class="mt-3">
-              <td>Date de la formation:</td>
-              <td>{{ formation.date }}</td>
-            </tr>
-            <tr class="mt-3">
-              <td>Durée de la formation:</td>
-              <td>{{ formation.duration }}</td>
-            </tr>
-            <tr class="mt-3">
-              <td>Prix de la formation:</td>
-              <td>{{ formation.price }}</td>
-            </tr>
-            <tr class="mt-3">
-              <td>Niveau de la formation:</td>
-              <td>{{ formation.level }}</td>
-            </tr>
-            <tr class="mt-3">
-              <td>En ligne;</td>
-              <td>{{ formation.online == true ? "Oui" : "Non" }}</td>
-            </tr>
-            <tr class="mt-3">
-              <td>Programme de la formation:</td>
-              <td>{{ formation.program }}</td>
-            </tr>
-            <tr class="mt-3">
-              <td>Catégorie de la formation:</td>
-              <td>{{ formation.category }}</td>
-            </tr>
-            <tr class="mt-3">
-              <td>Formateur de la formation:</td>
-              <td>{{ formation.former }}</td>
-            </tr>
-            <tr class="mt-3">
-              <td>Stagiaire de la formation:</td>
-              <td>{{ formation.interns }}</td>
-            </tr>
-          </table>
+          <div class="card shadow border-0">
+            <div class="card-header">
+              <h2>{{ formation.name }}</h2>
+              <p>Prix: {{ formation.price | currency:'EUR' }}</p>
+              <p>Niveau: {{ formation.level }}</p>
+              <p>Catégorie: {{ formation.category }}</p>
+              <p>Disponible le {{ formation.dateAvailable | date:'dd-MM-yyyy' }} a {{ formation.dateAvailable | date:'HH:MM'}}</p>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12">
+                  <h4>Presentation</h4>
+                  <p>{{ formation.description }}</p>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-12">
+                  <h4>Programme</h4>
+                  <p>{{ formation.programm }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="row p-4">
-        <div class="col-7">
-          <a (click)="returnToListFormation()" class="btn btn-primary">Retourner vers la liste des formations</a>
+      <div class="row mt-5 mb-5">
+        <div class="col-12">
+          <a routerLink="/formation" class="btn btn-custom float-end"> Retourner a la liste des formations</a>
         </div>
       </div>
     </div>
   </div>
-</section>
+</div>

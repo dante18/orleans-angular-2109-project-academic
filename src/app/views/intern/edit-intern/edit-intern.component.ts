@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
+import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
+import {ActivatedRoute} from "@angular/router";
 import {InternService} from "../../../services/intern.service";
 
 @Component({
@@ -9,68 +9,129 @@ import {InternService} from "../../../services/intern.service";
   styleUrls: ['./edit-intern.component.css']
 })
 export class EditInternComponent implements OnInit {
-  intern: any
-  idIntern: any
+  formEditInternIsSubmitted = false;
+  fieldCivilityIntern: any;
+  fieldLastnameIntern: any;
+  fieldFirstnameIntern: any;
+  fieldPhoneNumberIntern: any;
+  fieldEmailAddressIntern: any;
+  fieldPhotoIntern = "";
+  message: any;
+  numberOfErrors = 0;
+  intern: any;
+  internId: any
   internStatus = true
-  message = ""
-  httpCode = 0
+  dataSend = false;
 
   constructor(
     private routeActive: ActivatedRoute,
-    private serviceIntern: InternService,
-    private router: Router
-  ) { }
+    private serviceIntern: InternService) {
+  }
 
   ngOnInit(): void {
+    this.getIntern();
+  }
+
+  /**
+   * Get data of intern for update
+   */
+  getIntern()
+  {
     // Retrieval of the training ID passed as a parameter
-    this.idIntern = parseInt(this.routeActive.snapshot.paramMap.get("id")!);
-    if(isNaN(this.idIntern)) {
+    this.internId = parseInt(this.routeActive.snapshot.paramMap.get("id")!);
+
+    if(isNaN(this.internId)) {
       this.internStatus = false;
       return;
     }
 
-    // Data recovery thanks to idCategory
-    this.serviceIntern.findById(this.idIntern).subscribe({
-      next: (value:any) => {
+    // Data recovery thanks to idFormation
+    this.serviceIntern.findInternById(this.internId).subscribe({
+      next: (value) => {
         this.intern = value;
 
         if (this.intern == undefined) {
           this.internStatus = false
         }
+
+        this.fieldPhotoIntern = this.intern.photo;
       },
-      error: (error:any) => {
+      error: () => {
         this.internStatus = false;
-      },
-      complete: () => {
-        console.log("La réception des données est terminée.");
       }
     });
   }
 
+  /**
+   * Manage form processing
+   *
+   * @param formEditIntern
+   */
   submitHandler(formEditIntern: NgForm) {
-    this.idIntern = parseInt(this.routeActive.snapshot.paramMap.get("id")!);
+    this.formEditInternIsSubmitted = true;
+    console.log(formEditIntern.value)
 
-    if(isNaN(this.idIntern)) {
-      this.internStatus = false;
-      return;
+    if (formEditIntern.value.civility.length == 0) {
+      this.fieldCivilityIntern = false;
+      this.numberOfErrors += 1;
     }
 
-    this.serviceIntern.update(this.idIntern, formEditIntern.value).subscribe({
-      next: () => {
-        this.message = "La categorie a ete ajouté avec success";
-        this.httpCode = 200;
-      },
-      error: (error:any) => {
-        this.message = error.message;
-        this.httpCode = 404
-      },
-      complete: () => {
-        console.log("La réception des données est terminée.");
-      }
-    });
-  }
+    if (formEditIntern.value.civility.length > 0) {
+      this.fieldCivilityIntern = true;
+    }
 
-  returnToListIntern() {
-    this.router.navigate(['/intern'])
+    if (formEditIntern.value.lastname.length == 0) {
+      this.fieldLastnameIntern = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (formEditIntern.value.lastname.length > 0) {
+      this.fieldLastnameIntern = true;
+    }
+
+    if (formEditIntern.value.firstname.length == 0) {
+      this.fieldFirstnameIntern = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (formEditIntern.value.firstname.length > 0) {
+      this.fieldFirstnameIntern = true;
+    }
+
+    if (formEditIntern.value.phoneNumber.length == 0) {
+      this.fieldPhoneNumberIntern = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (formEditIntern.value.phoneNumber.length > 0) {
+      this.fieldPhoneNumberIntern = true;
+    }
+
+    if (formEditIntern.value.emailAddress.length == 0) {
+      this.fieldEmailAddressIntern = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (formEditIntern.value.emailAddress.length > 0) {
+      this.fieldEmailAddressIntern = true;
+    }
+
+    if (this.numberOfErrors == 0) {
+      this.serviceIntern.updateIntern(this.intern.id, formEditIntern.value).subscribe({
+        next: () => {
+          this.message = "Les données du stagiaire ont été mise a jour avec suces";
+          this.formEditInternIsSubmitted = false;
+          this.dataSend = true;
+          this.fieldCivilityIntern = true;
+          this.fieldLastnameIntern = true;
+          this.fieldFirstnameIntern = true;
+          this.fieldEmailAddressIntern = true;
+          this.fieldPhoneNumberIntern = true;
+        },
+        error: (error) => {
+          console.log(error.message);
+        }
+      });
+    }
   }
 }

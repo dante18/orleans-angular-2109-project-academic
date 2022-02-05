@@ -2,19 +2,22 @@ module.exports = app => {
   const interns = require("../controllers/intern.controller");
   const router = require("express").Router();
 
-  // Retrieve all Intern
+  // Retrieve all Former
   router.get("/", interns.findAll);
 
   // Retrieve a single Former with id
   router.get("/:id", interns.findByID);
 
-  // Create a new Intern
+  // Retrieve Former with name
+  router.get("/search/:name", interns.findByName);
+
+  // Create a new Former
   router.post("/", interns.create);
 
-  // Update an Intern with id
+  // Update a Former with id
   router.put("/:id", interns.update);
 
-  // Delete an Intern with id
+  // Delete a Former with id
   router.delete("/:id", interns.delete);
 
   app.use('/api/interns', router);

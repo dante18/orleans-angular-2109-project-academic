@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
-import {Intern} from "../../models/intern";
 import {InternService} from "../../services/intern.service";
+import {Intern} from "../../models/intern";
 
 @Component({
   selector: 'app-intern',
@@ -9,64 +8,105 @@ import {InternService} from "../../services/intern.service";
   styleUrls: ['./intern.component.css']
 })
 export class InternComponent implements OnInit {
-
-  interns: Intern[] = [];
-  errorMessage = "";
-  internSelectedName = "";
+  internList: Intern[] = [];
+  displayDataMethod = "table";
+  textDefault = "Aucune données n'a été trouvé";
+  numberOfFIntern = 0;
+  numberItemToDisplay = 10;
   internSelectedId: any;
+  modalTitle = "";
 
-  constructor(
-    private serviceIntern: InternService,
-    private router: Router
-  ) {
+  constructor(private serviceIntern: InternService) {
   }
 
   ngOnInit(): void {
-    this.getAllInterns();
+    this.getInternList();
   }
 
-  getAllInterns() {
-    this.errorMessage = "";
-
-    this.serviceIntern.findAll().subscribe({
-      next: (value) => {
-        this.interns = value;
+  /**
+   * Retrieves the list of interns
+   */
+  getInternList(): any {
+    this.serviceIntern.findAllIntern().subscribe({
+      next: (value: any) => {
+        this.internList = value;
+        this.numberOfFIntern = value.length;
       },
       error: (error) => {
-        this.errorMessage = error.message;
-      },
-      complete: () => {
-        console.log("La réception des données est terminée.");
+        console.log(`Failed to retrieve data. Error invoked:${error.message}`);
       }
     });
   }
 
-  addIntern() {
-    this.router.navigate(["/intern/add"])
+  /**
+   * Modify the display of data according to the selected method
+   *
+   * @param $event
+   */
+  btnHandlerDisplayDataMethod($event: any) {
+    $event.preventDefault();
+
+    if ($event.target.innerText == "Tableau") {
+      this.displayDataMethod = "table";
+    } else if ($event.target.innerText == "Liste") {
+      this.displayDataMethod = "list";
+    }
   }
 
-  editIntern(idCategory: any) {
-    this.router.navigate(["/intern/edit", idCategory])
-  }
+  /**
+   * Manage actions related to the search form
+   *
+   * @param formSearch
+   */
+  eventSearchHandler(formSearch: any) {
+    let internName = formSearch.value.searchIntern;
 
-  deleteIntern(intern: any) {
-    this.internSelectedName = intern.name
-    this.internSelectedId = intern.id
-  }
+    if (internName.length == 0) {
+      this.getInternList();
+    } else {
+      this.serviceIntern.findInternByName(internName).subscribe({
+        next: (value: any) => {
+          this.internList = value;
+          this.numberOfFIntern = value.length;
 
-  confirmDeleteIntern($event: any) {
-    if ($event.target.innerText == "Oui") {
-      this.serviceIntern.delete(this.internSelectedId).subscribe({
-        next: () => {
-          this.getAllInterns()
+          if (this.numberOfFIntern == 0) {
+            this.textDefault = "La recherche n'a retourné aucun résultat";
+          }
         },
-        error: (error) => {
-          this.errorMessage = error.message;
-        },
-        complete: () => {
-          console.log("La réception des données est terminée.");
+        error: () => {
+          this.numberOfFIntern = 0;
+          this.textDefault = "La recherche n'a retourné aucun résultat";
         }
       });
     }
+  }
+
+  /**
+   * handles the confirmation request before deleting
+   *
+   * @param $event
+   */
+  confirmDeleteIntern($event: any)
+  {
+    if ($event.choice == "Oui") {
+      this.serviceIntern.deleteIntern(this.internSelectedId).subscribe({
+        next: () => {
+          this.getInternList();
+        },
+        error: (error) => {
+          console.log(`Failed to retrieve data. Error invoked:${error.message}`);
+        }
+      });
+    }
+  }
+
+  /**
+   *
+   * @param intern
+   */
+  deleteIntern(intern: any)
+  {
+    this.modalTitle = "Confirmez-vous la suppression";
+    this.internSelectedId = intern.id;
   }
 }

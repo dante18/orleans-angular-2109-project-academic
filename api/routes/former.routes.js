@@ -8,6 +8,9 @@ module.exports = app => {
   // Retrieve a single Former with id
   router.get("/:id", formers.findByID);
 
+  // Retrieve Former with name
+  router.get("/search/:name", formers.findByName);
+
   // Create a new Former
   router.post("/", formers.create);
 

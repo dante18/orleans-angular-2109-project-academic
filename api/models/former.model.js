@@ -13,6 +13,12 @@ module.exports = (cnx, SequelizeInstance) => {
       primaryKey: true,
       field: "id"
     },
+    civility: {
+      type: SequelizeInstance.STRING,
+      allowNull: false,
+      unique: true,
+      field: "civility"
+    },
     lastname: {
       type: SequelizeInstance.STRING,
       allowNull: false,

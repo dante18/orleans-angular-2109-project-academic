@@ -1,49 +1,127 @@
-import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
+import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {FormerService} from "../../../services/former.service";
 
 @Component({
-  selector: 'app-edit-former',
+  selector: 'app-add-former',
   templateUrl: './add-former.component.html',
   styleUrls: ['./add-former.component.css']
 })
 export class AddFormerComponent implements OnInit {
+  formAddFormerIsSubmitted = false;
+  fieldCivilityFormer: any;
+  fieldLastnameFormer: any;
+  fieldFirstnameFormer: any;
+  fieldPhoneNumberFormer: any;
+  fieldEmailAddressFormer: any;
+  fieldSalaryFormer: any;
+  fieldPhotoFormer = "";
+  numberOfErrors = 0;
+  dataSend = false;
   message = "";
-  httpCode: number = 0
 
   constructor(
-    private routeActive: ActivatedRoute,
-    private serviceFormer: FormerService,
-    private router: Router
-  ) { }
-
-  ngOnInit(): void {}
-
-  returnToListFormer() {
-    this.router.navigate(['/former'])
+    private serviceFormer: FormerService) {
   }
 
+  ngOnInit(): void {
+  }
+
+  /**
+   * Manage form processing
+   *
+   * @param formAddFormer
+   */
   submitHandler(formAddFormer: NgForm) {
-    if (formAddFormer.value.length == 0) {
-      this.message = "Les champs du formulaire doivent être complétés"
-      this.httpCode = 404
-      return
+    this.formAddFormerIsSubmitted = true;
+
+    if (formAddFormer.value.civility.length == 0) {
+      this.fieldCivilityFormer = false;
+      this.numberOfErrors += 1;
     }
 
-    this.serviceFormer.add(formAddFormer.value).subscribe({
-      next: () => {
-        this.message = "Le formateur a été ajouté avec succès";
-        this.httpCode = 200;
-        formAddFormer.resetForm()
-      },
-      error: (error) => {
-        this.message = error.message;
-        this.httpCode = 404
-      },
-      complete: () => {
-        console.log("La réception des données est terminée.");
+    if (formAddFormer.value.civility.length > 0) {
+      this.fieldCivilityFormer = true;
+    }
+
+    if (formAddFormer.value.lastname.length == 0) {
+      this.fieldLastnameFormer = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (formAddFormer.value.lastname.length > 0) {
+      this.fieldLastnameFormer = true;
+    }
+
+    if (formAddFormer.value.firstname.length == 0) {
+      this.fieldFirstnameFormer = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (formAddFormer.value.firstname.length > 0) {
+      this.fieldFirstnameFormer = true;
+    }
+
+    if (formAddFormer.value.phoneNumber.length == 0) {
+      this.fieldPhoneNumberFormer = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (formAddFormer.value.phoneNumber.length > 0) {
+      this.fieldPhoneNumberFormer = true;
+    }
+
+    if (formAddFormer.value.emailAddress.length == 0) {
+      this.fieldEmailAddressFormer = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (formAddFormer.value.emailAddress.length > 0) {
+      this.fieldEmailAddressFormer = true;
+    }
+
+    if (isNaN(formAddFormer.value.salary)) {
+      this.fieldSalaryFormer = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (!isNaN(formAddFormer.value.salary) && formAddFormer.value.salary >= 0) {
+      this.fieldSalaryFormer = true;
+    }
+
+    if (this.numberOfErrors == 0) {
+      if (this.fieldCivilityFormer == "madame") {
+        this.fieldPhotoFormer = "undraw_avatar1.png";
+      } else if (this.fieldCivilityFormer == "monsieur") {
+        this.fieldPhotoFormer = "undraw_avatar2.png";
+      } else {
+        this.fieldPhotoFormer = "undraw_avatar3.png"
       }
-    });
+
+      Object.assign(formAddFormer.value, {photo: this.fieldPhotoFormer})
+
+      this.serviceFormer.addFormer(formAddFormer.value).subscribe({
+        next: () => {
+          this.message = "Le formateur a ete ajouté avec success";
+          this.formAddFormerIsSubmitted = false;
+          this.numberOfErrors = 0;
+          this.dataSend = true;
+          this.fieldCivilityFormer = true;
+          this.fieldLastnameFormer = true;
+          this.fieldFirstnameFormer = true;
+          this.fieldEmailAddressFormer = true;
+          this.fieldPhoneNumberFormer = true;
+          this.fieldSalaryFormer = true;
+
+          formAddFormer.resetForm();
+        },
+        error: (error) => {
+          console.log(error.message);
+        }
+      });
+    }
+  }
+
+  private formValidation(formData: any) {
   }
 }

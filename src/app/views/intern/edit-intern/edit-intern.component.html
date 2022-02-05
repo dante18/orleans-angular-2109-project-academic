@@ -1,46 +1,122 @@
-<section class="mt-4 ms-3" *ngIf="internStatus == false">
-  <div class="container">
-    <div class="row">
-      <div class="col-7 alert alert-info">
-        <p>Le stagiaire n'existe pas, pour retourner sur la page précédente cliquer sur le bouton ci-dessous</p>
-        <a (click)="returnToListIntern()" class="btn btn-primary">Retourner vers la liste des stagiaires</a>
+<div class="page-header">
+  <div class="wrapper">
+    <div class="container">
+      <div class="col-lg-5">
+        <h1 class="title"> Stagiaires</h1>
       </div>
     </div>
   </div>
-</section>
+</div>
 
-<section class="mt-4 box" *ngIf="internStatus">
-  <div class="container">
-    <div class="rounded-3 border shadow-lg bg-white">
-      <div class="row p-4 pb-0">
-        <div class="col-lg-6 float-start">
-          <h1 class="title">Stagiaire : {{ intern.lastname }} {{ intern.firstname }}</h1>
+<div class="page-content">
+  <div class="content">
+    <div class="container">
+      <div *ngIf="dataSend" class="row row mt-2 mb-2">
+        <div class="col-12">
+          <div class="alert alert-success" role="alert">
+            {{ message }}
+          </div>
         </div>
       </div>
-      <div class="row p-4 pb-0">
+      <div class="row mt-2 mb-2">
         <div class="col-12">
-          <form #formEditIntern="ngForm" (ngSubmit)="submitHandler(formEditIntern)">
-            <div class="row mb-3">
-              <label for="lastnameFormer" class="col-sm-2 col-form-label">Nom du stagiaire</label>
-              <div class="col-sm-4">
-                <input type="text" class="form-control" id="lastnameFormer" name="lastname" [(ngModel)]="intern.lastname">
+          <div class="card shadow text-center border-0">
+            <div class="card-header">
+              <h2>Mettre a jour les information du stagiaire : {{ intern.firstname }} {{ intern.lastname }}</h2>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12">
+                  <form class="row needs-validation d-flex justify-content-center" #formEditIntern="ngForm"
+                        (ngSubmit)="submitHandler(formEditIntern)">
+                    <div class="row mb-3">
+                      <legend class="col-form-label col-sm-2 pt-0">Civilité</legend>
+                      <div class="col-sm-6">
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" [ngModel]="intern.civility" name="civility" value="madame">
+                          <label class="form-check-label">Madame</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" [ngModel]="intern.civility" name="civility" value="monsieur">
+                          <label class="form-check-label">Monsieur</label>
+                        </div>
+                        <div *ngIf="formEditInternIsSubmitted && fieldCivilityIntern" class="valid-feedback">
+                          OK
+                        </div>
+                        <div *ngIf="formEditInternIsSubmitted && !fieldCivilityIntern" class="invalid-feedback">
+                          Le champs doit être renseigné
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="lastnameFormer" class="col-sm-4 col-form-label">Nom de famille du formateur</label>
+                      <div class="col-sm-6">
+                        <input type="text" class="form-control" id="lastnameFormer" name="lastname" autocomplete="off"
+                               required [ngModel]="intern.lastname">
+                        <div *ngIf="formEditInternIsSubmitted && fieldLastnameIntern" class="valid-feedback">
+                          OK
+                        </div>
+                        <div *ngIf="formEditInternIsSubmitted && !fieldLastnameIntern" class="invalid-feedback">
+                          Le champs doit être renseigné
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="firstnameFormer" class="col-sm-4 col-form-label">Prénom du formateur</label>
+                      <div class="col-sm-6">
+                        <input type="text" class="form-control" id="firstnameFormer" name="firstname" autocomplete="off"
+                               required [ngModel]="intern.firstname">
+                        <div *ngIf="formEditInternIsSubmitted && fieldFirstnameIntern" class="valid-feedback">
+                          OK
+                        </div>
+                        <div *ngIf="formEditInternIsSubmitted && !fieldFirstnameIntern" class="invalid-feedback">
+                          Le champs doit être renseigné
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="phoneNumberFormer" class="col-sm-4 col-form-label">Numéro de téléphone</label>
+                      <div class="col-sm-6">
+                        <input type="text" class="form-control" id="phoneNumberFormer" name="phoneNumber" autocomplete="off"
+                               required [ngModel]="intern.phoneNumber">
+                        <div *ngIf="formEditInternIsSubmitted && fieldPhoneNumberIntern" class="valid-feedback">
+                          OK
+                        </div>
+                        <div *ngIf="formEditInternIsSubmitted && !fieldPhoneNumberIntern" class="invalid-feedback">
+                          Le champs doit être renseigné
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="emailAddressFormer" class="col-sm-4 col-form-label">Adresse email du formateur</label>
+                      <div class="col-sm-6">
+                        <input type="text" class="form-control" id="emailAddressFormer" name="emailAddress" autocomplete="off"
+                               required [ngModel]="intern.emailAddress">
+                        <div *ngIf="formEditInternIsSubmitted && fieldEmailAddressIntern" class="valid-feedback">
+                          OK
+                        </div>
+                        <div *ngIf="formEditInternIsSubmitted && !fieldEmailAddressIntern" class="invalid-feedback">
+                          Le champs doit être renseigné
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mt-5 mb-2">
+                      <div class="col-12 d-flex justify-content-center">
+                        <button class="btn btn-custom"> Sauvegarder</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
-            <div class="row mb-3">
-              <label for="firstnameFormer" class="col-sm-2 col-form-label">Prénom du stagiaire</label>
-              <div class="col-sm-4">
-                <input type="text" class="form-control" id="firstnameFormer" name="firstname" [(ngModel)]="intern.firstname">
-              </div>
-            </div>
-            <button type="submit" class="btn btn-success mt-3">Sauvegarder</button>
-          </form>
+          </div>
         </div>
       </div>
-      <div class="row p-4">
+      <div class="row mt-5 mb-5">
         <div class="col-12">
-          <a (click)="returnToListIntern()" class="btn btn-primary">Retourner vers la liste des stagiaires</a>
+          <a routerLink="/intern" class="btn btn-custom float-end"> Retourner a la liste des stagiaires</a>
         </div>
       </div>
     </div>
   </div>
-</section>
+</div>

@@ -46,6 +46,35 @@ exports.findByID = (request, response) => {
     });
 };
 
+
+/**
+ * Find a single Category with a name
+ *
+ * @param request Contains the API request
+ * @param response Contains the API response
+ */
+exports.findByName = (request, response) => {
+  const categoryName = request.params.name;
+  const {Op} = require("sequelize");
+
+  Category.findAll({
+    where: {
+      name: {
+        [Op.substring]: `%${categoryName}%`,
+      }
+    }
+  })
+    .then(data => {
+      response.send(data);
+    })
+    .catch(error => {
+      response.status(500).send({
+        message:
+          error.message || "Some error occurred while retrieving formations: " + error.message
+      });
+    });
+};
+
 /**
  * Create and Save a new Category
  *
@@ -89,18 +118,10 @@ exports.update = (request, response) => {
   Category.update(request.body, {
     where: { id: id }
   })
-    .then(returnSequelize => {
-      const codeReturn = returnSequelize.join();
-
-      if (codeReturn === "1") {
-        response.send({
-          message: "Category was updated successfully."
-        });
-      } else {
-        response.send({
-          message: `Cannot update Category with id=${id}. Maybe Category was not found or request.body is empty!`
-        });
-      }
+    .then(() => {
+      response.send({
+        message: "Category was updated successfully."
+      });
     })
     .catch(error => {
       response.status(500).send({
@@ -121,17 +142,10 @@ exports.delete = (request, response) => {
   Category.destroy({
     where: { id: id }
   })
-    .then(returnSequelize => {
-      const codeReturn = returnSequelize.join();
-      if (codeReturn === "1") {
-        response.send({
-          message: "Category was deleted successfully!"
-        });
-      } else {
-        response.send({
-          message: `Cannot delete Category with id=${id}. Maybe Category was not found!`
-        });
-      }
+    .then(() => {
+      response.send({
+        message: "Category was deleted successfully!"
+      });
     })
     .catch(error => {
       response.status(500).send({

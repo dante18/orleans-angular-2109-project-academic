@@ -1,40 +1,64 @@
-<section class="mt-4 ms-3" *ngIf="categoryStatus == false">
-  <div class="container">
-    <div class="row">
-      <div class="col-7 alert alert-info">
-        <p>La Catégorie n'existe pas, pour retourner sur la page précédente cliquer sur le bouton ci-dessous</p>
-        <a (click)="returnToListCategory()" class="btn btn-primary">Retourner vers la liste des Catégories</a>
+<div class="page-header">
+  <div class="wrapper">
+    <div class="container">
+      <div class="col-lg-5">
+        <h1 class="title"> Catégories</h1>
       </div>
     </div>
   </div>
-</section>
+</div>
 
-<section class="mt-4 box" *ngIf="categoryStatus">
-  <div class="container">
-    <div class="rounded-3 border shadow-lg bg-white">
-      <div class="row p-4 pb-0">
-        <div class="col-lg-6 float-start">
-          <h1 class="title">Catégorie : {{ category.name }}</h1>
+<div class="page-content">
+  <div class="content">
+    <div class="container">
+      <div *ngIf="dataSend" class="row row mt-2 mb-2">
+        <div class="col-12">
+          <div class="alert alert-success" role="alert">
+            {{ message }}
+          </div>
         </div>
       </div>
-      <div class="row p-4 pb-0">
+      <div class="row mt-2 mb-2">
         <div class="col-12">
-          <form #formEditCategory="ngForm" (ngSubmit)="submitHandler(formEditCategory)">
-            <div class="row mb-3">
-              <label for="nameCategory" class="col-sm-2 col-form-label">Nom de la Catégorie</label>
-              <div class="col-sm-4">
-                <input type="text" class="form-control" id="nameCategory" name="name" [(ngModel)]="category.name">
+          <div class="card shadow text-center border-0">
+            <div class="card-header">
+              <h2>Mettre a jour de la catégorie</h2>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12">
+                  <form class="row needs-validation d-flex justify-content-center" #formEditCategory="ngForm"
+                        (ngSubmit)="submitHandler(formEditCategory)">
+                    <div class="row mb-3">
+                      <label for="nameFormation" class="col-sm-4 col-form-label">Nom de la formation</label>
+                      <div class="col-sm-6">
+                        <input type="text" class="form-control" id="nameFormation" name="name" autocomplete="off"
+                               required [ngModel]="category.name">
+                        <div *ngIf="formEditCategoryIsSubmitted && fieldNameCategory" class="valid-feedback">
+                          OK
+                        </div>
+                        <div *ngIf="formEditCategoryIsSubmitted && !fieldNameCategory" class="invalid-feedback">
+                          Le champs doit être renseigné
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mt-5 mb-2">
+                      <div class="col-12 d-flex justify-content-center">
+                        <button class="btn btn-custom"> Sauvegarder</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
-            <button type="submit" class="btn btn-success mt-3">Sauvegarder</button>
-          </form>
+          </div>
         </div>
       </div>
-      <div class="row p-4">
+      <div class="row mt-5 mb-5">
         <div class="col-12">
-          <a (click)="returnToListCategory()" class="btn btn-primary">Retourner vers la liste des Catégories</a>
+          <a routerLink="/category" class="btn btn-custom float-end"> Retourner a la liste des catégories</a>
         </div>
       </div>
     </div>
   </div>
-</section>
+</div>

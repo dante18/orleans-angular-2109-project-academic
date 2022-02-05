@@ -1,66 +1,176 @@
-<section class="mt-4 box">
-  <div class="container">
-    <div class="rounded-3 border shadow-lg bg-white">
-      <div class="row p-4 pb-0">
-        <div class="col-lg-5 float-start">
-          <h1 class="title">Nos formations</h1>
+<div class="page-header">
+  <div class="wrapper">
+    <div class="container d-flex flex-row justify-content-around">
+      <div class="col-lg-5">
+        <h1 class="title"> Formations</h1>
+      </div>
+      <div class="col-lg-3 offset-4 tools-box">
+        <a routerLink="/formation/add" class="btn btn-sm btn-outline-info">
+          <i class="fas fa-plus-circle"></i> Ajouter une formation
+        </a>
+        <div class="dropdown">
+          <button class="btn btn-sm btn-outline-info" type="button" id="dropdownDisplayData"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-table" data-bs-toggle="tooltip" data-bs-placement="top" title="Modifier l'affichage"></i>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownDisplayData">
+            <li><a class="dropdown-item" (click)="btnHandlerDisplayDataMethod($event)">Tableau</a></li>
+            <li><a class="dropdown-item" (click)="btnHandlerDisplayDataMethod($event)">Liste</a></li>
+          </ul>
         </div>
-        <div class="col-lg-7 d-flex align-items-center justify-content-around">
-          <a (click)="addFormation()" class="btn btn-sm btn-outline-info">
-            <i class="fas fa-plus-circle"></i> Ajouter une formation
-          </a>
-          <div class="dropdown">
-            <button class="btn btn-sm btn-outline-info dropdown-toggle" type="button" id="dropdownDisplayChange" data-bs-toggle="dropdown" aria-expanded="false">
-              Modifier l'affichage
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownDisplayChange">
-              <li><a (click)="changeDataView($event)" class="dropdown-item">Tableau</a></li>
-              <li><a (click)="changeDataView($event)" class="dropdown-item">Card</a></li>
-            </ul>
-          </div>
-          <div class="dropdown">
-            <button class="btn btn-sm btn-outline-info dropdown-toggle" type="button" id="filterByCategory" data-bs-toggle="dropdown" aria-expanded="false">
-              {{ buttonFilterText }}
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="filterByCategory">
-              <li>
-                <a (click)="getFormationByCategory($event, 'all')" class="dropdown-item">Afficher toutes les formattions</a>
-              </li>
-              <li *ngFor="let category of categories">
-                <a (click)="getFormationByCategory($event, category.name)" class="dropdown-item">{{ category.name }}</a>
-              </li>
-            </ul>
+        <button class="btn btn-sm btn-outline-info" type="button" id="dropdownSelectCategory"
+                data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fas fa-filter" data-bs-toggle="tooltip" data-bs-placement="top" title="Trier par"></i>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownSelectCategory">
+          <li>
+            <a class="dropdown-item"
+               (click)="btnHandlerDisplayDataByCategory('All')">Afficher toutes les formations</a>
+          </li>
+          <li *ngFor="let category of categoryList">
+            <a class="dropdown-item"
+               (click)="btnHandlerDisplayDataByCategory(category.name)">{{ category.name }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-content">
+  <div class="content">
+    <div class="container">
+      <div class="row mt-2 mb-2">
+        <div class="col-12">
+          <div class="card shadow text-center border-0">
+            <div class="card-header">
+              <div class="row d-flex flex-row justify-content-around align-items-center">
+                <div class="col-lg-6 pt-3">
+                  <h2 class="float-start ps-3">Liste des formations</h2>
+                </div>
+                <div class="offset-2 col-lg-4">
+                  <form class="search-form" #formSearchFormation="ngForm">
+                    <input type="search" class="form-control" name="searchFormation"
+                           placeholder="Saisissez le nom de la formation" ngModel
+                           (ngModelChange)="eventSearchHandler(formSearchFormation)">
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class=" card-body" *ngIf="numberOfFormation > 0; then blocThen; else blocElse">
+            </div>
           </div>
         </div>
       </div>
-      <div *ngIf="dataViewType == 'card'; then blocThen; else blocElse"></div>
+      <div class="row mt-5 mb-5" *ngIf="numberOfFormation > numberItemToDisplay">
+        <div class="col-12 d-flex align-items-center justify-content-center">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
     </div>
   </div>
-</section>
+</div>
 
 <ng-template #blocThen>
-  <div class="row p-4 pb-0">
-    <div *ngFor="let formation of formations" class="col-lg-4">
-      <div class="card mb-2">
-        <div class="card-header d-flex align-items-center justify-content-around">
-          <h3>{{ formation.category }}</h3>
-          <div class="btn-group ms-5">
-            <a (click)="detailFormation(formation.id)" class="btn btn-sm btn-info me-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Voir plus">
-              <i class="fas fa-eye"></i>
-            </a>
-            <a (click)="editFormation(formation.id)" class="btn btn-sm btn-success me-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Modifier">
-              <i class="fas fa-edit"></i>
-            </a>
-            <button (click)="deleteFormation(formation)" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#confirmModal">
-              <i class="fas fa-trash" data-bs-toggle="tooltip" data-bs-placement="top" title="Supprimer"></i>
-            </button>
-          </div>
+  <table *ngIf="displayDataMethod == 'table'" class="table table-striped table-hover">
+    <thead>
+    <tr>
+      <th scope="col">Nom</th>
+      <th scope="col">Description</th>
+      <th scope="col">Prix</th>
+      <th scope="col">Niveau</th>
+      <th scope="col">Catégorie</th>
+      <th scope="col">Date de disponibilité</th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let formation of formationList">
+      <td>{{ formation.name }}</td>
+      <td>{{ formation.description }}</td>
+      <td>{{ formation.price | currency:'EUR' }}</td>
+      <td>{{ formation.level }}</td>
+      <td>{{ formation.category }}</td>
+      <td>{{ formation.dateAvailable | date:'dd-MM-yyyy' }} a {{ formation.dateAvailable | date:'HH:MM'}}</td>
+      <td>
+        <a [routerLink]="['/formation/detail/', formation.id]" data-bs-toggle="tooltip" data-bs-placement="top"
+           title="En savoir plus"
+           class="btn btn-sm btn-outline-info">
+          <i class="fas fa-eye"></i>
+        </a>
+        <a [routerLink]="['/formation/edit/', formation.id]" data-bs-toggle="tooltip" data-bs-placement="top"
+           title="Mettre à jour"
+           class="btn btn-sm btn-outline-info">
+          <i class="fas fa-edit"></i>
+        </a>
+        <button (click)="deleteFormation(formation)" title="Supprimer"
+                class="btn btn-sm btn-outline-info" data-bs-toggle="modal"
+                data-bs-target="#confirmModal">
+          <i class="fas fa-trash" data-bs-toggle="tooltip" data-bs-placement="top"></i>
+        </button>
+      </td>
+    </tr>
+
+    </tbody>
+  </table>
+
+  <div *ngIf="displayDataMethod == 'list'" class="row">
+    <div *ngFor="let formation of formationList" class="col-lg-3">
+      <div class="card shadow item-card">
+        <img *ngIf="formation.category == 'Bureautique'" src="/assets/img/undraw_office.png"
+             alt="image d'ilustration"
+             class="img-fluid">
+        <img *ngIf="formation.category == 'Développement'" src="/assets/img/undraw_web_development.png"
+             alt="image d'ilustration" class="img-fluid">
+        <img *ngIf="formation.category == 'Design'" src="/assets/img/undraw_design.png" alt="image d'ilustration"
+             class="img-fluid">
+        <img *ngIf="formation.category == 'Photographie'" src="/assets/img/undraw_photography.png"
+             alt="image d'ilustration" class="img-fluid">
+        <div class="category">
+          <p>{{ formation.category }}</p>
         </div>
         <div class="card-body">
-          <h5 class="card-title">{{ formation.name }}</h5>
-          <span class="card-text">id: {{ formation.id }}</span>
-          <br>
-          <span class="card-text">Commence le {{ formation.date }} et durée {{ formation.duration }} jour(s) et coûte {{ formation.price }} €</span>
+          <p class="card-text p-0">{{ formation.name }} - Niveau {{ formation.level }}</p>
+          <p class="card-text p-0">Disponible le {{ formation.dateAvailable | date:'dd-MM-yyyy' }}
+            a {{ formation.dateAvailable | date:'HH:MM'}}</p>
+          <p class="p-0 float-start">Au prix de {{ formation.price | currency:'EUR' }}</p>
+          <p class="card-text ps-0 pt-5 pb-5">{{ formation.description }}</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+              <a [routerLink]="['/formation/detail/', formation.id]" data-bs-toggle="tooltip"
+                 data-bs-placement="top"
+                 title="En savoir plus"
+                 class="btn btn-sm btn-outline-info">
+                <i class="fas fa-eye"></i>
+              </a>
+              <a [routerLink]="['/formation/edit/', formation.id]" data-bs-toggle="tooltip" data-bs-placement="top"
+                 title="Mettre à jour"
+                 class="btn btn-sm btn-outline-info">
+                <i class="fas fa-edit"></i>
+              </a>
+              <button (click)="deleteFormation(formation)" class="btn btn-sm btn-outline-info"
+                      data-bs-toggle="modal"
+                      data-bs-target="#confirmModal">
+                <i class="fas fa-trash" data-bs-toggle="tooltip" data-bs-placement="top" title="Supprimer"></i>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -68,55 +178,11 @@
 </ng-template>
 
 <ng-template #blocElse>
-  <div class="row p-4 pb-0">
-    <div class="col-12">
-      <table class="table table-hover table-bordered">
-        <thead class="table-dark">
-        <tr>
-          <th>#</th>
-          <th>Formation</th>
-          <th>Date</th>
-          <th>Durée</th>
-          <th>Prix</th>
-          <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let formation of formations">
-          <td>{{ formation.id }}</td>
-          <td>{{ formation.name }}</td>
-          <td>{{ formation.date}}</td>
-          <td>{{ formation.duration }} jour(s)</td>
-          <td>{{ formation.price | currency: 'EUR':'symbol' }}</td>
-          <td>
-            <a (click)="detailFormation(formation.id)" class="btn btn-sm btn-info me-2">
-              <i class="fas fa-eye"></i> Voir plus
-            </a>
-            <a (click)="editFormation(formation.id)" class="btn btn-sm btn-success me-2">
-              <i class="fas fa-edit"></i> Modification
-            </a>
-            <button (click)="deleteFormation(formation)" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#confirmModal">
-              <i class="fas fa-trash"></i> Supprimer
-            </button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="card-body d-flex flex-column justify-content-center">
+    <i class="fas fa-exclamation-circle fa-3x mt-3 mb-3"></i>
+    <p class="fs-4">{{ textDefault }}</p>
   </div>
 </ng-template>
 
-<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body d-flex flex-column align-items-center justify-content-center">
-        <i class="fas fa-exclamation-circle fa-3x"></i>
-        <p class="pt-2">Confirmez-vous la suppression de la formation {{ formationSelectedName }} ?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Non</button>
-        <button (click)="confirmDeleteFormation($event)" data-bs-dismiss="modal" type="button" class="btn btn-danger">Oui</button>
-      </div>
-    </div>
-  </div>
-</div>
+<app-modal [id]="'confirmModal'" [title]="modalTitle" [type]="'confirm'"
+           (eventResponse)="confirmDeleteFormation($event)"></app-modal>

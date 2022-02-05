@@ -1,42 +1,43 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import {Observable} from "rxjs";
-import {AbstractServiceService} from "./abstract-service.service";
 import {Intern} from "../models/intern";
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class InternService extends AbstractServiceService {
-  #baseUrl = "http://localhost:3000/interns";
+export class InternService {
+  #baseUrl = "http://localhost:3000/api/interns";
 
-  constructor(private http: HttpClient) {
-    super();
-  }
+  constructor(private http: HttpClient) {}
 
-  delete(id:any): Observable<any> {
-    return this.http.delete(this.#baseUrl + "/" + id);
-  }
-
-  findAll(): Observable<any> {
+  findAllIntern(): Observable<any> {
     return this.http.get<Intern[]>(this.#baseUrl);
   }
 
-  findById(id: any): Observable<any> {
+  findInternById(id: any): Observable<any> {
     return this.http.get<Intern>(this.#baseUrl + "/" + id);
   }
 
-  update(id:any, data:any): Observable<any> {
-    return this.http.put(this.#baseUrl + "/" + id, data);
+  findInternByName(name: any): Observable<any> {
+    return this.http.get<Intern>(this.#baseUrl + "/search/" + name);
   }
 
-  add(data:any): Observable<any> {
+  addIntern(data:any): Observable<any> {
     const headers = {
       "content-type": "application/json"
     };
     const corpsMessage = JSON.stringify(data);
 
     return this.http.post(this.#baseUrl, corpsMessage, { "headers": headers });
+  }
+
+  updateIntern(id:any, data:any): Observable<any> {
+    return this.http.put(this.#baseUrl + "/" + id, data);
+  }
+
+  deleteIntern(id:any): Observable<any> {
+    return this.http.delete(this.#baseUrl + "/" + id);
   }
 }

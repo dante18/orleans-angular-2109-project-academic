@@ -1,112 +1,173 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {FormationService} from "../../../services/formation.service";
 import {NgForm} from "@angular/forms";
+import {FormationService} from "../../../services/formation.service";
 import {CategoryService} from "../../../services/category.service";
 import {Category} from "../../../models/category";
-import {Former} from "../../../models/former";
-import {FormerService} from "../../../services/former.service";
-import {Intern} from "../../../models/intern";
-import {InternService} from "../../../services/intern.service";
+import {Level} from "../../../models/level";
+import {LevelService} from "../../../services/level.service";
 
 @Component({
-  selector: 'app-edit-formation',
+  selector: 'app-add-formation',
   templateUrl: './add-formation.component.html',
   styleUrls: ['./add-formation.component.css']
 })
 export class AddFormationComponent implements OnInit {
-  message = "";
-  httpCode: number = 0
-  categories: Category[] = [];
-  formers: Former[] = [];
-  interns: Intern[] = [];
+  categoryList: Category[] = [];
+  levelList: Level[] = [];
+  formAddFormationIsSubmitted = false;
+  fieldNameFormation: any;
+  fieldDescriptionFormation: any;
+  fieldProgrammFormation: any;
+  fieldPriceFormation: any;
+  fieldDurationFormation: any;
+  fieldDateAvailableFormation: any;
+  fieldLevelFormation: any;
+  fieldCategoryFormation: any;
+  message: any;
+  numberOfErrors = 0;
+  dataSend = false;
 
   constructor(
-    private routeActive: ActivatedRoute,
     private serviceFormation: FormationService,
     private serviceCategory: CategoryService,
-    private serviceFormer: FormerService,
-    private serviceIntern: InternService,
-    private router: Router
-  ) {
+    private serviceLevel: LevelService) {
   }
 
   ngOnInit(): void {
-    this.getCategories();
-    this.getFormers();
-    this.getInterns();
+    this.getCategoryList();
+    this.getLevelList();
   }
 
-  getCategories() {
-
-    this.serviceCategory.findAll().subscribe({
-      next: (value) => {
-        this.categories = value;
+  /**
+   * Retrieves the list of category
+   */
+  getCategoryList(): any {
+    this.serviceCategory.findAllCategory().subscribe({
+      next: (value: any) => {
+        /* Retrieve formation list */
+        this.categoryList = value;
       },
       error: (error) => {
-        console.log(error.message);
-      },
-      complete: () => {
-        console.log("La réception des données est terminée.");
+        console.log(`Failed to retrieve data. Error invoked:${error.message}`);
       }
     });
   }
 
-  getFormers() {
-
-    this.serviceFormer.findAll().subscribe({
-      next: (value) => {
-        this.formers = value;
+  /**
+   * Retrieves the list of level
+   */
+  getLevelList(): any {
+    this.serviceLevel.findAllLevel().subscribe({
+      next: (value: any) => {
+        /* Retrieve formation list */
+        this.levelList = value;
       },
-      error: (error) => {
-        console.log(error.message);
-      },
-      complete: () => {
-        console.log("La réception des données est terminée.");
+      error: (error: any) => {
+        console.log(`Failed to retrieve data. Error invoked:${error.message}`);
       }
     });
   }
 
-  getInterns() {
-
-    this.serviceIntern.findAll().subscribe({
-      next: (value) => {
-        this.interns = value;
-      },
-      error: (error) => {
-        console.log(error.message);
-      },
-      complete: () => {
-        console.log("La réception des données est terminée.");
-      }
-    });
-  }
-
-  returnToListFormation() {
-    this.router.navigate(['/formation'])
-  }
-
+  /**
+   * Manage form processing
+   *
+   * @param formAddFormation
+   */
   submitHandler(formAddFormation: NgForm) {
-    let numberFildsFormNotCompleted = 0;
-    for (const item in formAddFormation.value) {
-      if (formAddFormation.value[item].length === 0) {
-        numberFildsFormNotCompleted += 1;
-      }
+    this.formAddFormationIsSubmitted = true;
+
+    if (formAddFormation.value.name.length == 0) {
+      this.fieldNameFormation = false;
+      this.numberOfErrors += 1;
     }
 
-    if (numberFildsFormNotCompleted == Object.keys(formAddFormation.value).length) {
-      this.message = "Les champs du formulaire doivent etre completes"
-      this.httpCode = 404
-    } else {
-      this.serviceFormation.add(formAddFormation.value).subscribe({
+    if (formAddFormation.value.name.length > 0) {
+      this.fieldNameFormation = true;
+    }
+
+    if (formAddFormation.value.description.length == 0 || formAddFormation.value.description.length > 255) {
+      this.fieldDescriptionFormation = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (formAddFormation.value.description.length > 0) {
+      this.fieldDescriptionFormation = true;
+    }
+
+    if (formAddFormation.value.program.length == 0) {
+      this.fieldProgrammFormation = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (formAddFormation.value.program.length > 0) {
+      this.fieldProgrammFormation = true;
+    }
+
+    if (formAddFormation.value.price == 0) {
+      this.fieldPriceFormation = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (formAddFormation.value.price > 0) {
+      this.fieldPriceFormation = true;
+    }
+
+    if (formAddFormation.value.duration == 0) {
+      this.fieldDurationFormation = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (formAddFormation.value.duration > 0) {
+      this.fieldDurationFormation = true;
+    }
+
+    if (formAddFormation.value.dateAvailable.length == 0) {
+      this.fieldDateAvailableFormation = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (formAddFormation.value.dateAvailable.length > 0) {
+      this.fieldDateAvailableFormation = true;
+    }
+
+    if (formAddFormation.value.level.length == 0 && formAddFormation.value.level == "Veuillez choisir un niveau") {
+      this.fieldLevelFormation = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (formAddFormation.value.level.length > 0 && formAddFormation.value.level != "Veuillez choisir un niveau") {
+      this.fieldLevelFormation = true;
+    }
+
+    if (formAddFormation.value.category.length == 0 && formAddFormation.value.category == "Catégorie de la formation") {
+      this.fieldCategoryFormation = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (formAddFormation.value.category.length > 0 && formAddFormation.value.category != "Catégorie de la formation") {
+      this.fieldCategoryFormation = true;
+    }
+
+    if (this.numberOfErrors == 0) {
+      this.serviceFormation.addFormation(formAddFormation.value).subscribe({
         next: () => {
           this.message = "La formation a ete ajouté avec success";
-          this.httpCode = 200;
-          formAddFormation.resetForm()
+          this.formAddFormationIsSubmitted = false;
+          this.numberOfErrors = 0;
+          this.dataSend = true;
+          this.fieldNameFormation = true;
+          this.fieldDescriptionFormation = true;
+          this.fieldProgrammFormation = true;
+          this.fieldPriceFormation = true;
+          this.fieldDurationFormation = true;
+          this.fieldDateAvailableFormation = true;
+          this.fieldLevelFormation = true;
+          this.fieldCategoryFormation = true;
+
+          formAddFormation.resetForm();
         },
         error: (error) => {
-          this.message = error.message;
-          this.httpCode = 404
+          console.log(error.message);
         },
         complete: () => {
           console.log("La réception des données est terminée.");

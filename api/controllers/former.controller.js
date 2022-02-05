@@ -31,17 +31,40 @@ exports.findByID = (request, response) => {
 
   Former.findByPk(id)
     .then(data => {
-      if (data) {
-        response.send(data);
-      } else {
-        response.status(404).send({
-          message: `Cannot find Former with id=${id}.`
-        });
-      }
+      response.send(data);
     })
     .catch(error => {
       response.status(500).send({
         message: "Error retrieving Former with id=" + id + ". Error invoked: " + error.message
+      });
+    });
+};
+
+
+/**
+ * Find a single Former with a name
+ *
+ * @param request Contains the API request
+ * @param response Contains the API response
+ */
+exports.findByName = (request, response) => {
+  const formerName = request.params.name;
+  const {Op} = require("sequelize");
+
+  Former.findAll({
+    where: {
+      lastname: {
+        [Op.substring]: `%${formerName}%`,
+      }
+    }
+  })
+    .then(data => {
+      response.send(data);
+    })
+    .catch(error => {
+      response.status(500).send({
+        message:
+          error.message || "Some error occurred while retrieving formations: " + error.message
       });
     });
 };
@@ -63,10 +86,12 @@ exports.create = (request, response) => {
 
   // Create a Former
   const former = {
+    civility: request.body.civility,
     lastname: request.body.lastname,
     firstname: request.body.firstname,
+    phoneNumber: request.body.phoneNumber,
+    emailAddress: request.body.emailAddress,
     salary: request.body.salary,
-    phone: request.body.phone,
     photo: request.body.photo
   };
 
@@ -95,18 +120,10 @@ exports.update = (request, response) => {
   Former.update(request.body, {
     where: { id: id }
   })
-    .then(returnSequelize => {
-      const codeReturn = returnSequelize.join();
-
-      if (codeReturn === "1") {
-        response.send({
-          message: "Former was updated successfully."
-        });
-      } else {
-        response.send({
-          message: `Cannot update Former with id=${id}. Maybe Former was not found or request.body is empty!`
-        });
-      }
+    .then(() => {
+      response.send({
+        message: "Former was updated successfully."
+      });
     })
     .catch(error => {
       response.status(500).send({
@@ -127,17 +144,10 @@ exports.delete = (request, response) => {
   Former.destroy({
     where: { id: id }
   })
-    .then(returnSequelize => {
-      const codeReturn = returnSequelize.join();
-      if (codeReturn === "1") {
-        response.send({
-          message: "Former was deleted successfully!"
-        });
-      } else {
-        response.send({
-          message: `Cannot delete Former with id=${id}. Maybe Former was not found!`
-        });
-      }
+    .then(() => {
+      response.send({
+        message: "Former was deleted successfully!"
+      });
     })
     .catch(error => {
       response.status(500).send({

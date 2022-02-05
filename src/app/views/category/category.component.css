@@ -1,4 +1,7 @@
-.box .title {
-  font-size: 26px;
-  padding-bottom: 0;
+.search-form {
+  margin-left: 1.5rem;
+}
+
+.search-form input:focus {
+  box-shadow: none;
 }

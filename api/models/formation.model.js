@@ -19,10 +19,6 @@ module.exports = (cnx, SequelizeInstance) => {
       unique: true,
       field: "name"
     },
-    shortDescription: {
-      type: SequelizeInstance.TEXT,
-      field: "short_description"
-    },
     description: {
       type: SequelizeInstance.TEXT,
       field: "description"
@@ -32,10 +28,30 @@ module.exports = (cnx, SequelizeInstance) => {
       allowNull: false,
       field: "price"
     },
-    isAvailable: {
-      type: SequelizeInstance.BOOLEAN,
-      defaultValue: false,
-      field: "is_available"
+    level: {
+      type: SequelizeInstance.STRING,
+      allowNull: false,
+      field: "level"
+    },
+    category: {
+      type: SequelizeInstance.STRING,
+      allowNull: false,
+      field: "category"
+    },
+    programm: {
+      type: SequelizeInstance.STRING,
+      allowNull: false,
+      field: "programm"
+    },
+    duration: {
+      type: SequelizeInstance.INTEGER,
+      allowNull: false,
+      field: "duration"
+    },
+    dateAvailable: {
+      type: SequelizeInstance.DATE,
+      defaultValue: SequelizeInstance.NOW,
+      field: "date_available"
     }
   }, {tableName: "formations"});
 

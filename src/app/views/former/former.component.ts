@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
-import {Former} from "../../models/former";
 import {FormerService} from "../../services/former.service";
+import {Former} from "../../models/former";
 
 @Component({
   selector: 'app-former',
@@ -9,64 +8,105 @@ import {FormerService} from "../../services/former.service";
   styleUrls: ['./former.component.css']
 })
 export class FormerComponent implements OnInit {
-
-  formers: Former[] = [];
-  errorMessage = "";
-  formerSelectedName = "";
+  formerList: Former[] = [];
+  displayDataMethod = "table";
+  textDefault = "Aucune données n'a été trouvé";
+  numberOfFormer = 0;
+  numberItemToDisplay = 10;
   formerSelectedId: any;
+  modalTitle = "";
 
-  constructor(
-    private serviceFormer: FormerService,
-    private router: Router
-  ) {
+  constructor(private serviceFormer: FormerService) {
   }
 
   ngOnInit(): void {
-    this.getAllFormers();
+    this.getFormerList();
   }
 
-  getAllFormers() {
-    this.errorMessage = "";
-
-    this.serviceFormer.findAll().subscribe({
-      next: (value) => {
-        this.formers = value;
+  /**
+   * Retrieves the list of formation
+   */
+  getFormerList(): any {
+    this.serviceFormer.findAllFormer().subscribe({
+      next: (value: any) => {
+        this.formerList = value;
+        this.numberOfFormer = value.length;
       },
       error: (error) => {
-        this.errorMessage = error.message;
-      },
-      complete: () => {
-        console.log("La réception des données est terminée.");
+        console.log(`Failed to retrieve data. Error invoked:${error.message}`);
       }
     });
   }
 
-  addFormer() {
-    this.router.navigate(["/former/add"])
+  /**
+   * Modify the display of data according to the selected method
+   *
+   * @param $event
+   */
+  btnHandlerDisplayDataMethod($event: any) {
+    $event.preventDefault();
+
+    if ($event.target.innerText == "Tableau") {
+      this.displayDataMethod = "table";
+    } else if ($event.target.innerText == "Liste") {
+      this.displayDataMethod = "list";
+    }
   }
 
-  editFormer(idFormer: any) {
-    this.router.navigate(["/former/edit", idFormer])
-  }
+  /**
+   * Manage actions related to the search form
+   *
+   * @param formSearch
+   */
+  eventSearchHandler(formSearch: any) {
+    let formerName = formSearch.value.searchFormer;
 
-  deleteFormer(former: any) {
-    this.formerSelectedName = former.name
-    this.formerSelectedId = former.id
-  }
+    if (formerName.length == 0) {
+      this.getFormerList();
+    } else {
+      this.serviceFormer.findFormerByName(formerName).subscribe({
+        next: (value: any) => {
+          this.formerList = value;
+          this.numberOfFormer = value.length;
 
-  confirmDeleteFormer($event: any) {
-    if ($event.target.innerText == "Oui") {
-      this.serviceFormer.delete(this.formerSelectedId).subscribe({
-        next: () => {
-          this.getAllFormers()
+          if (this.numberOfFormer == 0) {
+            this.textDefault = "La recherche n'a retourné aucun résultat";
+          }
         },
-        error: (error) => {
-          this.errorMessage = error.message;
-        },
-        complete: () => {
-          console.log("La réception des données est terminée.");
+        error: () => {
+          this.numberOfFormer = 0;
+          this.textDefault = "La recherche n'a retourné aucun résultat";
         }
       });
     }
+  }
+
+  /**
+   * handles the confirmation request before deleting
+   *
+   * @param $event
+   */
+  confirmDeleteFormer($event: any)
+  {
+    if ($event.choice == "Oui") {
+      this.serviceFormer.deleteFormer(this.formerSelectedId).subscribe({
+        next: () => {
+          this.getFormerList()
+        },
+        error: (error) => {
+          console.log(`Failed to retrieve data. Error invoked:${error.message}`);
+        }
+      });
+    }
+  }
+
+  /**
+   *
+   * @param former
+   */
+  deleteFormer(former: any)
+  {
+    this.modalTitle = "Confirmez-vous la suppression";
+    this.formerSelectedId = former.id;
   }
 }

@@ -31,17 +31,40 @@ exports.findByID = (request, response) => {
 
   Intern.findByPk(id)
     .then(data => {
-      if (data) {
-        response.send(data);
-      } else {
-        response.status(404).send({
-          message: `Cannot find Intern with id=${id}.`
-        });
-      }
+      response.send(data);
     })
     .catch(error => {
       response.status(500).send({
         message: "Error retrieving Intern with id=" + id + ". Error invoked: " + error.message
+      });
+    });
+};
+
+
+/**
+ * Find a single Intern with a name
+ *
+ * @param request Contains the API request
+ * @param response Contains the API response
+ */
+exports.findByName = (request, response) => {
+  const InternName = request.params.name;
+  const {Op} = require("sequelize");
+
+  Intern.findAll({
+    where: {
+      lastname: {
+        [Op.substring]: `%${InternName}%`,
+      }
+    }
+  })
+    .then(data => {
+      response.send(data);
+    })
+    .catch(error => {
+      response.status(500).send({
+        message:
+          error.message || "Some error occurred while retrieving formations: " + error.message
       });
     });
 };
@@ -54,19 +77,20 @@ exports.findByID = (request, response) => {
  */
 exports.create = (request, response) => {
   // Validate request
-  if (!request.body.lastname && !request.body.firstname && !request.body.email) {
+  if (!request.body.lastname && !request.body.firstname) {
     response.status(400).send({
-      message: "The lastname, firstname and email properties were not found in the request body."
+      message: "Content can not be empty!"
     });
-
     return;
   }
 
-  // Create an Intern
+  // Create a Intern
   const intern = {
+    civility: request.body.civility,
     lastname: request.body.lastname,
     firstname: request.body.firstname,
-    email: request.body.email,
+    phoneNumber: request.body.phoneNumber,
+    emailAddress: request.body.emailAddress,
     photo: request.body.photo
   };
 
@@ -78,13 +102,13 @@ exports.create = (request, response) => {
     .catch(error => {
       response.status(500).send({
         message:
-          error.message || "Some error occurred while creating the Intern. Error invoked: " + error.message
+          error.message || "Some error occurred while creating the Intern: " + error.message
       });
     });
 };
 
 /**
- * Update an Intern by the id in the request
+ * Update a Intern by the id in the request
  *
  * @param request Contains the API request
  * @param response Contains the API response
@@ -95,19 +119,10 @@ exports.update = (request, response) => {
   Intern.update(request.body, {
     where: { id: id }
   })
-    .then(returnSequelize => {
-      const codeReturn = returnSequelize.join();
-      console.log("****", returnSequelize);
-
-      if (codeReturn === "1") {
-        response.send({
-          message: "Intern was updated successfully."
-        });
-      } else {
-        response.send({
-          message: `Cannot update Intern with id=${id}. Maybe Intern was not found or request.body is empty!`
-        });
-      }
+    .then(() => {
+      response.send({
+        message: "Intern was updated successfully."
+      });
     })
     .catch(error => {
       response.status(500).send({
@@ -117,7 +132,7 @@ exports.update = (request, response) => {
 };
 
 /**
- * Delete an Intern with the specified id in the request
+ * Delete a Intern with the specified id in the request
  *
  * @param request Contains the API request
  * @param response Contains the API response
@@ -128,17 +143,10 @@ exports.delete = (request, response) => {
   Intern.destroy({
     where: { id: id }
   })
-    .then(returnSequelize => {
-      const codeReturn = returnSequelize.join();
-      if (codeReturn === "1") {
-        response.send({
-          message: "Intern was deleted successfully!"
-        });
-      } else {
-        response.send({
-          message: `Cannot delete Intern with id=${id}. Maybe Intern was not found!`
-        });
-      }
+    .then(() => {
+      response.send({
+        message: "Intern was deleted successfully!"
+      });
     })
     .catch(error => {
       response.status(500).send({

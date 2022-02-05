@@ -1,4 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+/* ---------------------------------------------- General ---------------------------------------------- */
+:root {
+  --first-color: #222e3c;
+  --second-color: #4e73df;
+  --btn-info-color: rgb(54 136 252 / 50%);
+  --btn-danger-color: rgb(250 103 103 / 50%);
+  --btn-info-color-hover: #2e74d6;
+  --btn-danger-color-hover: #d55858;
+}
+
 *,
 html,
 body {
@@ -6,52 +16,448 @@ body {
 }
 
 body {
-  display: flex;
-  justify-content: space-around;
-  flex-direction: column;
   height: 100%;
   background-color: silver;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-x: hidden;
 }
 
-@media only screen and (max-width: 980px) {
-  body {
-    overflow: initial;
-  }
+/* ---------------------------------------------- End general ---------------------------------------------- */
 
-  footer {
-    height: 10vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 0;
-  }
+/* ---------------------------------------------- Layout ---------------------------------------------- */
+header {
+  width: 100%;
+  background-color: var(--first-color);
 }
 
-.footer p {
-  font-size: 16px;
+main {
+  margin-bottom: 2rem;
+}
+
+main .page-header {
+  background-color: #ffffff;
+}
+
+main .page-header .wrapper {
+  margin-left: 7rem;
+}
+
+main .page-header .wrapper .title {
+  font-size: 24px;
+  padding-top: 2rem;
+  text-transform: uppercase;
+  padding-bottom: 2rem;
+}
+
+main .page-content .content {
+  margin-top: 1rem;
+  margin-left: 7rem;
 }
 
 footer {
-  height: 80px;
+  position: absolute;
+  width: 100%;
+  background-color: #222e3c;
+  margin-top: 5rem;
+  display: flex;
+  align-items: center;
+  bottom: auto;
 }
 
 footer p {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 32px;
+  padding-bottom: 24px;
+  color: #ffffff;
 }
 
-.box {
+/* ---------------------------------------------- End layout ---------------------------------------------- */
+
+/* ---------------------------------------------- Components ---------------------------------------------- */
+/* ------------------------------------------ Navbar ------------------------------------------ */
+.nav-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-background {
+  padding: 0;
+}
+
+.navbar .navbar-logo {
+  padding: 15px;
+  color: #fff;
+  margin-right: 10rem;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+.navbar .navbar-logo:hover {
+  color: var(--second-color);
+}
+
+.navbar .hamburger .hamburger-inner,
+.navbar .hamburger .hamburger-inner:before,
+.navbar .hamburger .hamburger-inner:after {
+  background-color: #ffffff;
+}
+
+#navbarSupportedContent {
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin-left: 5rem;
+}
+
+#navbarSupportedContent ul {
+  padding: 0;
+  margin: 0;
+}
+
+#navbarSupportedContent li {
+  list-style-type: none;
+  float: left;
+  margin-right: 16px;
+}
+
+#navbarSupportedContent ul li a {
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  font-size: 20px;
+  padding: 20px 20px;
+  transition-duration: 0.6s;
+  transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  position: relative;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.box .title {
-  font-size: 26px;
-  padding-bottom: 16px;
+#navbarSupportedContent ul li a:hover {
+  background-color: var(--second-color);
+  color: #ffffff;
 }
 
-.box img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
+#navbarSupportedContent > ul > li > a.active {
+  color: #ffffff;
+  background-color: var(--second-color);
+  transition: all 0.7s;
 }
+
+#navbarSupportedContent a:not(:only-child):after {
+  content: "\f105";
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  font-size: 14px;
+  font-family: "Font Awesome 5 Free";
+  display: inline-block;
+  padding-right: 3px;
+  vertical-align: middle;
+  font-weight: 900;
+  transition: 0.5s;
+}
+
+#navbarSupportedContent .active > a:not(:only-child):after {
+  transform: rotate(90deg);
+}
+
+.navbar-expand-custom .navbar-toggler:focus {
+  box-shadow: none;
+}
+
+@media (min-width: 992px) {
+  .navbar-expand-custom {
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+  }
+
+  .navbar-expand-custom .navbar-nav {
+    flex-direction: row;
+  }
+
+  .navbar-expand-custom .navbar-toggler {
+    display: none;
+  }
+
+  .navbar-expand-custom .navbar-collapse {
+    display: flex !important;
+    flex-basis: auto;
+  }
+}
+
+@media (max-width: 991px) {
+  .navbar-expand-custom  #navbarSupportedContent {
+    display: none;
+  }
+
+  .navbar-expand-custom  #navbarSupportedContent.show {
+    display: block;
+    padding-top: 24px;
+  }
+
+  .navbar-expand-custom  #navbarSupportedContent li {
+    margin-right: 16px;
+    margin-bottom: 16px;
+  }
+
+  .navbar .navbar-logo {
+    margin-right: 15rem;
+  }
+
+  .navbar-expand-custom .navbar-collapse {
+    display: none;
+  }
+
+  #navbarSupportedContent ul li a {
+    padding: 12px 30px;
+  }
+}
+
+@media (max-width: 555px) {
+  .navbar .navbar-logo {
+    margin-right: 8rem;
+  }
+}
+
+@media only screen and (min-width: 350px) and (max-width: 460px) {
+  .navbar .navbar-logo {
+    margin-right: 3vw;
+  }
+}
+
+@media (max-width: 349px) {
+  .navbar .navbar-logo {
+    margin-right: 1rem;
+  }
+}
+
+/* ------------------------------------------ Card ------------------------------------------ */
+.card .table .btn-outline-info {
+  color: #000;
+  border-color: 2px solid var(--second-color);
+}
+
+.card .table .btn-outline-info:hover {
+  color: #ffffff;
+  border-color: 2px solid var(--second-color);
+  background-color: var(--second-color);
+}
+
+.card .table a,
+.card .table button {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.card-header{
+  background-color: var(--first-color);
+  color: #ffffff;
+}
+
+.card-header h2 {
+  font-size: 18px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.item-card {
+  margin: 15px 5px;
+}
+
+.item-card .category {
+  background-color: var(--second-color);
+  top: 0px;
+  position: absolute;
+  left: 0;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  height: 30px;
+  width: 150px;
+}
+
+.item-card .category p {
+  padding-top: 15px;
+  padding-bottom: 2px;
+}
+
+.item-card .card-body {
+  background-color: var(--first-color);
+  color: #ffffff;
+}
+
+.item-card .card-body .card-text {
+  text-align: start;
+  padding-bottom: 5px;
+}
+
+.item-card .card-body .btn-group a:first-child,
+.item-card .card-body .btn-group button:first-child {
+  margin-left: 0;
+  margin-right: 10px;
+}
+
+.item-card .card-body .btn-group a,
+.item-card .card-body .btn-group button {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.item-card .card-body .btn-group .btn-outline-info
+{
+  color: #ffffff;
+  border-color: 2px solid var(--second-color);
+}
+
+.item-card .card-body .btn-group .btn-outline-info:hover {
+  color: #ffffff;
+  border-color: 2px solid var(--second-color);
+  background-color: var(--second-color);
+}
+
+.card .table .btn-outline-info {
+  color: #000;
+  border-color: 2px solid var(--second-color);
+}
+
+.card .table .btn-outline-info:hover {
+  color: #ffffff;
+  border-color: 2px solid var(--second-color);
+  background-color: var(--second-color);
+}
+
+.card .table a,
+.card .table button {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+/* ------------------------------------------ End card ------------------------------------------ */
+
+/* ------------------------------------------ Toolbar ------------------------------------------ */
+.tools-box {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.tools-box .btn-outline-info {
+  color: #000;
+  border-color: 2px solid var(--second-color);
+}
+
+.tools-box .btn-outline-info:hover {
+  color: #ffffff;
+  border-color: 2px solid var(--second-color);
+  background-color: var(--second-color);
+}
+/* ------------------------------------------ End toolbar ------------------------------------------ */
+
+/* ------------------------------------------ pagination ------------------------------------------ */
+.pagination .page-item .page-link {
+  position: relative;
+  float: left;
+  padding: 6px 12px;
+  line-height: 1.42857143;
+  color: #000000;
+  text-decoration: none;
+  background-color: #ffffff;
+  border-radius: 50%;
+  margin: 0 5px;
+}
+
+.pagination .page-item .page-link:hover {
+  position: relative;
+  float: left;
+  padding: 6px 12px;
+  line-height: 1.42857143;
+  color: #ffffff;
+  text-decoration: none;
+  background-color: var(--second-color);
+  border: 1px solid var(--second-color);
+  border-radius: 50% !important;
+  margin: 0 5px;
+}
+
+/* ------------------------------------------ End pagination ------------------------------------------ */
+
+/* ------------------------------------------ Button ------------------------------------------ */
+.btn-custom {
+  background-color: transparent;
+  border: 1px solid var(--first-color);
+  color: #000000;
+}
+
+.btn-custom:hover {
+  background-color: var(--second-color);
+  border: 1px solid var(--second-color);
+  color: #ffffff;
+}
+
+.btn-custom-info {
+  background-color: transparent;
+  border: 1px solid var(--btn-info-color);
+  color: #ffffff;
+}
+
+.btn-custom-info:hover {
+  background-color: var(--btn-info-color-hover);
+  border: 1px solid var(--btn-info-color-hover);
+  color: #ffffff;
+}
+
+.btn-custom-danger {
+  background-color: transparent;
+  border: 1px solid var(--btn-danger-color);
+  color: #ffffff;
+}
+
+.btn-custom-danger:hover {
+  background-color: var(--btn-danger-color-hover);
+  border: 1px solid var(--btn-danger-color-hover);
+  color: #ffffff;
+}
+/* ------------------------------------------ End Button ------------------------------------------ */
+
+/* ------------------------------------------ Form ------------------------------------------ */
+.valid-feedback,
+.invalid-feedback {
+  display: block;
+}
+
+/* ------------------------------------------ End form ------------------------------------------ */
+
+/* ------------------------------------------ Modal ------------------------------------------ */
+.modal .modal-header,
+.modal .modal-footer {
+  background-color: var(--first-color);
+  color: #ffffff;
+}
+
+.modal .modal-footer {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.modal .modal-footer button {
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+/* ------------------------------------------ End modal ------------------------------------------ */
+
+/* ---------------------------------------------- End components ---------------------------------------------- */
