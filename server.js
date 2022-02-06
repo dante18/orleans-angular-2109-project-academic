@@ -10,11 +10,7 @@ if (appConfig.environment === "dev") {
   db.cnx.sync({force: true}).then(() => {
     console.log("Drop and re-sync db.");
     /* Loading data to test the application during the development phase. */
-    sequelizeFixtures.loadFile('fixtures/level.fixtures.json', db).then(() => {
-      console.log('Seed data used to create level table');
-    });
-
-    sequelizeFixtures.loadFile('fixtures/category.fixtures.json', db).then(() => {
+    sequelizeFixtures.loadFile('fixtures/*.json', db).then(() => {
       console.log('Seed data used to create category table');
     });
   });

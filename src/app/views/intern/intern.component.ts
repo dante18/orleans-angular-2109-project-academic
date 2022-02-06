@@ -88,7 +88,7 @@ export class InternComponent implements OnInit {
 
       internList.forEach((intern) => {
         if (intern.lastname!.toLowerCase().search(internName.toLowerCase()) != -1
-        || intern.firstname!.toLowerCase().search(internName.toLowerCase()) != -1) {
+          || intern.firstname!.toLowerCase().search(internName.toLowerCase()) != -1) {
           this.internList.push(intern);
         }
       });
