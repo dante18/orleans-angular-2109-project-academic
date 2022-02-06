@@ -391,6 +391,12 @@ footer p {
   margin: 0 5px;
 }
 
+.pagination .active-page .page-link {
+  color: #ffffff;
+  background-color: var(--second-color);
+  border: 1px solid var(--second-color);
+}
+
 /* ------------------------------------------ End pagination ------------------------------------------ */
 
 /* ------------------------------------------ Button ------------------------------------------ */

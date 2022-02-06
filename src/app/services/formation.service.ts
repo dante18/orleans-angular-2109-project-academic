@@ -19,10 +19,6 @@ export class FormationService {
     return this.http.get<Formation>(this.#baseUrl + "/" + id);
   }
 
-  findFormationByName(name: any): Observable<any> {
-    return this.http.get<Formation>(this.#baseUrl + "/search/" + name);
-  }
-
   findFormationByCategory(name: any): Observable<any> {
     return this.http.get<Formation>(this.#baseUrl + "/category/" + name);
   }
