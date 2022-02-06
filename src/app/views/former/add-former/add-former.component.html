@@ -30,8 +30,8 @@
                   <form class="row needs-validation d-flex justify-content-center" #formAddFormer="ngForm"
                         (ngSubmit)="submitHandler(formAddFormer)">
                     <div class="row mb-3">
-                      <legend class="col-form-label col-sm-2 pt-0">Civilité</legend>
-                      <div class="col-sm-6">
+                      <legend class="col-form-label col-sm-4 pt-0 float-start">Civilité</legend>
+                      <div class="col-sm-6 ps-3">
                         <div class="form-check">
                           <input class="form-check-input" type="radio" ngModel name="civility" value="madame">
                           <label class="form-check-label">Madame</label>
@@ -49,8 +49,8 @@
                       </div>
                     </div>
                     <div class="row mb-3">
-                      <label for="lastnameFormer" class="col-sm-4 col-form-label">Nom de famille du formateur</label>
-                      <div class="col-sm-6">
+                      <label for="lastnameFormer" class="col-sm-4 col-form-label float-start">Nom de famille du formateur</label>
+                      <div class="col-sm-6 ps-3">
                         <input type="text" class="form-control" id="lastnameFormer" name="lastname" autocomplete="off"
                                required ngModel>
                         <div *ngIf="formAddFormerIsSubmitted && fieldLastnameFormer" class="valid-feedback">
@@ -62,8 +62,8 @@
                       </div>
                     </div>
                     <div class="row mb-3">
-                      <label for="firstnameFormer" class="col-sm-4 col-form-label">Prénom du formateur</label>
-                      <div class="col-sm-6">
+                      <label for="firstnameFormer" class="col-sm-4 col-form-label float-start">Prénom du formateur</label>
+                      <div class="col-sm-6 ps-3">
                         <input type="text" class="form-control" id="firstnameFormer" name="firstname" autocomplete="off"
                                required ngModel>
                         <div *ngIf="formAddFormerIsSubmitted && fieldFirstnameFormer" class="valid-feedback">
@@ -75,8 +75,8 @@
                       </div>
                     </div>
                     <div class="row mb-3">
-                      <label for="phoneNumberFormer" class="col-sm-4 col-form-label">Numéro de téléphone</label>
-                      <div class="col-sm-6">
+                      <label for="phoneNumberFormer" class="col-sm-4 col-form-label float-start">Numéro de téléphone</label>
+                      <div class="col-sm-6 ps-3">
                         <input type="text" class="form-control" id="phoneNumberFormer" name="phoneNumber" autocomplete="off"
                                required ngModel>
                         <div *ngIf="formAddFormerIsSubmitted && fieldPhoneNumberFormer" class="valid-feedback">
@@ -88,8 +88,8 @@
                       </div>
                     </div>
                     <div class="row mb-3">
-                      <label for="emailAddressFormer" class="col-sm-4 col-form-label">Adresse email du formateur</label>
-                      <div class="col-sm-6">
+                      <label for="emailAddressFormer" class="col-sm-4 col-form-label float-start">Adresse email du formateur</label>
+                      <div class="col-sm-6 ps-3">
                         <input type="text" class="form-control" id="emailAddressFormer" name="emailAddress" autocomplete="off"
                                required ngModel>
                         <div *ngIf="formAddFormerIsSubmitted && fieldEmailAddressFormer" class="valid-feedback">
@@ -101,8 +101,8 @@
                       </div>
                     </div>
                     <div class="row mb-3">
-                      <label for="salaryFormer" class="col-sm-4 col-form-label">Salaire du formateur</label>
-                      <div class="col-sm-6">
+                      <label for="salaryFormer" class="col-sm-4 col-form-label float-start">Salaire du formateur</label>
+                      <div class="col-sm-6 ps-3">
                         <input type="number" class="form-control" id="salaryFormer" name="salary" autocomplete="off"
                                required ngModel>
                         <div *ngIf="formAddFormerIsSubmitted && fieldSalaryFormer" class="valid-feedback">
@@ -127,7 +127,7 @@
       </div>
       <div class="row mt-5 mb-5">
         <div class="col-12">
-          <a routerLink="/former" class="btn btn-custom float-end"> Retourner a la liste des formateurs</a>
+          <a routerLink="/formateur" class="btn btn-custom float-end"> Retourner a la liste des formateurs</a>
         </div>
       </div>
     </div>

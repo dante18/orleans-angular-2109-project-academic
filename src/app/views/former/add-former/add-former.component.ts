@@ -34,60 +34,7 @@ export class AddFormerComponent implements OnInit {
    */
   submitHandler(formAddFormer: NgForm) {
     this.formAddFormerIsSubmitted = true;
-
-    if (formAddFormer.value.civility.length == 0) {
-      this.fieldCivilityFormer = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formAddFormer.value.civility.length > 0) {
-      this.fieldCivilityFormer = true;
-    }
-
-    if (formAddFormer.value.lastname.length == 0) {
-      this.fieldLastnameFormer = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formAddFormer.value.lastname.length > 0) {
-      this.fieldLastnameFormer = true;
-    }
-
-    if (formAddFormer.value.firstname.length == 0) {
-      this.fieldFirstnameFormer = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formAddFormer.value.firstname.length > 0) {
-      this.fieldFirstnameFormer = true;
-    }
-
-    if (formAddFormer.value.phoneNumber.length == 0) {
-      this.fieldPhoneNumberFormer = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formAddFormer.value.phoneNumber.length > 0) {
-      this.fieldPhoneNumberFormer = true;
-    }
-
-    if (formAddFormer.value.emailAddress.length == 0) {
-      this.fieldEmailAddressFormer = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formAddFormer.value.emailAddress.length > 0) {
-      this.fieldEmailAddressFormer = true;
-    }
-
-    if (isNaN(formAddFormer.value.salary)) {
-      this.fieldSalaryFormer = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (!isNaN(formAddFormer.value.salary) && formAddFormer.value.salary >= 0) {
-      this.fieldSalaryFormer = true;
-    }
+    this.validationForm(formAddFormer);
 
     if (this.numberOfErrors == 0) {
       if (this.fieldCivilityFormer == "madame") {
@@ -122,6 +69,65 @@ export class AddFormerComponent implements OnInit {
     }
   }
 
-  private formValidation(formData: any) {
+  /**
+   * Validate the information entered in the form
+   *
+   * @param form Current form
+   * @private
+   */
+  private validationForm(form: any) {
+    if (form.value.civility.length == 0) {
+      this.fieldCivilityFormer = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.civility.length > 0) {
+      this.fieldCivilityFormer = true;
+    }
+
+    if (form.value.lastname.length == 0) {
+      this.fieldLastnameFormer = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.lastname.length > 0) {
+      this.fieldLastnameFormer = true;
+    }
+
+    if (form.value.firstname.length == 0) {
+      this.fieldFirstnameFormer = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.firstname.length > 0) {
+      this.fieldFirstnameFormer = true;
+    }
+
+    if (form.value.phoneNumber.length == 0) {
+      this.fieldPhoneNumberFormer = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.phoneNumber.length > 0) {
+      this.fieldPhoneNumberFormer = true;
+    }
+
+    if (form.value.emailAddress.length == 0) {
+      this.fieldEmailAddressFormer = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.emailAddress.length > 0) {
+      this.fieldEmailAddressFormer = true;
+    }
+
+    if (isNaN(form.value.salary)) {
+      this.fieldSalaryFormer = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (!isNaN(form.value.salary) && form.value.salary >= 0) {
+      this.fieldSalaryFormer = true;
+    }
   }
 }

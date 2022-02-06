@@ -12,9 +12,18 @@ export class InternComponent implements OnInit {
   displayDataMethod = "table";
   textDefault = "Aucune données n'a été trouvé";
   numberOfFIntern = 0;
-  numberItemToDisplay = 10;
   internSelectedId: any;
   modalTitle = "";
+
+  /* pagination variables */
+  numberItemToDisplay = 5;
+  numberPageTotal = 0;
+  numberPage = 1;
+  nextPage = 2;
+  prevPage = 1;
+  pageNumberList: number[] = [];
+  dataSets: any
+  isSearchPagination = false;
 
   constructor(private serviceIntern: InternService) {
   }
@@ -30,7 +39,13 @@ export class InternComponent implements OnInit {
     this.serviceIntern.findAllIntern().subscribe({
       next: (value: any) => {
         this.internList = value;
-        this.numberOfFIntern = value.length;
+        this.dataSets = this.internList;
+        this.numberOfFIntern = this.internList.length  > 1 ? this.internList.length - 1 : this.internList.length;
+        this.numberPageTotal = Math.ceil(this.numberOfFIntern / this.numberItemToDisplay);
+
+        for (let i = 0; i < this.numberPageTotal; i++) {
+          this.pageNumberList.push(i + 1);
+        }
       },
       error: (error) => {
         console.log(`Failed to retrieve data. Error invoked:${error.message}`);
@@ -62,22 +77,37 @@ export class InternComponent implements OnInit {
     let internName = formSearch.value.searchIntern;
 
     if (internName.length == 0) {
+      this.pageNumberList = [];
       this.getInternList();
     } else {
-      this.serviceIntern.findInternByName(internName).subscribe({
-        next: (value: any) => {
-          this.internList = value;
-          this.numberOfFIntern = value.length;
+      const internList = this.internList;
+      this.internList = [];
+      this.dataSets = [];
+      this.numberOfFIntern = 0;
+      this.pageNumberList = [];
 
-          if (this.numberOfFIntern == 0) {
-            this.textDefault = "La recherche n'a retourné aucun résultat";
-          }
-        },
-        error: () => {
-          this.numberOfFIntern = 0;
-          this.textDefault = "La recherche n'a retourné aucun résultat";
+      internList.forEach((intern) => {
+        if (intern.lastname!.toLowerCase().search(internName.toLowerCase()) != -1
+        || intern.firstname!.toLowerCase().search(internName.toLowerCase()) != -1) {
+          this.internList.push(intern);
         }
       });
+
+      this.dataSets = this.internList;
+      this.numberOfFIntern = this.dataSets.length > 1 ? this.dataSets.length - 1 : this.dataSets.length;
+      this.numberPageTotal = Math.ceil(this.numberOfFIntern / this.numberItemToDisplay);
+
+      if (this.numberOfFIntern > this.numberItemToDisplay) {
+        for (let i = 0; i < this.numberPageTotal; i++) {
+          this.pageNumberList.push(i + 1);
+        }
+      } else {
+        this.pageNumberList = [1];
+      }
+
+      if (this.numberOfFIntern == 0) {
+        this.textDefault = "La recherche n'a retourné aucun résultat";
+      }
     }
   }
 
@@ -108,5 +138,46 @@ export class InternComponent implements OnInit {
   {
     this.modalTitle = "Confirmez-vous la suppression";
     this.internSelectedId = intern.id;
+  }
+
+  /**
+   *
+   * @param page
+   * @param $event
+   */
+  btnHandlerPagination(page: any, $event: any) {
+    $event.preventDefault();
+    this.numberPage = page;
+    let offSet = 1;
+    let index = 0;
+    let data = this.internList;
+
+    /* Determines the number of the current, previous and next page */
+    if (this.numberPage <= 1) {
+      this.numberPage = 1;
+      this.prevPage = 0;
+      this.nextPage = 2;
+    } else if (this.numberPage > this.numberPageTotal) {
+      this.numberPage = this.numberPageTotal;
+      this.prevPage = this.numberPage - 1;
+      this.nextPage = this.numberPage + 1;
+    } else {
+      this.prevPage = this.numberPage - 1;
+      this.nextPage = this.numberPage + 1;
+    }
+
+    /* Extract the data that will be displayed */
+    if(this.numberPage == 1 || this.numberPage <=0)  {
+      index = 0;
+      offSet = this.numberItemToDisplay;
+    } else if(this.numberPage > this.internList.length) {
+      index = page - 1;
+      offSet = this.internList.length;
+    } else {
+      index = this.numberPage * this.numberItemToDisplay - this.numberItemToDisplay
+      offSet = index + this.numberItemToDisplay;
+    }
+
+    this.dataSets = data.slice(index, offSet);
   }
 }

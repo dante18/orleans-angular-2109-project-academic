@@ -33,51 +33,7 @@ export class AddInternComponent implements OnInit {
    */
   submitHandler(formAddIntern: NgForm) {
     this.formAddInternIsSubmitted = true;
-
-    if (formAddIntern.value.civility.length == 0) {
-      this.fieldCivilityIntern = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formAddIntern.value.civility.length > 0) {
-      this.fieldCivilityIntern = true;
-    }
-
-    if (formAddIntern.value.lastname.length == 0) {
-      this.fieldLastnameIntern = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formAddIntern.value.lastname.length > 0) {
-      this.fieldLastnameIntern = true;
-    }
-
-    if (formAddIntern.value.firstname.length == 0) {
-      this.fieldFirstnameIntern = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formAddIntern.value.firstname.length > 0) {
-      this.fieldFirstnameIntern = true;
-    }
-
-    if (formAddIntern.value.phoneNumber.length == 0) {
-      this.fieldPhoneNumberIntern = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formAddIntern.value.phoneNumber.length > 0) {
-      this.fieldPhoneNumberIntern = true;
-    }
-
-    if (formAddIntern.value.emailAddress.length == 0) {
-      this.fieldEmailAddressIntern = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formAddIntern.value.emailAddress.length > 0) {
-      this.fieldEmailAddressIntern = true;
-    }
+    this.validationForm(formAddIntern);
 
     if (this.numberOfErrors == 0) {
       if (this.fieldCivilityIntern == "madame") {
@@ -105,9 +61,62 @@ export class AddInternComponent implements OnInit {
           formAddIntern.resetForm();
         },
         error: (error) => {
-          console.log("***", error.message);
+          console.log(error.message);
         }
       });
+    }
+  }
+
+  /**
+   * Validate the information entered in the form
+   *
+   * @param form Current form
+   * @private
+   */
+  private validationForm(form: any) {
+    if (form.value.civility.length == 0) {
+      this.fieldCivilityIntern = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.civility.length > 0) {
+      this.fieldCivilityIntern = true;
+    }
+
+    if (form.value.lastname.length == 0) {
+      this.fieldLastnameIntern = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.lastname.length > 0) {
+      this.fieldLastnameIntern = true;
+    }
+
+    if (form.value.firstname.length == 0) {
+      this.fieldFirstnameIntern = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.firstname.length > 0) {
+      this.fieldFirstnameIntern = true;
+    }
+
+    if (form.value.phoneNumber.length == 0) {
+      this.fieldPhoneNumberIntern = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.phoneNumber.length > 0) {
+      this.fieldPhoneNumberIntern = true;
+    }
+
+    if (form.value.emailAddress.length == 0) {
+      this.fieldEmailAddressIntern = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.emailAddress.length > 0) {
+      this.fieldEmailAddressIntern = true;
     }
   }
 }

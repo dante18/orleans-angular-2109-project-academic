@@ -23,6 +23,7 @@ export class EditFormerComponent implements OnInit {
   formerId: any
   formerStatus = true
   dataSend = false;
+  messageType: any;
 
   constructor(
     private routeActive: ActivatedRoute,
@@ -54,10 +55,14 @@ export class EditFormerComponent implements OnInit {
 
         if (this.former == undefined) {
           this.formerStatus = false
+          this.messageType = "danger";
+          this.message = "Une erreur s'est produite lors de la recupération des données. Veuillez contactez l'administrateur si le probleme persiste.";
         }
       },
       error: () => {
         this.formerStatus = false;
+        this.messageType = "danger";
+        this.message = "Une erreur s'est produite lors de la recupération des données. Veuillez contactez l'administrateur si le probleme persiste.";
       }
     });
   }
@@ -69,66 +74,14 @@ export class EditFormerComponent implements OnInit {
    */
   submitHandler(formEditFormer: NgForm) {
     this.formEditFormerIsSubmitted = true;
-
-    if (formEditFormer.value.civility.length == 0) {
-      this.fieldCivilityFormer = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formEditFormer.value.civility.length > 0) {
-      this.fieldCivilityFormer = true;
-    }
-
-    if (formEditFormer.value.lastname.length == 0) {
-      this.fieldLastnameFormer = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formEditFormer.value.lastname.length > 0) {
-      this.fieldLastnameFormer = true;
-    }
-
-    if (formEditFormer.value.firstname.length == 0) {
-      this.fieldFirstnameFormer = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formEditFormer.value.firstname.length > 0) {
-      this.fieldFirstnameFormer = true;
-    }
-
-    if (formEditFormer.value.phoneNumber.length == 0) {
-      this.fieldPhoneNumberFormer = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formEditFormer.value.phoneNumber.length > 0) {
-      this.fieldPhoneNumberFormer = true;
-    }
-
-    if (formEditFormer.value.emailAddress.length == 0) {
-      this.fieldEmailAddressFormer = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formEditFormer.value.emailAddress.length > 0) {
-      this.fieldEmailAddressFormer = true;
-    }
-
-    if (isNaN(formEditFormer.value.salary)) {
-      this.fieldSalaryFormer = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (!isNaN(formEditFormer.value.salary) && formEditFormer.value.salary >= 0) {
-      this.fieldSalaryFormer = true;
-    }
+    this.validationForm(formEditFormer);
 
     if (this.numberOfErrors == 0) {
       this.serviceFormer.updateFormer(this.former.id, formEditFormer.value).subscribe({
         next: () => {
-          this.message = "Les données du formateur ont ete mise a jour avec success";
+          this.message = "Les données du formateur ont ete mise a jour";
           this.formEditFormerIsSubmitted = false;
+          this.messageType = "success";
           this.dataSend = true;
           this.fieldCivilityFormer = true;
           this.fieldLastnameFormer = true;
@@ -140,6 +93,68 @@ export class EditFormerComponent implements OnInit {
           console.log(error.message);
         }
       });
+    }
+  }
+
+  /**
+   * Validate the information entered in the form
+   *
+   * @param form Current form
+   * @private
+   */
+  private validationForm(form: any) {
+    if (form.value.civility.length == 0) {
+      this.fieldCivilityFormer = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.civility.length > 0) {
+      this.fieldCivilityFormer = true;
+    }
+
+    if (form.value.lastname.length == 0) {
+      this.fieldLastnameFormer = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.lastname.length > 0) {
+      this.fieldLastnameFormer = true;
+    }
+
+    if (form.value.firstname.length == 0) {
+      this.fieldFirstnameFormer = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.firstname.length > 0) {
+      this.fieldFirstnameFormer = true;
+    }
+
+    if (form.value.phoneNumber.length == 0) {
+      this.fieldPhoneNumberFormer = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.phoneNumber.length > 0) {
+      this.fieldPhoneNumberFormer = true;
+    }
+
+    if (form.value.emailAddress.length == 0) {
+      this.fieldEmailAddressFormer = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.emailAddress.length > 0) {
+      this.fieldEmailAddressFormer = true;
+    }
+
+    if (isNaN(form.value.salary)) {
+      this.fieldSalaryFormer = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (!isNaN(form.value.salary) && form.value.salary >= 0) {
+      this.fieldSalaryFormer = true;
     }
   }
 }

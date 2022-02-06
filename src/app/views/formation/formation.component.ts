@@ -116,7 +116,6 @@ export class FormationComponent implements OnInit {
       this.dataSets = this.formationList;
       this.numberOfFormation = this.dataSets.length > 1 ? this.dataSets.length - 1 : this.dataSets.length;
       this.numberPageTotal = Math.ceil(this.numberOfFormation / this.numberItemToDisplay);
-      console.log(this.dataSets);
 
       if (this.numberOfFormation > this.numberItemToDisplay) {
         for (let i = 0; i < this.numberPageTotal; i++) {

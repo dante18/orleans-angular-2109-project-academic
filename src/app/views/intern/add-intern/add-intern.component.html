@@ -30,8 +30,8 @@
                   <form class="row needs-validation d-flex justify-content-center" #formAddIntern="ngForm"
                         (ngSubmit)="submitHandler(formAddIntern)">
                     <div class="row mb-3">
-                      <legend class="col-form-label col-sm-2 pt-0">Civilité</legend>
-                      <div class="col-sm-6">
+                      <legend class="col-form-label col-sm-4 pt-0 float-start">Civilité</legend>
+                      <div class="col-sm-6 ps-3">
                         <div class="form-check">
                           <input class="form-check-input" type="radio" ngModel name="civility" value="madame">
                           <label class="form-check-label">Madame</label>
@@ -49,8 +49,8 @@
                       </div>
                     </div>
                     <div class="row mb-3">
-                      <label for="lastnameIntern" class="col-sm-4 col-form-label">Nom de famille du formateur</label>
-                      <div class="col-sm-6">
+                      <label for="lastnameIntern" class="col-sm-4 col-form-label float-start">Nom de famille du formateur</label>
+                      <div class="col-sm-6 ps-3">
                         <input type="text" class="form-control" id="lastnameIntern" name="lastname" autocomplete="off"
                                required ngModel>
                         <div *ngIf="formAddInternIsSubmitted && fieldLastnameIntern" class="valid-feedback">
@@ -62,8 +62,8 @@
                       </div>
                     </div>
                     <div class="row mb-3">
-                      <label for="firstnameIntern" class="col-sm-4 col-form-label">Prénom du formateur</label>
-                      <div class="col-sm-6">
+                      <label for="firstnameIntern" class="col-sm-4 col-form-label float-start">Prénom du formateur</label>
+                      <div class="col-sm-6 ps-3">
                         <input type="text" class="form-control" id="firstnameIntern" name="firstname" autocomplete="off"
                                required ngModel>
                         <div *ngIf="formAddInternIsSubmitted && fieldFirstnameIntern" class="valid-feedback">
@@ -75,8 +75,8 @@
                       </div>
                     </div>
                     <div class="row mb-3">
-                      <label for="phoneNumberIntern" class="col-sm-4 col-form-label">Numéro de téléphone</label>
-                      <div class="col-sm-6">
+                      <label for="phoneNumberIntern" class="col-sm-4 col-form-label float-start">Numéro de téléphone</label>
+                      <div class="col-sm-6 ps-3">
                         <input type="text" class="form-control" id="phoneNumberIntern" name="phoneNumber" autocomplete="off"
                                required ngModel>
                         <div *ngIf="formAddInternIsSubmitted && fieldPhoneNumberIntern" class="valid-feedback">
@@ -88,8 +88,8 @@
                       </div>
                     </div>
                     <div class="row mb-3">
-                      <label for="emailAddressIntern" class="col-sm-4 col-form-label">Adresse email du formateur</label>
-                      <div class="col-sm-6">
+                      <label for="emailAddressIntern" class="col-sm-4 col-form-label float-start">Adresse email du formateur</label>
+                      <div class="col-sm-6 ps-3">
                         <input type="text" class="form-control" id="emailAddressIntern" name="emailAddress" autocomplete="off"
                                required ngModel>
                         <div *ngIf="formAddInternIsSubmitted && fieldEmailAddressIntern" class="valid-feedback">
@@ -114,7 +114,7 @@
       </div>
       <div class="row mt-5 mb-5">
         <div class="col-12">
-          <a routerLink="/intern" class="btn btn-custom float-end"> Retourner a la liste des stagiaires</a>
+          <a routerLink="/stagiaire" class="btn btn-custom float-end"> Retourner a la liste des stagiaires</a>
         </div>
       </div>
     </div>

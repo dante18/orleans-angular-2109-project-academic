@@ -13,7 +13,10 @@
     <div class="container">
       <div *ngIf="dataSend" class="row row mt-2 mb-2">
         <div class="col-12">
-          <div class="alert alert-success" role="alert">
+          <div *ngIf="messageType == 'danger'" class="alert alert-danger" role="alert">
+            {{ message }}
+          </div>
+          <div *ngIf="messageType == 'success'" class="alert alert-success" role="alert">
             {{ message }}
           </div>
         </div>
@@ -114,7 +117,7 @@
       </div>
       <div class="row mt-5 mb-5">
         <div class="col-12">
-          <a routerLink="/intern" class="btn btn-custom float-end"> Retourner a la liste des stagiaires</a>
+          <a routerLink="/stagiaire" class="btn btn-custom float-end"> Retourner a la liste des stagiaires</a>
         </div>
       </div>
     </div>

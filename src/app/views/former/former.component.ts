@@ -12,9 +12,18 @@ export class FormerComponent implements OnInit {
   displayDataMethod = "table";
   textDefault = "Aucune données n'a été trouvé";
   numberOfFormer = 0;
-  numberItemToDisplay = 10;
   formerSelectedId: any;
   modalTitle = "";
+
+  /* pagination variables */
+  numberItemToDisplay = 5;
+  numberPageTotal = 0;
+  numberPage = 1;
+  nextPage = 2;
+  prevPage = 1;
+  pageNumberList: number[] = [];
+  dataSets: any
+  isSearchPagination = false;
 
   constructor(private serviceFormer: FormerService) {
   }
@@ -26,11 +35,18 @@ export class FormerComponent implements OnInit {
   /**
    * Retrieves the list of formation
    */
-  getFormerList(): any {
+  getFormerList(): any
+  {
     this.serviceFormer.findAllFormer().subscribe({
       next: (value: any) => {
         this.formerList = value;
-        this.numberOfFormer = value.length;
+        this.dataSets = this.formerList;
+        this.numberOfFormer = this.formerList.length  > 1 ? this.formerList.length - 1 : this.formerList.length;
+        this.numberPageTotal = Math.ceil(this.numberOfFormer / this.numberItemToDisplay);
+
+        for (let i = 0; i < this.numberPageTotal; i++) {
+          this.pageNumberList.push(i + 1);
+        }
       },
       error: (error) => {
         console.log(`Failed to retrieve data. Error invoked:${error.message}`);
@@ -43,7 +59,8 @@ export class FormerComponent implements OnInit {
    *
    * @param $event
    */
-  btnHandlerDisplayDataMethod($event: any) {
+  btnHandlerDisplayDataMethod($event: any)
+  {
     $event.preventDefault();
 
     if ($event.target.innerText == "Tableau") {
@@ -58,26 +75,42 @@ export class FormerComponent implements OnInit {
    *
    * @param formSearch
    */
-  eventSearchHandler(formSearch: any) {
+  eventSearchHandler(formSearch: any)
+  {
     let formerName = formSearch.value.searchFormer;
 
     if (formerName.length == 0) {
+      this.pageNumberList = [];
       this.getFormerList();
     } else {
-      this.serviceFormer.findFormerByName(formerName).subscribe({
-        next: (value: any) => {
-          this.formerList = value;
-          this.numberOfFormer = value.length;
+      const formerList = this.formerList;
+      this.formerList = [];
+      this.dataSets = [];
+      this.numberOfFormer = 0;
+      this.pageNumberList = [];
 
-          if (this.numberOfFormer == 0) {
-            this.textDefault = "La recherche n'a retourné aucun résultat";
-          }
-        },
-        error: () => {
-          this.numberOfFormer = 0;
-          this.textDefault = "La recherche n'a retourné aucun résultat";
+      formerList.forEach((former) => {
+        if (former.lastname!.toLowerCase().search(formerName.toLowerCase()) != -1
+          || former.firstname!.toLowerCase().search(formerName.toLowerCase()) != -1) {
+          this.formerList.push(former);
         }
       });
+
+      this.dataSets = this.formerList;
+      this.numberOfFormer = this.dataSets.length > 1 ? this.dataSets.length - 1 : this.dataSets.length;
+      this.numberPageTotal = Math.ceil(this.numberOfFormer / this.numberItemToDisplay);
+
+      if (this.numberOfFormer > this.numberItemToDisplay) {
+        for (let i = 0; i < this.numberPageTotal; i++) {
+          this.pageNumberList.push(i + 1);
+        }
+      } else {
+        this.pageNumberList = [1];
+      }
+
+      if (this.numberOfFormer == 0) {
+        this.textDefault = "La recherche n'a retourné aucun résultat";
+      }
     }
   }
 
@@ -108,5 +141,47 @@ export class FormerComponent implements OnInit {
   {
     this.modalTitle = "Confirmez-vous la suppression";
     this.formerSelectedId = former.id;
+  }
+
+  /**
+   *
+   * @param page
+   * @param $event
+   */
+  btnHandlerPagination(page: any, $event: any)
+  {
+    $event.preventDefault();
+    this.numberPage = page;
+    let offSet = 1;
+    let index = 0;
+    let data = this.formerList;
+
+    /* Determines the number of the current, previous and next page */
+    if (this.numberPage <= 1) {
+      this.numberPage = 1;
+      this.prevPage = 0;
+      this.nextPage = 2;
+    } else if (this.numberPage > this.numberPageTotal) {
+      this.numberPage = this.numberPageTotal;
+      this.prevPage = this.numberPage - 1;
+      this.nextPage = this.numberPage + 1;
+    } else {
+      this.prevPage = this.numberPage - 1;
+      this.nextPage = this.numberPage + 1;
+    }
+
+    /* Extract the data that will be displayed */
+    if(this.numberPage == 1 || this.numberPage <=0)  {
+      index = 0;
+      offSet = this.numberItemToDisplay;
+    } else if(this.numberPage > this.formerList.length) {
+      index = page - 1;
+      offSet = this.formerList.length;
+    } else {
+      index = this.numberPage * this.numberItemToDisplay - this.numberItemToDisplay
+      offSet = index + this.numberItemToDisplay;
+    }
+
+    this.dataSets = data.slice(index, offSet);
   }
 }

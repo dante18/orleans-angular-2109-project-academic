@@ -66,14 +66,12 @@ exports.create = (request, response) => {
     errorNumber+=1;
   }
 
-  let regExpPhoneNumber = new RegExp('/\\b0[1-689]([-. ]?\\d{2}){4}\\b/');
-  if (!request.body.phoneNumber || request.body.phoneNumber.length === 0 || !regExpPhoneNumber.test(request.body.phoneNumber)) {
+  if (!request.body.phoneNumber || request.body.phoneNumber.length === 0) {
     responseMessage = responseMessage + " phoneNumber";
     errorNumber+=1;
   }
 
-  let regExpEmail = new RegExp('/\\b[\\w.%+-]+@[a-zA-Z\\d.-]+\\.[A-Za-z]{2,4}\\b/');
-  if (!request.body.emailAddress || request.body.emailAddress.length === 0 || !regExpEmail.test(request.body.emailAddress)) {
+  if (!request.body.emailAddress || request.body.emailAddress.length === 0) {
     responseMessage = responseMessage + " emailAddress";
     errorNumber+=1;
   }

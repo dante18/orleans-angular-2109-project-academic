@@ -80,7 +80,6 @@ export class CategoryComponent implements OnInit {
       this.dataSets = this.categoryList;
       this.numberOfCategory = this.dataSets.length > 1 ? this.dataSets.length - 1 : this.dataSets.length;
       this.numberPageTotal = Math.ceil(this.numberOfCategory / this.numberItemToDisplay);
-      console.log(this.dataSets);
 
       if (this.numberOfCategory > this.numberItemToDisplay) {
         for (let i = 0; i < this.numberPageTotal; i++) {

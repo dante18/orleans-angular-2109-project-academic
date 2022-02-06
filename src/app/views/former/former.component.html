@@ -5,7 +5,7 @@
         <h1 class="title"> Formateurs</h1>
       </div>
       <div class="col-lg-3 offset-4 tools-box">
-        <a routerLink="/former/add" class="btn btn-sm btn-outline-info">
+        <a routerLink="/formateur/ajouter" class="btn btn-sm btn-outline-info">
           <i class="fas fa-plus-circle"></i> Ajouter un formmateur
         </a>
         <div class="dropdown">
@@ -37,7 +37,7 @@
                 <div class="offset-2 col-lg-4">
                   <form class="search-form" #formSearchFormer="ngForm">
                     <input type="search" class="form-control" name="searchFormer"
-                           placeholder="Saisissez le nom de famille du formateur" ngModel
+                           placeholder="Saisissez le nom de famille ou le prénom" ngModel
                            (ngModelChange)="eventSearchHandler(formSearchFormer)">
                   </form>
                 </div>
@@ -50,18 +50,18 @@
       </div>
       <div class="row mt-5 mb-5" *ngIf="numberOfFormer > numberItemToDisplay">
         <div class="col-12 d-flex align-items-center justify-content-center">
-          <nav aria-label="Page navigation example">
+          <nav aria-label="page navigation area">
             <ul class="pagination">
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
+              <li [classList]="numberPage == 1 ? 'page-item disabled' : 'page-item'">
+                <a class="page-link" (click)="btnHandlerPagination(prevPage, $event)" aria-label="Previous">
                   <span aria-hidden="true">&laquo;</span>
                 </a>
               </li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
+              <li *ngFor="let i of pageNumberList" [classList]="i == numberPage ? 'page-item active-page' : 'page-item' ">
+                <a class="page-link" (click)="btnHandlerPagination(i, $event)">{{ i }}</a>
+              </li>
+              <li [classList]="numberPage == numberPageTotal ? 'page-item disabled' : 'page-item'">
+                <a class="page-link" (click)="btnHandlerPagination(nextPage, $event)" aria-label="Next">
                   <span aria-hidden="true">&raquo;</span>
                 </a>
               </li>
@@ -86,14 +86,14 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let former of formerList">
+    <tr *ngFor="let former of dataSets">
       <td>{{ former.firstname }}</td>
       <td>{{ former.lastname }}</td>
       <td>{{ former.phoneNumber }}</td>
       <td>{{ former.emailAddress }}</td>
       <td>{{ former.salary | currency:'EUR' }}</td>
       <td>
-        <a [routerLink]="['/former/edit/', former.id]" data-bs-toggle="tooltip" data-bs-placement="top"
+        <a [routerLink]="['/formateur/modifier/', former.id]" data-bs-toggle="tooltip" data-bs-placement="top"
            title="Mettre à jour"
            class="btn btn-sm btn-outline-info">
           <i class="fas fa-edit"></i>
@@ -110,8 +110,8 @@
   </table>
 
   <div *ngIf="displayDataMethod == 'list'" class="row">
-    <div *ngFor="let former of formerList" class="col-lg-3">
-      <div class="card shadow item-card">
+    <div *ngFor="let former of dataSets; let i = index" class="col-lg-3">
+      <div *ngIf="i < numberItemToDisplay" class="card shadow item-card">
         <img *ngIf="former.civility == 'monsieur'" src="/assets/img/avatar/undraw_avatar2.png"
              alt="image d'ilustration"
              class="img-fluid">
@@ -124,7 +124,7 @@
           <p class="p-0 float-start">Salaire {{ former.salary | currency:'EUR' }}</p>
           <div class="d-flex justify-content-between align-items-center float-start pt-3 me-3">
             <div class="btn-group">
-              <a [routerLink]="['/former/edit/', former.id]" data-bs-toggle="tooltip" data-bs-placement="top"
+              <a [routerLink]="['/formateur/modifier/', former.id]" data-bs-toggle="tooltip" data-bs-placement="top"
                  title="Mettre à jour"
                  class="btn btn-sm btn-outline-info">
                 <i class="fas fa-edit"></i>

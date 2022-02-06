@@ -22,6 +22,7 @@ export class EditInternComponent implements OnInit {
   internId: any
   internStatus = true
   dataSend = false;
+  messageType: any;
 
   constructor(
     private routeActive: ActivatedRoute,
@@ -69,57 +70,13 @@ export class EditInternComponent implements OnInit {
    */
   submitHandler(formEditIntern: NgForm) {
     this.formEditInternIsSubmitted = true;
-    console.log(formEditIntern.value)
-
-    if (formEditIntern.value.civility.length == 0) {
-      this.fieldCivilityIntern = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formEditIntern.value.civility.length > 0) {
-      this.fieldCivilityIntern = true;
-    }
-
-    if (formEditIntern.value.lastname.length == 0) {
-      this.fieldLastnameIntern = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formEditIntern.value.lastname.length > 0) {
-      this.fieldLastnameIntern = true;
-    }
-
-    if (formEditIntern.value.firstname.length == 0) {
-      this.fieldFirstnameIntern = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formEditIntern.value.firstname.length > 0) {
-      this.fieldFirstnameIntern = true;
-    }
-
-    if (formEditIntern.value.phoneNumber.length == 0) {
-      this.fieldPhoneNumberIntern = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formEditIntern.value.phoneNumber.length > 0) {
-      this.fieldPhoneNumberIntern = true;
-    }
-
-    if (formEditIntern.value.emailAddress.length == 0) {
-      this.fieldEmailAddressIntern = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formEditIntern.value.emailAddress.length > 0) {
-      this.fieldEmailAddressIntern = true;
-    }
+    this.validationForm(formEditIntern);
 
     if (this.numberOfErrors == 0) {
       this.serviceIntern.updateIntern(this.intern.id, formEditIntern.value).subscribe({
         next: () => {
-          this.message = "Les données du stagiaire ont été mise a jour avec suces";
+          this.message = "Les données du stagiaire ont ete mise a jour";
+          this.messageType = "success";
           this.formEditInternIsSubmitted = false;
           this.dataSend = true;
           this.fieldCivilityIntern = true;
@@ -132,6 +89,59 @@ export class EditInternComponent implements OnInit {
           console.log(error.message);
         }
       });
+    }
+  }
+
+  /**
+   * Validate the information entered in the form
+   *
+   * @param form Current form
+   * @private
+   */
+  private validationForm(form: any) {
+    if (form.value.civility.length == 0) {
+      this.fieldCivilityIntern = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.civility.length > 0) {
+      this.fieldCivilityIntern = true;
+    }
+
+    if (form.value.lastname.length == 0) {
+      this.fieldLastnameIntern = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.lastname.length > 0) {
+      this.fieldLastnameIntern = true;
+    }
+
+    if (form.value.firstname.length == 0) {
+      this.fieldFirstnameIntern = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.firstname.length > 0) {
+      this.fieldFirstnameIntern = true;
+    }
+
+    if (form.value.phoneNumber.length == 0) {
+      this.fieldPhoneNumberIntern = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.phoneNumber.length > 0) {
+      this.fieldPhoneNumberIntern = true;
+    }
+
+    if (form.value.emailAddress.length == 0) {
+      this.fieldEmailAddressIntern = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.emailAddress.length > 0) {
+      this.fieldEmailAddressIntern = true;
     }
   }
 }
