@@ -74,9 +74,54 @@ exports.findByCategory = (request, response) => {
  */
 exports.create = (request, response) => {
   // Validate request
-  if (!request.body.name) {
+  // Validate request
+  let responseMessage = "The property(ies) are not filled in or incorrect: ";
+  let errorNumber = 0;
+
+  if (!request.body.name || request.body.name.length === 0) {
+    responseMessage = responseMessage + "name";
+    errorNumber+=1;
+  }
+
+  if (!request.body.description || request.body.description.length === 0) {
+    responseMessage = responseMessage + " description";
+    errorNumber+=1;
+  }
+
+  if (!request.body.price || request.body.price === 0 || isNaN(request.body.price)) {
+    responseMessage = responseMessage + " price";
+    errorNumber+=1;
+  }
+
+  if (!request.body.level || request.body.level.length === 0) {
+    responseMessage = responseMessage + " level";
+    errorNumber+=1;
+  }
+
+  if (!request.body.category || request.body.category.length === 0) {
+    responseMessage = responseMessage + " category";
+    errorNumber+=1;
+  }
+
+  if (!request.body.programm || request.body.programm.length === 0) {
+    responseMessage = responseMessage + " programm";
+    errorNumber+=1;
+  }
+
+  if (!request.body.duration || request.body.duration === 0 || isNaN(request.body.duration)) {
+    responseMessage = responseMessage + " duration";
+    errorNumber+=1;
+  }
+
+  let regExp = new RegExp('/^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/');
+  if (!request.body.dateAvailable || request.body.dateAvailable.length === 0 || !regExp.test(request.body.dateAvailable)) {
+    responseMessage = responseMessage + " dateAvailable";
+    errorNumber+=1;
+  }
+
+  if (errorNumber > 0) {
     response.status(400).send({
-      message: "Content can not be empty!"
+      message: responseMessage
     });
     return;
   }

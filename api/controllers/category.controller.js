@@ -54,15 +54,23 @@ exports.findByID = (request, response) => {
  */
 exports.create = (request, response) => {
   // Validate request
-  if (!request.body.name) {
+  let responseMessage = "The property(ies) must be filled: ";
+  let errorNumber = 0;
+
+  if (!request.body.name || request.body.name.length === 0) {
+    responseMessage = responseMessage + "name";
+    errorNumber+=1;
+  }
+
+  if (errorNumber > 0) {
     response.status(400).send({
-      message: "Content can not be empty!"
+      message: responseMessage
     });
     return;
   }
 
   // Create a Category
-  const category = { name: request.body.name, logo: request.body.logo ?? "/assets/img/undraw_learning.png" };
+  const category = { name: request.body.name };
 
   // Save Category in the database
   Category.create(category)

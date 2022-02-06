@@ -48,9 +48,49 @@ exports.findByID = (request, response) => {
  */
 exports.create = (request, response) => {
   // Validate request
-  if (!request.body.lastname && !request.body.firstname) {
+  let responseMessage = "The property(ies) are not filled in or incorrect: ";
+  let errorNumber = 0;
+
+  if (!request.body.civility || request.body.civility.length === 0) {
+    responseMessage = responseMessage + "civility";
+    errorNumber+=1;
+  }
+
+  if (!request.body.firstname || request.body.firstname.length === 0) {
+    responseMessage = responseMessage + " firstname";
+    errorNumber+=1;
+  }
+
+  if (!request.body.lastname || request.body.lastname.length === 0) {
+    responseMessage = responseMessage + " lastname";
+    errorNumber+=1;
+  }
+
+  let regExpPhoneNumber = new RegExp('/\\b0[1-689]([-. ]?\\d{2}){4}\\b/');
+  if (!request.body.phoneNumber || request.body.phoneNumber.length === 0 || !regExpPhoneNumber.test(request.body.phoneNumber)) {
+    responseMessage = responseMessage + " phoneNumber";
+    errorNumber+=1;
+  }
+
+  let regExpEmail = new RegExp('/\\b[\\w.%+-]+@[a-zA-Z\\d.-]+\\.[A-Za-z]{2,4}\\b/');
+  if (!request.body.emailAddress || request.body.emailAddress.length === 0 || !regExpEmail.test(request.body.emailAddress)) {
+    responseMessage = responseMessage + " emailAddress";
+    errorNumber+=1;
+  }
+
+  if (!request.body.salary || request.body.salary === 0 || isNaN(request.body.salary)) {
+    responseMessage = responseMessage + " salary";
+    errorNumber+=1;
+  }
+
+  if (!request.body.photo || request.body.photo.length === 0) {
+    responseMessage = responseMessage + " photo";
+    errorNumber+=1;
+  }
+
+  if (errorNumber > 0) {
     response.status(400).send({
-      message: "Content can not be empty!"
+      message: responseMessage
     });
     return;
   }
