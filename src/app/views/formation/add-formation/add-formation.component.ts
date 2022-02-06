@@ -95,9 +95,6 @@ export class AddFormationComponent implements OnInit {
         },
         error: (error) => {
           console.log(error.message);
-        },
-        complete: () => {
-          console.log("La réception des données est terminée.");
         }
       });
     }
@@ -110,9 +107,6 @@ export class AddFormationComponent implements OnInit {
    * @private
    */
   private validationForm(form: any) {
-    const today = new Date();
-    const curentDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-
     if (form.value.name.length == 0) {
       this.fieldNameFormation = false;
       this.numberOfErrors += 1;
@@ -159,7 +153,6 @@ export class AddFormationComponent implements OnInit {
     }
 
     let regExp = new RegExp('/^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/');
-    console.log(form.value.dateAvailable)
     if (form.value.dateAvailable.length == 0 || !regExp.test(form.value.dateAvailable)) {
       this.fieldDateAvailableFormation = false;
       this.numberOfErrors += 1;
