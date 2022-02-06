@@ -44,7 +44,6 @@ export class AddFormationComponent implements OnInit {
   getCategoryList(): any {
     this.serviceCategory.findAllCategory().subscribe({
       next: (value: any) => {
-        /* Retrieve formation list */
         this.categoryList = value;
       },
       error: (error) => {
@@ -59,7 +58,6 @@ export class AddFormationComponent implements OnInit {
   getLevelList(): any {
     this.serviceLevel.findAllLevel().subscribe({
       next: (value: any) => {
-        /* Retrieve formation list */
         this.levelList = value;
       },
       error: (error: any) => {
@@ -75,83 +73,12 @@ export class AddFormationComponent implements OnInit {
    */
   submitHandler(formAddFormation: NgForm) {
     this.formAddFormationIsSubmitted = true;
-
-    if (formAddFormation.value.name.length == 0) {
-      this.fieldNameFormation = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formAddFormation.value.name.length > 0) {
-      this.fieldNameFormation = true;
-    }
-
-    if (formAddFormation.value.description.length == 0 || formAddFormation.value.description.length > 255) {
-      this.fieldDescriptionFormation = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formAddFormation.value.description.length > 0) {
-      this.fieldDescriptionFormation = true;
-    }
-
-    if (formAddFormation.value.program.length == 0) {
-      this.fieldProgrammFormation = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formAddFormation.value.program.length > 0) {
-      this.fieldProgrammFormation = true;
-    }
-
-    if (formAddFormation.value.price == 0) {
-      this.fieldPriceFormation = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formAddFormation.value.price > 0) {
-      this.fieldPriceFormation = true;
-    }
-
-    if (formAddFormation.value.duration == 0) {
-      this.fieldDurationFormation = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formAddFormation.value.duration > 0) {
-      this.fieldDurationFormation = true;
-    }
-
-    if (formAddFormation.value.dateAvailable.length == 0) {
-      this.fieldDateAvailableFormation = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formAddFormation.value.dateAvailable.length > 0) {
-      this.fieldDateAvailableFormation = true;
-    }
-
-    if (formAddFormation.value.level.length == 0 && formAddFormation.value.level == "Veuillez choisir un niveau") {
-      this.fieldLevelFormation = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formAddFormation.value.level.length > 0 && formAddFormation.value.level != "Veuillez choisir un niveau") {
-      this.fieldLevelFormation = true;
-    }
-
-    if (formAddFormation.value.category.length == 0 && formAddFormation.value.category == "Catégorie de la formation") {
-      this.fieldCategoryFormation = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formAddFormation.value.category.length > 0 && formAddFormation.value.category != "Catégorie de la formation") {
-      this.fieldCategoryFormation = true;
-    }
+    this.validationForm(formAddFormation);
 
     if (this.numberOfErrors == 0) {
       this.serviceFormation.addFormation(formAddFormation.value).subscribe({
         next: () => {
-          this.message = "La formation a ete ajouté avec success";
+          this.message = "La formation a bien ete enregistrée";
           this.formAddFormationIsSubmitted = false;
           this.numberOfErrors = 0;
           this.dataSend = true;
@@ -173,6 +100,91 @@ export class AddFormationComponent implements OnInit {
           console.log("La réception des données est terminée.");
         }
       });
+    }
+  }
+
+  /**
+   * Validate the information entered in the form
+   *
+   * @param form Current form
+   * @private
+   */
+  private validationForm(form: any) {
+    const today = new Date();
+    const curentDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
+    if (form.value.name.length == 0) {
+      this.fieldNameFormation = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.name.length > 0) {
+      this.fieldNameFormation = true;
+    }
+
+    if (form.value.description.length == 0 || form.value.description.length > 255) {
+      this.fieldDescriptionFormation = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.description.length > 0) {
+      this.fieldDescriptionFormation = true;
+    }
+
+    if (form.value.program.length == 0) {
+      this.fieldProgrammFormation = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.program.length > 0) {
+      this.fieldProgrammFormation = true;
+    }
+
+    if (form.value.price == 0) {
+      this.fieldPriceFormation = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.price > 0) {
+      this.fieldPriceFormation = true;
+    }
+
+    if (form.value.duration == 0) {
+      this.fieldDurationFormation = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.duration > 0) {
+      this.fieldDurationFormation = true;
+    }
+
+    let regExp = new RegExp('/^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/');
+    console.log(form.value.dateAvailable)
+    if (form.value.dateAvailable.length == 0 || !regExp.test(form.value.dateAvailable)) {
+      this.fieldDateAvailableFormation = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.dateAvailable.length > 0 || regExp.test(form.value.dateAvailable)) {
+      this.fieldDateAvailableFormation = true;
+    }
+
+    if (form.value.level.length == 0 && form.value.level == "Veuillez choisir un niveau") {
+      this.fieldLevelFormation = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.level.length > 0 && form.value.level != "Veuillez choisir un niveau") {
+      this.fieldLevelFormation = true;
+    }
+
+    if (form.value.category.length == 0 && form.value.category == "Catégorie de la formation") {
+      this.fieldCategoryFormation = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.category.length > 0 && form.value.category != "Catégorie de la formation") {
+      this.fieldCategoryFormation = true;
     }
   }
 }

@@ -142,7 +142,7 @@ export class FormationComponent implements OnInit {
       this.getFormationList();
     } else {
       this.pageNumberList = [];
-      
+
       this.serviceFormation.findFormationByCategory(categoryName).subscribe({
         next: (value: any) => {
           this.formationList = value;
