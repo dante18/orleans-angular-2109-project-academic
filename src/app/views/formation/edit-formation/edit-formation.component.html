@@ -13,7 +13,10 @@
     <div class="container">
       <div *ngIf="dataSend" class="row row mt-2 mb-2">
         <div class="col-12">
-          <div class="alert alert-success" role="alert">
+          <div *ngIf="messageType == 'danger'" class="alert alert-danger" role="alert">
+            {{ message }}
+          </div>
+          <div *ngIf="messageType == 'success'" class="alert alert-success" role="alert">
             {{ message }}
           </div>
         </div>
@@ -30,10 +33,10 @@
                   <form class="row needs-validation d-flex justify-content-center" #formEditFormation="ngForm"
                         (ngSubmit)="submitHandler(formEditFormation)">
                     <div class="row mb-3">
-                      <label for="nameFormation" class="col-sm-4 col-form-label">Nom de la formation</label>
-                      <div class="col-sm-6">
+                      <label for="nameFormation" class="col-sm-4 col-form-label float-start">Nom de la formation</label>
+                      <div class="col-sm-6 ps-3">
                         <input type="text" class="form-control" id="nameFormation" name="name" autocomplete="off"
-                               required [ngModel]="formation.name">
+                               required [ngModel]="formation.name" minlength="10">
                         <div *ngIf="formEditFormationIsSubmitted && fieldNameFormation" class="valid-feedback">
                           OK
                         </div>
@@ -43,11 +46,11 @@
                       </div>
                     </div>
                     <div class="row mb-3">
-                      <label for="descriptionFormation" class="col-sm-2 col-form-label">Description de la
+                      <label for="descriptionFormation" class="col-sm-4 col-form-label float-start">Description de la
                         formation</label>
-                      <div class="col-sm-6">
+                      <div class="col-sm-6 ps-3">
                         <textarea class="form-control" id="descriptionFormation" name="description" rows="3" [ngModel]="formation.description"
-                                  required></textarea>
+                                  required minlength="10"></textarea>
                         <div *ngIf="formEditFormationIsSubmitted && fieldDescriptionFormation" class="valid-feedback">
                           OK
                         </div>
@@ -57,10 +60,10 @@
                       </div>
                     </div>
                     <div class="row mb-3">
-                      <label for="programFormation" class="col-sm-2 col-form-label">Programme de la formation</label>
-                      <div class="col-sm-6">
+                      <label for="programFormation" class="col-sm-4 col-form-label">Programme de la formation</label>
+                      <div class="col-sm-6 ps-3">
                         <textarea class="form-control" id="programFormation" name="program" rows="3" [ngModel]="formation.programm"
-                                  required></textarea>
+                                  required minlength="10"></textarea>
                         <div *ngIf="formEditFormationIsSubmitted && fieldProgrammFormation" class="valid-feedback">
                           OK
                         </div>
@@ -70,10 +73,10 @@
                       </div>
                     </div>
                     <div class="row mb-3">
-                      <label for="priceFormation" class="col-sm-4 col-form-label">Prix de la formation</label>
-                      <div class="col-sm-6">
+                      <label for="priceFormation" class="col-sm-4 col-form-label float-start">Prix de la formation</label>
+                      <div class="col-sm-6 ps-3">
                         <input type="number" class="form-control" id="priceFormation" name="price" autocomplete="off"
-                               required [ngModel]="formation.price">
+                               required [ngModel]="formation.price" minlength="1">
                         <div *ngIf="formEditFormationIsSubmitted && fieldPriceFormation" class="valid-feedback">
                           OK
                         </div>
@@ -83,11 +86,11 @@
                       </div>
                     </div>
                     <div class="row mb-3">
-                      <label for="durationFormation" class="col-sm-4 col-form-label">Durée de la formation</label>
-                      <div class="col-sm-6">
+                      <label for="durationFormation" class="col-sm-4 col-form-label float-start">Durée de la formation</label>
+                      <div class="col-sm-6 ps-3">
                         <input type="number" class="form-control" id="durationFormation" name="duration"
                                autocomplete="off"
-                               required [ngModel]="formation.duration">
+                               required [ngModel]="formation.duration" minlength="1">
                         <div *ngIf="formEditFormationIsSubmitted && fieldDurationFormation" class="valid-feedback">
                           OK
                         </div>
@@ -97,9 +100,9 @@
                       </div>
                     </div>
                     <div class="row mb-3">
-                      <label for="dateFormation" class="col-sm-4 col-form-label">Date de disponibilité de la
+                      <label for="dateFormation" class="col-sm-4 col-form-label float-start">Date de disponibilité de la
                         formation</label>
-                      <div class="col-sm-4">
+                      <div class="col-sm-6 ps-3">
                         <input type="date" class="form-control" id="dateFormation" name="dateAvailable" [ngModel]="formation.dateAvailable"
                                required>
                         <div *ngIf="formEditFormationIsSubmitted && fieldDateAvailableFormation" class="valid-feedback">
@@ -111,8 +114,8 @@
                       </div>
                     </div>
                     <div class="row mb-3">
-                      <label for="levelFormation" class="col-sm-4 col-form-label">Niveau de la formation</label>
-                      <div class="col-sm-4">
+                      <label for="levelFormation" class="col-sm-4 col-form-label float-start">Niveau de la formation</label>
+                      <div class="col-sm-6 ps-3">
                         <select class="form-select" [ngModel]="formation.level" id="levelFormation" name="level" required>
                           <option value="">Veuillez choisir un niveau</option>
                           <option *ngFor="let level of levelList"
@@ -127,8 +130,8 @@
                       </div>
                     </div>
                     <div class="row mb-3">
-                      <label for="categoryFormation" class="col-sm-4 col-form-label">Catégorie de la formation</label>
-                      <div class="col-sm-4">
+                      <label for="categoryFormation" class="col-sm-4 col-form-label float-start">Catégorie de la formation</label>
+                      <div class="col-sm-6 ps-3">
                         <select class="form-select" [ngModel]="formation.category"
                                 id="categoryFormation" name="category" required>
                           <option value="">Veuillez choisir une catégorie</option>

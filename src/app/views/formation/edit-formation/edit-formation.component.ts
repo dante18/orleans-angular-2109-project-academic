@@ -24,6 +24,7 @@ export class EditFormationComponent implements OnInit {
   fieldDateAvailableFormation: any;
   fieldLevelFormation: any;
   fieldCategoryFormation: any;
+  messageType = "";
   message: any;
   numberOfErrors = 0;
   formation: any;
@@ -50,7 +51,6 @@ export class EditFormationComponent implements OnInit {
   getCategoryList(): any {
     this.serviceCategory.findAllCategory().subscribe({
       next: (value: any) => {
-        /* Retrieve formation list */
         this.categoryList = value;
       },
       error: (error) => {
@@ -65,7 +65,6 @@ export class EditFormationComponent implements OnInit {
   getLevelList(): any {
     this.serviceLevel.findAllLevel().subscribe({
       next: (value: any) => {
-        /* Retrieve formation list */
         this.levelList = value;
       },
       error: (error: any) => {
@@ -77,12 +76,11 @@ export class EditFormationComponent implements OnInit {
   /**
    * Get data of formations for update
    */
-  getFormation()
-  {
+  getFormation() {
     // Retrieval of the training ID passed as a parameter
     this.formationId = parseInt(this.routeActive.snapshot.paramMap.get("id")!);
 
-    if(isNaN(this.formationId)) {
+    if (isNaN(this.formationId)) {
       this.formationStatus = false;
       return;
     }
@@ -93,10 +91,14 @@ export class EditFormationComponent implements OnInit {
         this.formation = value;
 
         if (this.formation == undefined) {
-          this.formationStatus = false
+          this.messageType = "danger";
+          this.message = "Une erreur s'est produite lors de la recupération des données. Veuillez contactez l'administrateur si le probleme persiste."
+          this.formationStatus = false;
         }
       },
       error: () => {
+        this.messageType = "danger";
+        this.message = "Une erreur s'est produite lors de la recupération des données. Veuillez contactez l'administrateur si le probleme persiste."
         this.formationStatus = false;
       }
     });
@@ -109,83 +111,12 @@ export class EditFormationComponent implements OnInit {
    */
   submitHandler(formEditFormation: NgForm) {
     this.formEditFormationIsSubmitted = true;
-
-    if (formEditFormation.value.name.length == 0) {
-      this.fieldNameFormation = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formEditFormation.value.name.length > 0) {
-      this.fieldNameFormation = true;
-    }
-
-    if (formEditFormation.value.description.length == 0 || formEditFormation.value.description.length > 255) {
-      this.fieldDescriptionFormation = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formEditFormation.value.description.length > 0) {
-      this.fieldDescriptionFormation = true;
-    }
-
-    if (formEditFormation.value.program.length == 0) {
-      this.fieldProgrammFormation = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formEditFormation.value.program.length > 0) {
-      this.fieldProgrammFormation = true;
-    }
-
-    if (formEditFormation.value.price == 0) {
-      this.fieldPriceFormation = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formEditFormation.value.price > 0) {
-      this.fieldPriceFormation = true;
-    }
-
-    if (formEditFormation.value.duration == 0) {
-      this.fieldDurationFormation = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formEditFormation.value.duration > 0) {
-      this.fieldDurationFormation = true;
-    }
-
-    if (formEditFormation.value.dateAvailable.length == 0) {
-      this.fieldDateAvailableFormation = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formEditFormation.value.dateAvailable.length > 0) {
-      this.fieldDateAvailableFormation = true;
-    }
-
-    if (formEditFormation.value.level.length == 0 && formEditFormation.value.level == "Veuillez choisir un niveau") {
-      this.fieldLevelFormation = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formEditFormation.value.level.length > 0 && formEditFormation.value.level != "Veuillez choisir un niveau") {
-      this.fieldLevelFormation = true;
-    }
-
-    if (formEditFormation.value.category.length == 0 && formEditFormation.value.category == "Catégorie de la formation") {
-      this.fieldCategoryFormation = false;
-      this.numberOfErrors += 1;
-    }
-
-    if (formEditFormation.value.category.length > 0 && formEditFormation.value.category != "Catégorie de la formation") {
-      this.fieldCategoryFormation = true;
-    }
+    this.validationForm(formEditFormation);
 
     if (this.numberOfErrors == 0) {
       this.serviceFormation.updateFormation(this.formation.id, formEditFormation.value).subscribe({
         next: () => {
-          this.message = "La formation a ete mise a jour";
+          this.message = "Les données de la formation ont ete mise a jour";
           this.formEditFormationIsSubmitted = false;
           this.dataSend = true;
           this.fieldNameFormation = true;
@@ -199,11 +130,89 @@ export class EditFormationComponent implements OnInit {
         },
         error: (error) => {
           console.log(error.message);
-        },
-        complete: () => {
-          console.log("La réception des données est terminée.");
         }
       });
+    }
+  }
+
+  /**
+   * Validate the information entered in the form
+   *
+   * @param form Current form
+   * @private
+   */
+  private validationForm(form: any) {
+    if (form.value.name.length == 0) {
+      this.fieldNameFormation = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.name.length > 0) {
+      this.fieldNameFormation = true;
+    }
+
+    if (form.value.description.length == 0 || form.value.description.length > 255) {
+      this.fieldDescriptionFormation = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.description.length > 0) {
+      this.fieldDescriptionFormation = true;
+    }
+
+    if (form.value.program.length == 0) {
+      this.fieldProgrammFormation = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.program.length > 0) {
+      this.fieldProgrammFormation = true;
+    }
+
+    if (form.value.price == 0) {
+      this.fieldPriceFormation = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.price > 0) {
+      this.fieldPriceFormation = true;
+    }
+
+    if (form.value.duration == 0) {
+      this.fieldDurationFormation = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.duration > 0) {
+      this.fieldDurationFormation = true;
+    }
+
+    let regExp = new RegExp('/^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/');
+    if (form.value.dateAvailable.length == 0 || !regExp.test(form.value.dateAvailable)) {
+      this.fieldDateAvailableFormation = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.dateAvailable.length > 0 || regExp.test(form.value.dateAvailable)) {
+      this.fieldDateAvailableFormation = true;
+    }
+
+    if (form.value.level.length == 0 && form.value.level == "Veuillez choisir un niveau") {
+      this.fieldLevelFormation = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.level.length > 0 && form.value.level != "Veuillez choisir un niveau") {
+      this.fieldLevelFormation = true;
+    }
+
+    if (form.value.category.length == 0 && form.value.category == "Catégorie de la formation") {
+      this.fieldCategoryFormation = false;
+      this.numberOfErrors += 1;
+    }
+
+    if (form.value.category.length > 0 && form.value.category != "Catégorie de la formation") {
+      this.fieldCategoryFormation = true;
     }
   }
 }
