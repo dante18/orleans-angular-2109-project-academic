@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
-import {InternService} from "../../../services/intern.service";
+import {InternService} from "../../../services/db/intern.service";
 
 @Component({
   selector: 'app-edit-intern',

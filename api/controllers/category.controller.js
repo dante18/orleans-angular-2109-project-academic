@@ -62,7 +62,7 @@ exports.create = (request, response) => {
   }
 
   // Create a Category
-  const category = { name: request.body.name };
+  const category = { name: request.body.name, logo: request.body.logo ?? "/assets/img/undraw_learning.png" };
 
   // Save Category in the database
   Category.create(category)

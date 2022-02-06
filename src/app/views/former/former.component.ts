@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormerService} from "../../services/former.service";
+import {FormerService} from "../../services/db/former.service";
 import {Former} from "../../models/former";
 
 @Component({

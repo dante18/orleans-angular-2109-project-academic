@@ -13,7 +13,10 @@
     <div class="container">
       <div *ngIf="dataSend" class="row row mt-2 mb-2">
         <div class="col-12">
-          <div class="alert alert-success" role="alert">
+          <div *ngIf="messageType == 'danger'" class="alert alert-danger" role="alert">
+            {{ message }}
+          </div>
+          <div *ngIf="messageType == 'success'" class="alert alert-success" role="alert">
             {{ message }}
           </div>
         </div>
@@ -30,9 +33,9 @@
                   <form class="row needs-validation d-flex justify-content-center" #formEditCategory="ngForm"
                         (ngSubmit)="submitHandler(formEditCategory)">
                     <div class="row mb-3">
-                      <label for="nameFormation" class="col-sm-4 col-form-label">Nom de la formation</label>
+                      <label for="nameCategory" class="col-sm-4 col-form-label">Nom de la formation</label>
                       <div class="col-sm-6">
-                        <input type="text" class="form-control" id="nameFormation" name="name" autocomplete="off"
+                        <input type="text" class="form-control" id="nameCategory" name="name" autocomplete="off"
                                required [ngModel]="category.name">
                         <div *ngIf="formEditCategoryIsSubmitted && fieldNameCategory" class="valid-feedback">
                           OK
@@ -56,7 +59,7 @@
       </div>
       <div class="row mt-5 mb-5">
         <div class="col-12">
-          <a routerLink="/category" class="btn btn-custom float-end"> Retourner a la liste des catégories</a>
+          <a routerLink="/categorie" class="btn btn-custom float-end"> Retourner a la liste des catégories</a>
         </div>
       </div>
     </div>

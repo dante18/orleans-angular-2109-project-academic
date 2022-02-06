@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {FormationService} from "../../../services/formation.service";
+import {FormationService} from "../../../services/db/formation.service";
 
 @Component({
   selector: 'app-detail-formation',

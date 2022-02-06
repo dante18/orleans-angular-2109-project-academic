@@ -5,7 +5,7 @@
         <h1 class="title"> Catégories</h1>
       </div>
       <div class="col-lg-3 offset-4 tools-box">
-        <a routerLink="/category/add" class="btn btn-sm btn-outline-info">
+        <a routerLink="/categorie/ajouter" class="btn btn-sm btn-outline-info">
           <i class="fas fa-plus-circle"></i> Ajouter une catégorie
         </a>
       </div>
@@ -75,7 +75,7 @@
     <tr *ngFor="let category of dataSets; let i = index">
       <td *ngIf="i < numberItemToDisplay">{{ category.name }}</td>
       <td *ngIf="i < numberItemToDisplay">
-        <a [routerLink]="['/category/edit/', category.id]" data-bs-toggle="tooltip" data-bs-placement="top"
+        <a [routerLink]="['/categorie/modifier/', category.id]" data-bs-toggle="tooltip" data-bs-placement="top"
            title="Mettre à jour"
            class="btn btn-sm btn-outline-info">
           <i class="fas fa-edit"></i>

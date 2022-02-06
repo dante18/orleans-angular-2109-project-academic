@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
-import {FormerService} from "../../../services/former.service";
+import {FormerService} from "../../../services/db/former.service";
 
 @Component({
   selector: 'app-edit-former',

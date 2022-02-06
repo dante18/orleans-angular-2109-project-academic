@@ -26,7 +26,7 @@ const routes: Routes = [
 
   {path: 'categorie', component: CategoryComponent},
   {path: 'categorie/ajouter', component: AddCategoryComponent},
-  {path: 'categorie/edit/:id', component: EditCategoryComponent},
+  {path: 'categorie/modifier/:id', component: EditCategoryComponent},
 
   {path: 'formateur', component: FormerComponent},
   {path: 'formateur/ajouter', component: AddFormerComponent},

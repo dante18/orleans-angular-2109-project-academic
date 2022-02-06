@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
-import {InternService} from "../../../services/intern.service";
+import {InternService} from "../../../services/db/intern.service";
 
 @Component({
   selector: 'app-add-intern',

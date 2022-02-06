@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
-import {FormationService} from "../../../services/formation.service";
-import {CategoryService} from "../../../services/category.service";
+import {FormationService} from "../../../services/db/formation.service";
+import {CategoryService} from "../../../services/db/category.service";
 import {Category} from "../../../models/category";
 import {Level} from "../../../models/level";
-import {LevelService} from "../../../services/level.service";
+import {LevelService} from "../../../services/db/level.service";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
@@ -117,6 +117,7 @@ export class EditFormationComponent implements OnInit {
       this.serviceFormation.updateFormation(this.formation.id, formEditFormation.value).subscribe({
         next: () => {
           this.message = "Les données de la formation ont ete mise a jour";
+          this.messageType = "success";
           this.formEditFormationIsSubmitted = false;
           this.dataSend = true;
           this.fieldNameFormation = true;

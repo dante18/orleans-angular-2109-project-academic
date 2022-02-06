@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {FormationService} from "../../services/formation.service";
-import {InternService} from "../../services/intern.service";
+import {FormationService} from "../../services/db/formation.service";
+import {InternService} from "../../services/db/intern.service";
 
 @Component({
   selector: 'app-home',
