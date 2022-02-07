@@ -25,7 +25,7 @@
         <div class="col-12">
           <div class="card shadow text-center border-0">
             <div class="card-header">
-              <h2>Mettre a jour les information du stagiaire : {{ intern.firstname }} {{ intern.lastname }}</h2>
+              <h2>Mettre à jour les informations du stagiaire : {{ intern.firstname }} {{ intern.lastname }}</h2>
             </div>
             <div class="card-body">
               <div class="row">
@@ -47,12 +47,12 @@
                           OK
                         </div>
                         <div *ngIf="formEditInternIsSubmitted && !fieldCivilityIntern" class="invalid-feedback">
-                          Le champs doit être renseigné
+                          Le champ doit être renseigné
                         </div>
                       </div>
                     </div>
                     <div class="row mb-3">
-                      <label for="lastnameFormer" class="col-sm-4 col-form-label">Nom de famille du formateur</label>
+                      <label for="lastnameFormer" class="col-sm-4 col-form-label">Nom de famille du stagiaire</label>
                       <div class="col-sm-6">
                         <input type="text" class="form-control" id="lastnameFormer" name="lastname" autocomplete="off"
                                required [ngModel]="intern.lastname">
@@ -60,12 +60,12 @@
                           OK
                         </div>
                         <div *ngIf="formEditInternIsSubmitted && !fieldLastnameIntern" class="invalid-feedback">
-                          Le champs doit être renseigné
+                          Le champ doit être renseigné
                         </div>
                       </div>
                     </div>
                     <div class="row mb-3">
-                      <label for="firstnameFormer" class="col-sm-4 col-form-label">Prénom du formateur</label>
+                      <label for="firstnameFormer" class="col-sm-4 col-form-label">Prénom du stagiaire</label>
                       <div class="col-sm-6">
                         <input type="text" class="form-control" id="firstnameFormer" name="firstname" autocomplete="off"
                                required [ngModel]="intern.firstname">
@@ -73,12 +73,12 @@
                           OK
                         </div>
                         <div *ngIf="formEditInternIsSubmitted && !fieldFirstnameIntern" class="invalid-feedback">
-                          Le champs doit être renseigné
+                          Le champ doit être renseigné
                         </div>
                       </div>
                     </div>
                     <div class="row mb-3">
-                      <label for="phoneNumberFormer" class="col-sm-4 col-form-label">Numéro de téléphone</label>
+                      <label for="phoneNumberFormer" class="col-sm-4 col-form-label">Numéro de téléphone stagiaire</label>
                       <div class="col-sm-6">
                         <input type="text" class="form-control" id="phoneNumberFormer" name="phoneNumber" autocomplete="off"
                                required [ngModel]="intern.phoneNumber">
@@ -86,12 +86,12 @@
                           OK
                         </div>
                         <div *ngIf="formEditInternIsSubmitted && !fieldPhoneNumberIntern" class="invalid-feedback">
-                          Le champs doit être renseigné
+                          Le champ doit être renseigné
                         </div>
                       </div>
                     </div>
                     <div class="row mb-3">
-                      <label for="emailAddressFormer" class="col-sm-4 col-form-label">Adresse email du formateur</label>
+                      <label for="emailAddressFormer" class="col-sm-4 col-form-label">Adresse email du stagiaire</label>
                       <div class="col-sm-6">
                         <input type="text" class="form-control" id="emailAddressFormer" name="emailAddress" autocomplete="off"
                                required [ngModel]="intern.emailAddress">
@@ -99,7 +99,7 @@
                           OK
                         </div>
                         <div *ngIf="formEditInternIsSubmitted && !fieldEmailAddressIntern" class="invalid-feedback">
-                          Le champs doit être renseigné
+                          Le champ doit être renseigné
                         </div>
                       </div>
                     </div>
@@ -117,7 +117,7 @@
       </div>
       <div class="row mt-5 mb-5">
         <div class="col-12">
-          <a routerLink="/stagiaire" class="btn btn-custom float-end"> Retourner a la liste des stagiaires</a>
+          <a routerLink="/stagiaire" class="btn btn-custom float-end"> Retourner à la liste des stagiaires</a>
         </div>
       </div>
     </div>

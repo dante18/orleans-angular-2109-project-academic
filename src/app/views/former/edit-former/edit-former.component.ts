@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
-import {FormerService} from "../../../services/db/former.service";
+import {FormerService} from "../../../services/former.service";
 
 @Component({
   selector: 'app-edit-former',
@@ -56,13 +56,13 @@ export class EditFormerComponent implements OnInit {
         if (this.former == undefined) {
           this.formerStatus = false
           this.messageType = "danger";
-          this.message = "Une erreur s'est produite lors de la recupération des données. Veuillez contactez l'administrateur si le probleme persiste.";
+          this.message = "Une erreur s'est produite lors de la récupération des données. Veuillez contactez l'administrateur si le problème persiste.";
         }
       },
       error: () => {
         this.formerStatus = false;
         this.messageType = "danger";
-        this.message = "Une erreur s'est produite lors de la recupération des données. Veuillez contactez l'administrateur si le probleme persiste.";
+        this.message = "Une erreur s'est produite lors de la récupération des données. Veuillez contactez l'administrateur si le problème persiste.";
       }
     });
   }
@@ -79,7 +79,7 @@ export class EditFormerComponent implements OnInit {
     if (this.numberOfErrors == 0) {
       this.serviceFormer.updateFormer(this.former.id, formEditFormer.value).subscribe({
         next: () => {
-          this.message = "Les données du formateur ont ete mise a jour";
+          this.message = "Les données du formateur ont été mise à jour";
           this.formEditFormerIsSubmitted = false;
           this.messageType = "success";
           this.dataSend = true;

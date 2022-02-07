@@ -6,7 +6,7 @@
       </div>
       <div class="col-lg-3 offset-4 tools-box">
         <a routerLink="/stagiaire/ajouter" class="btn btn-sm btn-outline-info">
-          <i class="fas fa-plus-circle"></i> Ajouter un stagiaire
+          <i class="fas fa-plus-circle"></i> Ajouter un nouveau stagiaire
         </a>
         <div class="dropdown">
           <button class="btn btn-sm btn-outline-info" type="button" id="dropdownDisplayData"
@@ -32,13 +32,13 @@
             <div class="card-header">
               <div class="row d-flex flex-row justify-content-around align-items-center">
                 <div class="col-lg-6 pt-3">
-                  <h2 class="float-start ps-3">Liste des stagiares</h2>
+                  <h2 class="float-start ps-3">Liste des stagiaires</h2>
                 </div>
                 <div class="offset-2 col-lg-4">
-                  <form class="search-form" #formSearchFormer="ngForm">
-                    <input type="search" class="form-control" name="searchFormer"
+                  <form class="search-form" #formSearchIntern="ngForm">
+                    <input type="search" class="form-control" name="searchIntern"
                            placeholder="Saisissez le nom de famille ou le prénom" ngModel
-                           (ngModelChange)="eventSearchHandler(formSearchFormer)">
+                           (ngModelChange)="eventSearchHandler(formSearchIntern)">
                   </form>
                 </div>
               </div>

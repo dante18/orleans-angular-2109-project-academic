@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
-import {CategoryService} from "../../../services/db/category.service";
+import {CategoryService} from "../../../services/category.service";
 
 @Component({
   selector: 'app-add-category',
@@ -31,7 +31,7 @@ export class AddCategoryComponent implements OnInit {
     if (this.numberOfErrors == 0) {
       this.serviceCategory.addCategory(formAddCategory.value).subscribe({
         next: () => {
-          this.message = "La catégorie a bien ete enregistrée";
+          this.message = "La catégorie a bien été enregistrée";
           this.formAddCategoryIsSubmitted = false;
           this.numberOfErrors = 0;
           this.dataSend = true;

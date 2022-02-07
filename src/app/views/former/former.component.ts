@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormerService} from "../../services/db/former.service";
+import {FormerService} from "../../services/former.service";
 import {Former} from "../../models/former";
 
 @Component({
@@ -10,7 +10,7 @@ import {Former} from "../../models/former";
 export class FormerComponent implements OnInit {
   formerList: Former[] = [];
   displayDataMethod = "table";
-  textDefault = "Aucune données n'a été trouvé";
+  textDefault = "Aucune données n'a été trouvée";
   numberOfFormer = 0;
   formerSelectedId: any;
   modalTitle = "";
@@ -139,7 +139,7 @@ export class FormerComponent implements OnInit {
    */
   deleteFormer(former: any)
   {
-    this.modalTitle = "Confirmez-vous la suppression";
+    this.modalTitle = "Confirmez-vous la suppression ?";
     this.formerSelectedId = former.id;
   }
 

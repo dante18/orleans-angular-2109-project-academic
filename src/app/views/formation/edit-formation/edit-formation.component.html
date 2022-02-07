@@ -25,7 +25,7 @@
         <div class="col-12">
           <div class="card shadow text-center border-0">
             <div class="card-header">
-              <h2>Mettre a jour de la formation</h2>
+              <h2>Mettre à jour les données de la formation</h2>
             </div>
             <div class="card-body">
               <div class="row">
@@ -41,7 +41,7 @@
                           OK
                         </div>
                         <div *ngIf="formEditFormationIsSubmitted && !fieldNameFormation" class="invalid-feedback">
-                          Le champs doit être renseigné
+                          Le champ doit être renseigné
                         </div>
                       </div>
                     </div>
@@ -55,7 +55,7 @@
                           OK
                         </div>
                         <div *ngIf="formEditFormationIsSubmitted && !fieldDescriptionFormation" class="invalid-feedback">
-                          {{ formEditFormation.value.description > 255 ? 'Le champs doit contenir moins de 255 caractères.' : 'Le champs doit être renseigné.'}}
+                          {{ formEditFormation.value.description > 255 ? 'Le champ doit contenir moins de 255 caractères.' : 'Le champ doit être renseigné.'}}
                         </div>
                       </div>
                     </div>
@@ -68,7 +68,7 @@
                           OK
                         </div>
                         <div *ngIf="formEditFormationIsSubmitted && !fieldProgrammFormation" class="invalid-feedback">
-                          Le champs doit être renseigné
+                          Le champ doit être renseigné
                         </div>
                       </div>
                     </div>
@@ -81,7 +81,7 @@
                           OK
                         </div>
                         <div *ngIf="formEditFormationIsSubmitted && !fieldPriceFormation" class="invalid-feedback">
-                          Le prix doit être supérieur a 0.
+                          Le prix doit être supérieur à 0
                         </div>
                       </div>
                     </div>
@@ -95,7 +95,7 @@
                           OK
                         </div>
                         <div *ngIf="formEditFormationIsSubmitted && !fieldDurationFormation" class="invalid-feedback">
-                          La durée doit être supérieur a 0.
+                          La durée doit être supérieur à 0
                         </div>
                       </div>
                     </div>
@@ -109,7 +109,7 @@
                           OK
                         </div>
                         <div *ngIf="formEditFormationIsSubmitted && !fieldDateAvailableFormation" class="invalid-feedback">
-                          Le champs doit être renseigné.
+                          Le champ doit être renseigné
                         </div>
                       </div>
                     </div>
@@ -125,7 +125,7 @@
                           OK
                         </div>
                         <div *ngIf="formEditFormationIsSubmitted && !fieldLevelFormation" class="invalid-feedback">
-                          Le champs doit être renseigné.
+                          Le champ doit être renseigné
                         </div>
                       </div>
                     </div>
@@ -142,7 +142,7 @@
                           OK
                         </div>
                         <div *ngIf="formEditFormationIsSubmitted && !fieldCategoryFormation" class="invalid-feedback">
-                          Le champs doit être renseigné.
+                          Le champ doit être renseigné
                         </div>
                       </div>
                     </div>
@@ -160,7 +160,7 @@
       </div>
       <div class="row mt-5 mb-5">
         <div class="col-12">
-          <a routerLink="/formation" class="btn btn-custom float-end"> Retourner a la liste des formations</a>
+          <a routerLink="/formation" class="btn btn-custom float-end"> Retourner à la liste des formations</a>
         </div>
       </div>
     </div>

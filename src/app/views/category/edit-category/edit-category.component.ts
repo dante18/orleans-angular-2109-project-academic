@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
-import {CategoryService} from "../../../services/db/category.service";
+import {CategoryService} from "../../../services/category.service";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
@@ -49,13 +49,13 @@ export class EditCategoryComponent implements OnInit {
         if (this.category == undefined) {
           this.categoryStatus = false
           this.messageType = "danger";
-          this.message = "Une erreur s'est produite lors de la recupération des données. Veuillez contactez l'administrateur si le probleme persiste."
+          this.message = "Une erreur s'est produite lors de la récupération des données. Veuillez contactez l'administrateur si le problème persiste."
         }
       },
       error: () => {
         this.categoryStatus = false;
         this.messageType = "danger";
-        this.message = "Une erreur s'est produite lors de la recupération des données. Veuillez contactez l'administrateur si le probleme persiste."
+        this.message = "Une erreur s'est produite lors de la récupération des données. Veuillez contactez l'administrateur si le problème persiste."
       }
     });
   }
@@ -72,7 +72,7 @@ export class EditCategoryComponent implements OnInit {
     if (this.numberOfErrors == 0) {
       this.serviceCategory.updateCategory(this.category.id, formEditCategory.value).subscribe({
         next: () => {
-          this.message = "Les données de la catégorie ont ete mise a jour";
+          this.message = "Les données de la catégorie ont été mise à jour";
           this.messageType = "success";
           this.formEditCategoryIsSubmitted = false;
           this.dataSend = true;

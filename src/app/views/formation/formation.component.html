@@ -6,7 +6,7 @@
       </div>
       <div class="col-lg-3 offset-4 tools-box">
         <a routerLink="/formation/ajouter" class="btn btn-sm btn-outline-info">
-          <i class="fas fa-plus-circle"></i> Ajouter une formation
+          <i class="fas fa-plus-circle"></i> Ajouter une nouvelle formation
         </a>
         <div class="dropdown">
           <button class="btn btn-sm btn-outline-info" type="button" id="dropdownDisplayData"
@@ -141,7 +141,7 @@
         <div class="card-body">
           <p class="card-text p-0">{{ formation.name }} - Niveau {{ formation.level }}</p>
           <p class="card-text p-0">Disponible le {{ formation.dateAvailable | date:'dd-MM-yyyy' }}
-            a {{ formation.dateAvailable | date:'HH:MM'}}</p>
+            à {{ formation.dateAvailable | date:'HH:MM'}}</p>
           <p class="p-0 float-start">Au prix de {{ formation.price | currency:'EUR' }}</p>
           <p class="card-text ps-0 pt-5 pb-5">{{ formation.description }}</p>
           <div class="d-flex justify-content-between align-items-center">

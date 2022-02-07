@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {InternService} from "../../services/db/intern.service";
+import {InternService} from "../../services/intern.service";
 import {Intern} from "../../models/intern";
 
 @Component({
@@ -10,7 +10,7 @@ import {Intern} from "../../models/intern";
 export class InternComponent implements OnInit {
   internList: Intern[] = [];
   displayDataMethod = "table";
-  textDefault = "Aucune données n'a été trouvé";
+  textDefault = "Aucune données n'a été trouvée";
   numberOfFIntern = 0;
   internSelectedId: any;
   modalTitle = "";
@@ -136,7 +136,7 @@ export class InternComponent implements OnInit {
    */
   deleteIntern(intern: any)
   {
-    this.modalTitle = "Confirmez-vous la suppression";
+    this.modalTitle = "Confirmez-vous la suppression ?";
     this.internSelectedId = intern.id;
   }
 

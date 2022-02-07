@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
-import {FormationService} from "../../../services/db/formation.service";
-import {CategoryService} from "../../../services/db/category.service";
+import {FormationService} from "../../../services/formation.service";
+import {CategoryService} from "../../../services/category.service";
 import {Category} from "../../../models/category";
 import {Level} from "../../../models/level";
-import {LevelService} from "../../../services/db/level.service";
+import {LevelService} from "../../../services/level.service";
 
 @Component({
   selector: 'app-add-formation',
@@ -78,7 +78,7 @@ export class AddFormationComponent implements OnInit {
     if (this.numberOfErrors == 0) {
       this.serviceFormation.addFormation(formAddFormation.value).subscribe({
         next: () => {
-          this.message = "La formation a bien ete enregistrée";
+          this.message = "La formation a bien été enregistrée";
           this.formAddFormationIsSubmitted = false;
           this.numberOfErrors = 0;
           this.dataSend = true;

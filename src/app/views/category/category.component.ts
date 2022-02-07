@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Category} from "../../models/category";
-import {CategoryService} from "../../services/db/category.service";
+import {CategoryService} from "../../services/category.service";
 
 @Component({
   selector: 'app-category',
@@ -9,7 +9,7 @@ import {CategoryService} from "../../services/db/category.service";
 })
 export class CategoryComponent implements OnInit {
   categoryList: Category[] = [];
-  textDefault = "Aucune données n'a été trouvé";
+  textDefault = "Aucune données n'a été trouvée";
   numberOfCategory = 0;
   categorySelectedId: any;
   modalTitle = "";
@@ -118,7 +118,7 @@ export class CategoryComponent implements OnInit {
    * @param category
    */
   deleteCategory(category: any) {
-    this.modalTitle = "Confirmez-vous la suppression de la catégory: " + category.name
+    this.modalTitle = "Confirmez-vous la suppression de la catégorie: " + category.name
     this.categorySelectedId = category.id;
   }
 

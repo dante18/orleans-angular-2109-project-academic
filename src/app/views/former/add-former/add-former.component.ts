@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
-import {FormerService} from "../../../services/db/former.service";
+import {FormerService} from "../../../services/former.service";
 
 @Component({
   selector: 'app-add-former',
@@ -49,7 +49,7 @@ export class AddFormerComponent implements OnInit {
 
       this.serviceFormer.addFormer(formAddFormer.value).subscribe({
         next: () => {
-          this.message = "Le formateur a ete ajouté avec success";
+          this.message = "Le formateur a bien été enregistré";
           this.formAddFormerIsSubmitted = false;
           this.numberOfErrors = 0;
           this.dataSend = true;

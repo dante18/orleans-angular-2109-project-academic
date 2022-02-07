@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {FormationService} from "../../services/db/formation.service";
+import {FormationService} from "../../services/formation.service";
 import {Category} from "../../models/category";
 import {Formation} from "../../models/formation";
-import {CategoryService} from "../../services/db/category.service";
+import {CategoryService} from "../../services/category.service";
 
 @Component({
   selector: 'app-formation',
@@ -13,7 +13,7 @@ export class FormationComponent implements OnInit {
   formationList: Formation[] = [];
   categoryList: Category[] = [];
   displayDataMethod = "table";
-  textDefault = "Aucune données n'a été trouvé";
+  textDefault = "Aucune données n'a été trouvée";
   numberOfFormation = 0;
   formationSelectedId: any;
   modalTitle = "";
@@ -65,7 +65,6 @@ export class FormationComponent implements OnInit {
   getCategoryList(): any {
     this.serviceCategory.findAllCategory().subscribe({
       next: (value: any) => {
-        /* Retrieve formation list */
         this.categoryList = value;
       },
       error: (error) => {
@@ -154,7 +153,7 @@ export class FormationComponent implements OnInit {
           }
 
           if (this.numberOfFormation == 0) {
-            this.textDefault = "Aucune formation n'est associé a la catégorie '" + categoryName + "'";
+            this.textDefault = "Aucune formation n'est associée à la catégorie '" + categoryName + "'";
           }
         },
         error: (error) => {

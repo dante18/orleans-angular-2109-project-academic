@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
-import {InternService} from "../../../services/db/intern.service";
+import {InternService} from "../../../services/intern.service";
 
 @Component({
   selector: 'app-edit-intern',
@@ -75,7 +75,7 @@ export class EditInternComponent implements OnInit {
     if (this.numberOfErrors == 0) {
       this.serviceIntern.updateIntern(this.intern.id, formEditIntern.value).subscribe({
         next: () => {
-          this.message = "Les données du stagiaire ont ete mise a jour";
+          this.message = "Les données du stagiaire ont été mise à jour";
           this.messageType = "success";
           this.formEditInternIsSubmitted = false;
           this.dataSend = true;

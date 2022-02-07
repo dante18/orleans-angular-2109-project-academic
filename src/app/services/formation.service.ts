@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Formation} from "../../models/formation";
+import {Formation} from "../models/formation";
 
 @Injectable({
   providedIn: 'root'

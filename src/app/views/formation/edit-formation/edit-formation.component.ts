@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
-import {FormationService} from "../../../services/db/formation.service";
-import {CategoryService} from "../../../services/db/category.service";
+import {FormationService} from "../../../services/formation.service";
+import {CategoryService} from "../../../services/category.service";
 import {Category} from "../../../models/category";
 import {Level} from "../../../models/level";
-import {LevelService} from "../../../services/db/level.service";
+import {LevelService} from "../../../services/level.service";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
@@ -92,13 +92,13 @@ export class EditFormationComponent implements OnInit {
 
         if (this.formation == undefined) {
           this.messageType = "danger";
-          this.message = "Une erreur s'est produite lors de la recupération des données. Veuillez contactez l'administrateur si le probleme persiste."
+          this.message = "Une erreur s'est produite lors de la récupération des données. Veuillez contactez l'administrateur si le problème persiste."
           this.formationStatus = false;
         }
       },
       error: () => {
         this.messageType = "danger";
-        this.message = "Une erreur s'est produite lors de la recupération des données. Veuillez contactez l'administrateur si le probleme persiste."
+        this.message = "Une erreur s'est produite lors de la récupération des données. Veuillez contactez l'administrateur si le problème persiste."
         this.formationStatus = false;
       }
     });
@@ -116,7 +116,7 @@ export class EditFormationComponent implements OnInit {
     if (this.numberOfErrors == 0) {
       this.serviceFormation.updateFormation(this.formation.id, formEditFormation.value).subscribe({
         next: () => {
-          this.message = "Les données de la formation ont ete mise a jour";
+          this.message = "Les données de la formation ont été mise à jour";
           this.messageType = "success";
           this.formEditFormationIsSubmitted = false;
           this.dataSend = true;

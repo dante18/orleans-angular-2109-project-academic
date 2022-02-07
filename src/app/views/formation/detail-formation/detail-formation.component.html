@@ -2,7 +2,7 @@
   <div class="wrapper">
     <div class="container d-flex flex-row">
       <div class="col-lg-12">
-        <h1 class="title"> Formation</h1>
+        <h1 class="title"> Formations</h1>
       </div>
     </div>
   </div>
@@ -19,12 +19,12 @@
               <p>Prix: {{ formation.price | currency:'EUR' }}</p>
               <p>Niveau: {{ formation.level }}</p>
               <p>Catégorie: {{ formation.category }}</p>
-              <p>Disponible le {{ formation.dateAvailable | date:'dd-MM-yyyy' }} a {{ formation.dateAvailable | date:'HH:MM'}}</p>
+              <p>Disponible le {{ formation.dateAvailable | date:'dd-MM-yyyy' }} à {{ formation.dateAvailable | date:'HH:MM'}}</p>
             </div>
             <div class="card-body">
               <div class="row">
                 <div class="col-12">
-                  <h4>Presentation</h4>
+                  <h4>Présentation</h4>
                   <p>{{ formation.description }}</p>
                 </div>
               </div>
@@ -40,7 +40,7 @@
       </div>
       <div class="row mt-5 mb-5">
         <div class="col-12">
-          <a routerLink="/formation" class="btn btn-custom float-end"> Retourner a la liste des formations</a>
+          <a routerLink="/formation" class="btn btn-custom float-end"> Retourner à la liste des formations</a>
         </div>
       </div>
     </div>
