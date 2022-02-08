@@ -46,7 +46,7 @@ export class FormationComponent implements OnInit {
       next: (value: any) => {
         this.formationList = value;
         this.dataSets = this.formationList;
-        this.numberOfFormation = this.formationList.length  > 1 ? this.formationList.length - 1 : this.formationList.length;
+        this.numberOfFormation = this.formationList.length;
         this.numberPageTotal = Math.ceil(this.numberOfFormation / this.numberItemToDisplay);
 
         for (let i = 0; i < this.numberPageTotal; i++) {
@@ -107,13 +107,13 @@ export class FormationComponent implements OnInit {
       this.pageNumberList = [];
 
       formationList.forEach((formation) => {
-        if (formation.name!.toLowerCase().search(formationName.toLowerCase()) != -1) {
+        if (formation.name!.toLowerCase().includes(formationName.toLowerCase())) {
           this.formationList.push(formation);
         }
       });
 
       this.dataSets = this.formationList;
-      this.numberOfFormation = this.dataSets.length > 1 ? this.dataSets.length - 1 : this.dataSets.length;
+      this.numberOfFormation = this.dataSets.length;
       this.numberPageTotal = Math.ceil(this.numberOfFormation / this.numberItemToDisplay);
 
       if (this.numberOfFormation > this.numberItemToDisplay) {
@@ -145,7 +145,7 @@ export class FormationComponent implements OnInit {
         next: (value: any) => {
           this.formationList = value;
           this.dataSets = this.formationList;
-          this.numberOfFormation = this.formationList.length  > 1 ? this.formationList.length - 1 : this.formationList.length;
+          this.numberOfFormation = this.formationList.length;
           this.numberPageTotal = Math.ceil(this.numberOfFormation / this.numberItemToDisplay);
 
           for (let i = 0; i < this.numberPageTotal; i++) {

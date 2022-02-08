@@ -75,7 +75,7 @@ export class EditInternComponent implements OnInit {
     if (this.numberOfErrors == 0) {
       this.serviceIntern.updateIntern(this.intern.id, formEditIntern.value).subscribe({
         next: () => {
-          this.message = "Les données du stagiaire ont été mise à jour";
+          this.message = "Les données du stagiaire ont bien été mises à jour";
           this.messageType = "success";
           this.formEditInternIsSubmitted = false;
           this.dataSend = true;

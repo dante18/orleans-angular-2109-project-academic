@@ -35,7 +35,7 @@
             <div class="card-body">
               <i class="fa fa-users fa-2x" aria-hidden="true"></i>
               <hr/>
-              <p class="card-title lead">Nombre de stagiare(s): {{ numberTotalOfIntern }}</p>
+              <p class="card-title lead">Nombre de stagiaire(s): {{ numberTotalOfIntern }}</p>
             </div>
           </div>
         </div>
@@ -50,7 +50,7 @@
             <div class="card-header">
               <h2>Liste des dernières formations ajoutées</h2>
             </div>
-            <div class="card-body" *ngIf="numberTotalOfAvailableFormation > 0; then blocThen; else blocElse"></div>
+            <div class="card-body" *ngIf="formationList.length > 0; then blocThen; else blocElse"></div>
           </div>
         </div>
       </div>
@@ -92,6 +92,6 @@
 <ng-template #blocElse>
   <div class="card-body d-flex flex-column justify-content-center">
     <i class="fas fa-exclamation-circle fa-3x mt-3 mb-3"></i>
-    <p class="fs-4">Aucune données n'a été trouvée</p>
+    <p class="fs-4">Aucune donnée n'a été trouvée</p>
   </div>
 </ng-template>

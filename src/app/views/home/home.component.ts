@@ -42,8 +42,13 @@ export class HomeComponent implements OnInit {
    */
   getFormationList(): any {
     const today = new Date();
-    const curentDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    const year = today.getFullYear();
+    const month = (today.getMonth() + 1) < 10 ? "0" + (today.getMonth() + 1) : (today.getMonth() + 1);
+    const day = (today.getMonth() + 1) < 10 ? "0" + today.getDate() : today.getDate();
 
+    const curentDate = year + '-' + month + '-' + day;
+
+    console.log(curentDate);
     this.serviceFormation.findAllFormation().subscribe({
       next: (value: any) => {
         value.forEach((formation: any) => {
@@ -51,10 +56,9 @@ export class HomeComponent implements OnInit {
 
           if (new Date(dateAvailable) > new Date(curentDate)) {
             this.numberTotalOfComingSoonFormation += 1;
-          } else if (new Date(dateAvailable) == new Date(curentDate)) {
+          } else if (dateAvailable == curentDate) {
             this.formationList.push(formation);
-          }
-          else {
+          } else {
             this.numberTotalOfAvailableFormation += 1;
           }
         });

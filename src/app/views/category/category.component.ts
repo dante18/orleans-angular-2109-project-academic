@@ -9,7 +9,7 @@ import {CategoryService} from "../../services/category.service";
 })
 export class CategoryComponent implements OnInit {
   categoryList: Category[] = [];
-  textDefault = "Aucune données n'a été trouvée";
+  textDefault = "Aucune donnée n'a été trouvée";
   numberOfCategory = 0;
   categorySelectedId: any;
   modalTitle = "";
@@ -40,7 +40,7 @@ export class CategoryComponent implements OnInit {
         this.categoryList = value;
 
         this.dataSets = this.categoryList;
-        this.numberOfCategory = this.categoryList.length  > 1 ? this.categoryList.length - 1 : this.categoryList.length;
+        this.numberOfCategory = this.categoryList.length;
         this.numberPageTotal = Math.ceil(this.numberOfCategory / this.numberItemToDisplay);
 
         for (let i = 0; i < this.numberPageTotal; i++) {
@@ -72,13 +72,13 @@ export class CategoryComponent implements OnInit {
       this.pageNumberList = [];
 
       categoryList.forEach((formation) => {
-        if (formation.name!.toLowerCase().search(categoryName.toLowerCase()) != -1) {
+        if (formation.name!.toLowerCase().includes(categoryName.toLowerCase())) {
           this.categoryList.push(formation);
         }
       });
 
       this.dataSets = this.categoryList;
-      this.numberOfCategory = this.dataSets.length > 1 ? this.dataSets.length - 1 : this.dataSets.length;
+      this.numberOfCategory = this.dataSets.length;
       this.numberPageTotal = Math.ceil(this.numberOfCategory / this.numberItemToDisplay);
 
       if (this.numberOfCategory > this.numberItemToDisplay) {

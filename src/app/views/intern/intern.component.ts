@@ -40,7 +40,7 @@ export class InternComponent implements OnInit {
       next: (value: any) => {
         this.internList = value;
         this.dataSets = this.internList;
-        this.numberOfFIntern = this.internList.length  > 1 ? this.internList.length - 1 : this.internList.length;
+        this.numberOfFIntern = this.internList.length;
         this.numberPageTotal = Math.ceil(this.numberOfFIntern / this.numberItemToDisplay);
 
         for (let i = 0; i < this.numberPageTotal; i++) {
@@ -75,7 +75,7 @@ export class InternComponent implements OnInit {
    */
   eventSearchHandler(formSearch: any) {
     let internName = formSearch.value.searchIntern;
-
+    console.log(internName);
     if (internName.length == 0) {
       this.pageNumberList = [];
       this.getInternList();
@@ -87,14 +87,14 @@ export class InternComponent implements OnInit {
       this.pageNumberList = [];
 
       internList.forEach((intern) => {
-        if (intern.lastname!.toLowerCase().search(internName.toLowerCase()) != -1
-          || intern.firstname!.toLowerCase().search(internName.toLowerCase()) != -1) {
+        if (intern.lastname!.toLowerCase().includes(internName.toLowerCase())
+          || intern.firstname!.toLowerCase().includes(internName.toLowerCase())) {
           this.internList.push(intern);
         }
       });
 
       this.dataSets = this.internList;
-      this.numberOfFIntern = this.dataSets.length > 1 ? this.dataSets.length - 1 : this.dataSets.length;
+      this.numberOfFIntern = this.dataSets.length;
       this.numberPageTotal = Math.ceil(this.numberOfFIntern / this.numberItemToDisplay);
 
       if (this.numberOfFIntern > this.numberItemToDisplay) {

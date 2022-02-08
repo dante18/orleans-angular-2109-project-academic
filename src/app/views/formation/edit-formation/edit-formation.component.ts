@@ -116,7 +116,7 @@ export class EditFormationComponent implements OnInit {
     if (this.numberOfErrors == 0) {
       this.serviceFormation.updateFormation(this.formation.id, formEditFormation.value).subscribe({
         next: () => {
-          this.message = "Les données de la formation ont été mise à jour";
+          this.message = "Les données de la formation ont bien été mises à jour";
           this.messageType = "success";
           this.formEditFormationIsSubmitted = false;
           this.dataSend = true;

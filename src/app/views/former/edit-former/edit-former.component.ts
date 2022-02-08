@@ -79,7 +79,7 @@ export class EditFormerComponent implements OnInit {
     if (this.numberOfErrors == 0) {
       this.serviceFormer.updateFormer(this.former.id, formEditFormer.value).subscribe({
         next: () => {
-          this.message = "Les données du formateur ont été mise à jour";
+          this.message = "Les données du formateur ont bien été mises à jour";
           this.formEditFormerIsSubmitted = false;
           this.messageType = "success";
           this.dataSend = true;

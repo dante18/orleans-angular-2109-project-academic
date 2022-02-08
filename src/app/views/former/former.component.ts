@@ -41,7 +41,7 @@ export class FormerComponent implements OnInit {
       next: (value: any) => {
         this.formerList = value;
         this.dataSets = this.formerList;
-        this.numberOfFormer = this.formerList.length  > 1 ? this.formerList.length - 1 : this.formerList.length;
+        this.numberOfFormer = this.formerList.length;
         this.numberPageTotal = Math.ceil(this.numberOfFormer / this.numberItemToDisplay);
 
         for (let i = 0; i < this.numberPageTotal; i++) {
@@ -90,14 +90,14 @@ export class FormerComponent implements OnInit {
       this.pageNumberList = [];
 
       formerList.forEach((former) => {
-        if (former.lastname!.toLowerCase().search(formerName.toLowerCase()) != -1
-          || former.firstname!.toLowerCase().search(formerName.toLowerCase()) != -1) {
+        if (former.lastname!.toLowerCase().includes(formerName.toLowerCase())
+          || former.firstname!.toLowerCase().includes(formerName.toLowerCase())) {
           this.formerList.push(former);
         }
       });
 
       this.dataSets = this.formerList;
-      this.numberOfFormer = this.dataSets.length > 1 ? this.dataSets.length - 1 : this.dataSets.length;
+      this.numberOfFormer = this.dataSets.length;
       this.numberPageTotal = Math.ceil(this.numberOfFormer / this.numberItemToDisplay);
 
       if (this.numberOfFormer > this.numberItemToDisplay) {
