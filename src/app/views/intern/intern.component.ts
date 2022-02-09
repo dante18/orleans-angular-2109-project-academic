@@ -121,6 +121,10 @@ export class InternComponent implements OnInit {
     if ($event.choice == "Oui") {
       this.serviceIntern.deleteIntern(this.internSelectedId).subscribe({
         next: () => {
+          this.pageNumberList = [];
+          this.numberPage = 1;
+          this.nextPage = 2;
+          this.prevPage = 1;
           this.getInternList();
         },
         error: (error) => {

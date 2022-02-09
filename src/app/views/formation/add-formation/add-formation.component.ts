@@ -17,7 +17,7 @@ export class AddFormationComponent implements OnInit {
   formAddFormationIsSubmitted = false;
   fieldNameFormation: any;
   fieldDescriptionFormation: any;
-  fieldProgrammFormation: any;
+  fieldProgramFormation: any;
   fieldPriceFormation: any;
   fieldDurationFormation: any;
   fieldDateAvailableFormation: any;
@@ -74,6 +74,7 @@ export class AddFormationComponent implements OnInit {
   submitHandler(formAddFormation: NgForm) {
     this.formAddFormationIsSubmitted = true;
     this.validationForm(formAddFormation);
+    console.log(formAddFormation.value);
 
     if (this.numberOfErrors == 0) {
       this.serviceFormation.addFormation(formAddFormation.value).subscribe({
@@ -84,7 +85,7 @@ export class AddFormationComponent implements OnInit {
           this.dataSend = true;
           this.fieldNameFormation = true;
           this.fieldDescriptionFormation = true;
-          this.fieldProgrammFormation = true;
+          this.fieldProgramFormation = true;
           this.fieldPriceFormation = true;
           this.fieldDurationFormation = true;
           this.fieldDateAvailableFormation = true;
@@ -126,12 +127,12 @@ export class AddFormationComponent implements OnInit {
     }
 
     if (form.value.program.length == 0) {
-      this.fieldProgrammFormation = false;
+      this.fieldProgramFormation = false;
       this.numberOfErrors += 1;
     }
 
     if (form.value.program.length > 0) {
-      this.fieldProgrammFormation = true;
+      this.fieldProgramFormation = true;
     }
 
     if (form.value.price == 0) {
@@ -152,13 +153,12 @@ export class AddFormationComponent implements OnInit {
       this.fieldDurationFormation = true;
     }
 
-    let regExp = new RegExp('/^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/');
-    if (form.value.dateAvailable.length == 0 || !regExp.test(form.value.dateAvailable)) {
+    if (form.value.dateAvailable.length == 0) {
       this.fieldDateAvailableFormation = false;
       this.numberOfErrors += 1;
     }
 
-    if (form.value.dateAvailable.length > 0 || regExp.test(form.value.dateAvailable)) {
+    if (form.value.dateAvailable.length > 0) {
       this.fieldDateAvailableFormation = true;
     }
 

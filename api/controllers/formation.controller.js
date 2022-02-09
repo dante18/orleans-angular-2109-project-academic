@@ -103,7 +103,7 @@ exports.create = (request, response) => {
     errorNumber+=1;
   }
 
-  if (!request.body.programm || request.body.programm.length === 0) {
+  if (!request.body.program || request.body.program.length === 0) {
     responseMessage = responseMessage + " programm";
     errorNumber+=1;
   }
@@ -113,8 +113,7 @@ exports.create = (request, response) => {
     errorNumber+=1;
   }
 
-  let regExp = new RegExp('/^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/');
-  if (!request.body.dateAvailable || request.body.dateAvailable.length === 0 || !regExp.test(request.body.dateAvailable)) {
+  if (!request.body.dateAvailable || request.body.dateAvailable.length === 0) {
     responseMessage = responseMessage + " dateAvailable";
     errorNumber+=1;
   }
@@ -133,7 +132,7 @@ exports.create = (request, response) => {
     price: request.body.price,
     level: request.body.level,
     category: request.body.category,
-    programm: request.body.category,
+    program: request.body.program,
     duration: request.body.duration,
     dateAvailable: request.body.dateAvailable
   };

@@ -38,7 +38,7 @@ module.exports = (cnx, SequelizeInstance) => {
       allowNull: false,
       field: "category"
     },
-    programm: {
+    program: {
       type: SequelizeInstance.STRING,
       allowNull: false,
       field: "programm"

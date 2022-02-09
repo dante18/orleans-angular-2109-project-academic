@@ -104,6 +104,10 @@ export class CategoryComponent implements OnInit {
     if ($event.choice == "Oui") {
       this.serviceCategory.deleteCategory(this.categorySelectedId).subscribe({
         next: () => {
+          this.pageNumberList = [];
+          this.numberPage = 1;
+          this.nextPage = 2;
+          this.prevPage = 1;
           this.getCategoryList();
         },
         error: (error) => {

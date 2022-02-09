@@ -48,7 +48,6 @@ export class HomeComponent implements OnInit {
 
     const curentDate = year + '-' + month + '-' + day;
 
-    console.log(curentDate);
     this.serviceFormation.findAllFormation().subscribe({
       next: (value: any) => {
         value.forEach((formation: any) => {

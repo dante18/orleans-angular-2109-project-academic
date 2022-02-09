@@ -62,12 +62,12 @@
                     <div class="row mb-3">
                       <label for="programFormation" class="col-sm-4 col-form-label">Programme de la formation</label>
                       <div class="col-sm-6 ps-3">
-                        <textarea class="form-control" id="programFormation" name="program" rows="3" [ngModel]="formation.programm"
+                        <textarea class="form-control" id="programFormation" name="program" rows="3" [ngModel]="formation.program"
                                   required minlength="10"></textarea>
-                        <div *ngIf="formEditFormationIsSubmitted && fieldProgrammFormation" class="valid-feedback">
+                        <div *ngIf="formEditFormationIsSubmitted && fieldProgramFormation" class="valid-feedback">
                           OK
                         </div>
-                        <div *ngIf="formEditFormationIsSubmitted && !fieldProgrammFormation" class="invalid-feedback">
+                        <div *ngIf="formEditFormationIsSubmitted && !fieldProgramFormation" class="invalid-feedback">
                           Le champ doit être renseigné
                         </div>
                       </div>

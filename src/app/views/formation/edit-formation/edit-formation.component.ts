@@ -18,7 +18,7 @@ export class EditFormationComponent implements OnInit {
   formEditFormationIsSubmitted = false;
   fieldNameFormation: any;
   fieldDescriptionFormation: any;
-  fieldProgrammFormation: any;
+  fieldProgramFormation: any;
   fieldPriceFormation: any;
   fieldDurationFormation: any;
   fieldDateAvailableFormation: any;
@@ -122,7 +122,7 @@ export class EditFormationComponent implements OnInit {
           this.dataSend = true;
           this.fieldNameFormation = true;
           this.fieldDescriptionFormation = true;
-          this.fieldProgrammFormation = true;
+          this.fieldProgramFormation = true;
           this.fieldPriceFormation = true;
           this.fieldDurationFormation = true;
           this.fieldDateAvailableFormation = true;
@@ -162,12 +162,12 @@ export class EditFormationComponent implements OnInit {
     }
 
     if (form.value.program.length == 0) {
-      this.fieldProgrammFormation = false;
+      this.fieldProgramFormation = false;
       this.numberOfErrors += 1;
     }
 
     if (form.value.program.length > 0) {
-      this.fieldProgrammFormation = true;
+      this.fieldProgramFormation = true;
     }
 
     if (form.value.price == 0) {
@@ -188,13 +188,12 @@ export class EditFormationComponent implements OnInit {
       this.fieldDurationFormation = true;
     }
 
-    let regExp = new RegExp('/^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/');
-    if (form.value.dateAvailable.length == 0 || !regExp.test(form.value.dateAvailable)) {
+    if (form.value.dateAvailable.length == 0) {
       this.fieldDateAvailableFormation = false;
       this.numberOfErrors += 1;
     }
 
-    if (form.value.dateAvailable.length > 0 || regExp.test(form.value.dateAvailable)) {
+    if (form.value.dateAvailable.length > 0) {
       this.fieldDateAvailableFormation = true;
     }
 

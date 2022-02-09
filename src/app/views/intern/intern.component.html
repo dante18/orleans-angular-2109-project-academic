@@ -91,7 +91,7 @@
       <td *ngIf="i < numberItemToDisplay">{{ intern.phoneNumber }}</td>
       <td *ngIf="i < numberItemToDisplay">{{ intern.emailAddress }}</td>
       <td *ngIf="i < numberItemToDisplay">
-        <a [routerLink]="['/stagiare/modifier/', intern.id]" data-bs-toggle="tooltip" data-bs-placement="top"
+        <a [routerLink]="['/stagiaire/modifier/', intern.id]" data-bs-toggle="tooltip" data-bs-placement="top"
            title="Mettre à jour"
            class="btn btn-sm btn-outline-info">
           <i class="fas fa-edit"></i>
@@ -118,7 +118,7 @@
           <p class="card-text p-0">Téléphone {{ intern.phoneNumber }}
           <div class="d-flex justify-content-between align-items-center float-start pt-3 me-3">
             <div class="btn-group">
-              <a [routerLink]="['/stagiare/modifier/', intern.id]" data-bs-toggle="tooltip" data-bs-placement="top"
+              <a [routerLink]="['/stagiaire/modifier/', intern.id]" data-bs-toggle="tooltip" data-bs-placement="top"
                  title="Mettre à jour"
                  class="btn btn-sm btn-outline-info">
                 <i class="fas fa-edit"></i>

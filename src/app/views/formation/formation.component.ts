@@ -172,6 +172,10 @@ export class FormationComponent implements OnInit {
     if ($event.choice == "Oui") {
       this.serviceFormation.deleteFormation(this.formationSelectedId).subscribe({
         next: () => {
+          this.pageNumberList = [];
+          this.numberPage = 1;
+          this.nextPage = 2;
+          this.prevPage = 1;
           this.getFormationList()
         },
         error: (error) => {

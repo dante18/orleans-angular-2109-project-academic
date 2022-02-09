@@ -124,6 +124,10 @@ export class FormerComponent implements OnInit {
     if ($event.choice == "Oui") {
       this.serviceFormer.deleteFormer(this.formerSelectedId).subscribe({
         next: () => {
+          this.pageNumberList = [];
+          this.numberPage = 1;
+          this.nextPage = 2;
+          this.prevPage = 1;
           this.getFormerList()
         },
         error: (error) => {
