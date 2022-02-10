@@ -113,10 +113,10 @@
     <div *ngFor="let former of dataSets; let i = index" class="col-lg-3">
       <div *ngIf="i < numberItemToDisplay" class="card shadow item-card">
         <img *ngIf="former.civility == 'monsieur'" src="/assets/img/avatar/undraw_avatar2.png"
-             alt="image d'ilustration"
+             alt="image d'illustration"
              class="img-fluid">
         <img *ngIf="former.civility == 'madame'" src="/assets/img/avatar/undraw_avatar1.png"
-             alt="image d'ilustration" class="img-fluid">
+             alt="image d'illustration" class="img-fluid">
         <div class="card-body">
           <p class="card-text p-0">{{ former.firstname }} {{ former.lastname }}</p>
           <p class="card-text p-0">Email {{ former.emailAddress }}

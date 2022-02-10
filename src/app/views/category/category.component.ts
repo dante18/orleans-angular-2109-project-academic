@@ -13,8 +13,6 @@ export class CategoryComponent implements OnInit {
   numberOfCategory = 0;
   categorySelectedId: any;
   modalTitle = "";
-
-  /* pagination variables */
   numberItemToDisplay = 5;
   numberPageTotal = 0;
   numberPage = 1;

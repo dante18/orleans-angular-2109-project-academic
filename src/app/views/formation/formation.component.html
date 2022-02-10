@@ -107,7 +107,7 @@
       <td *ngIf="i < numberItemToDisplay">{{ formation.price | currency:'EUR' }}</td>
       <td *ngIf="i < numberItemToDisplay">{{ formation.level }}</td>
       <td *ngIf="i < numberItemToDisplay">{{ formation.category }}</td>
-      <td *ngIf="i < numberItemToDisplay">{{ formation.dateAvailable | date:'dd-MM-yyyy' }} a {{ formation.dateAvailable | date:'HH:MM'}}</td>
+      <td *ngIf="i < numberItemToDisplay">{{ formation.dateAvailable | date:'dd-MM-yyyy' }} à {{ formation.dateAvailable | date:'HH:MM'}}</td>
       <td *ngIf="i < numberItemToDisplay">
         <a [routerLink]="['/formation/consulter/', formation.id]" data-bs-toggle="tooltip" data-bs-placement="top"
            title="En savoir plus"
@@ -134,7 +134,7 @@
     <div *ngFor="let formation of dataSets; let i = index" class="col-lg-3">
       <div *ngIf="i < numberItemToDisplay" class="card shadow item-card">
         <img src="/assets/img/undraw_learning.png"
-             alt="image d'ilustration" class="img-fluid">
+             alt="image d'illustration" class="img-fluid">
         <div class="category">
           <p>{{ formation.category }}</p>
         </div>

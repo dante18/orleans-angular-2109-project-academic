@@ -74,7 +74,6 @@ export class AddFormationComponent implements OnInit {
   submitHandler(formAddFormation: NgForm) {
     this.formAddFormationIsSubmitted = true;
     this.validationForm(formAddFormation);
-    console.log(formAddFormation.value);
 
     if (this.numberOfErrors == 0) {
       this.serviceFormation.addFormation(formAddFormation.value).subscribe({

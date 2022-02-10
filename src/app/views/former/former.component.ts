@@ -14,8 +14,6 @@ export class FormerComponent implements OnInit {
   numberOfFormer = 0;
   formerSelectedId: any;
   modalTitle = "";
-
-  /* pagination variables */
   numberItemToDisplay = 5;
   numberPageTotal = 0;
   numberPage = 1;

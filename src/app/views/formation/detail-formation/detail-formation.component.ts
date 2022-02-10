@@ -22,6 +22,9 @@ export class DetailFormationComponent implements OnInit {
     this.getFormationDetail();
   }
 
+  /**
+   * Recovery of current training data
+   */
   getFormationDetail()
   {
     // Retrieval of the training ID passed as a parameter

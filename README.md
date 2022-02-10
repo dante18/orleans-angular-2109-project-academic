@@ -1,27 +1,27 @@
 # Ng21Formation
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.2.
+## Getting Started
 
-## Development server
+### Prerequisites
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+1. Check node js is installed
+2. Check angular-cli are installed
 
-## Code scaffolding
+### Install
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+1. Clone this project
+2. Run `npm install`
+3. Copy and paste the .env.dist file and rename it to .env.local (development environment) or env.prod (production environment)
+4 . Edit the proxy.config.json file as needed
 
-## Build
+### Working
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. Run `npm run start` to launch your local web server
 
-## Running unit tests
+## Built With
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+* [Angular 13](https://angular.io/)
+* [Node JS 14](https://nodejs.org/en/)
+* [Express JS](https://expressjs.com/fr/)
+* [Sequelize](https://sequelize.org/master/)
+* [Bootstrap 5](https://getbootstrap.com/)

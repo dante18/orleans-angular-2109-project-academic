@@ -14,8 +14,6 @@ export class InternComponent implements OnInit {
   numberOfFIntern = 0;
   internSelectedId: any;
   modalTitle = "";
-
-  /* pagination variables */
   numberItemToDisplay = 5;
   numberPageTotal = 0;
   numberPage = 1;
@@ -75,7 +73,6 @@ export class InternComponent implements OnInit {
    */
   eventSearchHandler(formSearch: any) {
     let internName = formSearch.value.searchIntern;
-    console.log(internName);
     if (internName.length == 0) {
       this.pageNumberList = [];
       this.getInternList();

@@ -12,6 +12,11 @@ export class AppComponent {
 
   constructor() {}
 
+  /**
+   * manage 'click' events on the navbar
+   *
+   * @param $event
+   */
   navbarButtonToggleHandlerClick($event: any)
   {
     let parent = $event.target.closest("button");

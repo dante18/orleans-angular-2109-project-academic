@@ -43,8 +43,8 @@ export class HomeComponent implements OnInit {
   getFormationList(): any {
     const today = new Date();
     const year = today.getFullYear();
-    const month = (today.getMonth() + 1) < 10 ? "0" + (today.getMonth() + 1) : (today.getMonth() + 1);
-    const day = (today.getMonth() + 1) < 10 ? "0" + today.getDate() : today.getDate();
+    const month = (today.getMonth() + 1) <= 9 ? "0" + (today.getMonth() + 1) : (today.getMonth() + 1);
+    const day = today.getDate() <= 9 ? "0" + today.getDate() : today.getDate();
 
     const curentDate = year + '-' + month + '-' + day;
 
